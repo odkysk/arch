@@ -10,7 +10,7 @@ interface Relation {
 }
 interface Data {
   members: Member[];
-  Relations: Relation[];
+  relations: Relation[];
 }
 
 export const data: Data = {
@@ -40,5 +40,8 @@ export const data: Data = {
       },
     },
   ],
-  Relations: [{ start: "0", end: "1" }],
+  relations: [
+    { start: "0", end: "1" },
+    { start: "1", end: "2" },
+  ],
 };
