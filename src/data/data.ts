@@ -8,7 +8,7 @@ interface Relation {
   start: string;
   end: string;
 }
-interface Data {
+export interface Data {
   members: Member[];
   relations: Relation[];
 }
