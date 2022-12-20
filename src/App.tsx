@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import "reseter.css";
+import { Member } from "./components/Member";
+import { data } from "./data/data";
+export default function App() {
+  const members = data.members.map((member) => {
+    return (
+      <Member id={member.id} name={member.name} position={member.position} />
+    );
+  });
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main css={main}>
+      <div css={canvas}>
+        <div css={originator}>{members}</div>
+      </div>
+    </main>
   );
 }
-
-export default App;
+const main = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ddd;
+`;
+const canvas = css`
+  width: 1200px;
+  height: 800px;
+  background-color: #eee;
+`;
+const originator = css`
+  transform: translate(600px, 400px);
+`;
