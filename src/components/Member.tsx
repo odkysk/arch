@@ -1,32 +1,61 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useContext } from "react";
+import { MouseEvent, useContext, useRef } from "react";
 import { DataContext } from "../contexts/dataContext";
+import { Position } from "../models/Position";
 interface Props {
   id: string;
 }
 export const Member = ({ id }: Props) => {
   const dataContext = useContext(DataContext);
-  const name = dataContext.findMember(id).name;
-  const position = dataContext.findMember(id).position;
-  const handleClick = () => {
-    dataContext.moveMember(id, { x: 10, y: 10 });
+  const member = dataContext.findMember(id);
+  const name = member.name;
+  const position = member.position;
+
+  const dragging = useRef(false);
+  const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
+  const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
+
+  const handleMouseDown = (event: MouseEvent) => {
+    positionOnMouseDown.current = { x: position.x, y: position.y };
+    cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
+    dragging.current = true;
   };
-  console.log(`rendered Member ${name}`);
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const difference: Position = {
+      x: event.clientX - cursorPositionOnMouseDown.current.x,
+      y: event.clientY - cursorPositionOnMouseDown.current.y,
+    };
+    if (dragging.current === true) {
+      dataContext.moveMember(id, {
+        x: positionOnMouseDown.current.x + difference.x,
+        y: positionOnMouseDown.current.y + difference.y,
+      });
+    }
+  };
+  const handleEndMouseMove = (event: MouseEvent) => {
+    dragging.current = false;
+  };
+
+  // console.log(`rendered Member ${name}`);
   return (
     <div
       id={id}
-      css={[member, css``]}
+      css={[memberCss, css``]}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
-      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleEndMouseMove}
+      onMouseLeave={handleEndMouseMove}
     >
       {name}
     </div>
   );
 };
-const member = css`
+const memberCss = css`
   position: absolute;
   font-size: 12px;
   padding: 12px;

@@ -5,7 +5,7 @@ import { Position } from "../models/Position";
 export const DataContext = createContext({
   data: saveData,
   findMember: (memberId: string) => saveData.members[0],
-  moveMember: (memberId: string, movement: Position) => {},
+  moveMember: (memberId: string, position: Position) => {},
 });
 interface Props {
   children: ReactNode;
@@ -20,13 +20,13 @@ export const DataContextProvider = ({ children }: Props) => {
     );
   };
   // TODO: Canvas内のすべてが再レンダリングされていまうのでメモ化する必要がある
-  const moveMember = (memberId: string, movement: Position) => {
+  const moveMember = (memberId: string, position: Position) => {
     setDataState({
       members: dataState.members.map((member) =>
         member.id === memberId
           ? {
               ...member,
-              position: { x: 0, y: 0 },
+              position: position,
             }
           : { ...member }
       ),
