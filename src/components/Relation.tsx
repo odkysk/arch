@@ -31,8 +31,8 @@ export const Relation = ({ start, end }: Props) => {
         <line
           x1={startRelative.x + MemberSizeX / 2}
           y1={startRelative.y + MemberSizeY / 2}
-          x2={endRelative.x + 30}
-          y2={endRelative.y + 15}
+          x2={endRelative.x + MemberSizeX / 2}
+          y2={endRelative.y + MemberSizeY / 2}
           stroke="rgba(255,0,0,0.5)"
           strokeWidth="2"
         />
