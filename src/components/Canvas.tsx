@@ -8,7 +8,12 @@ export const Canvas = () => {
   const dataContext = useContext(DataContext);
   const members = dataContext.members.map((member) => {
     return (
-      <Member id={member.id} name={member.name} position={member.position} />
+      <Member
+        key={member.id}
+        id={member.id}
+        name={member.name}
+        position={member.position}
+      />
     );
   });
   const relations = dataContext.relations.map((relation) => {
@@ -18,6 +23,7 @@ export const Canvas = () => {
     const endMember = dataContext.members.find((e) => e.id === relation.end);
     return (
       <Relation
+        key={relation.id}
         start={startMember ? startMember.position : { x: 0, y: 0 }}
         end={endMember ? endMember.position : { x: 0, y: 0 }}
       />

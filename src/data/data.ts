@@ -5,6 +5,7 @@ interface Member {
   position: Position;
 }
 interface Relation {
+  id: string;
   start: string;
   end: string;
 }
@@ -41,7 +42,7 @@ export const data: Data = {
     },
   ],
   relations: [
-    { start: "0", end: "1" },
-    { start: "1", end: "2" },
+    { id: "0", start: "0", end: "1" },
+    { id: "1", start: "1", end: "2" },
   ],
 };
