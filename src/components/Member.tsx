@@ -27,7 +27,7 @@ export const Member = ({ id }: Props) => {
       x: event.clientX - cursorPositionOnMouseDown.current.x,
       y: event.clientY - cursorPositionOnMouseDown.current.y,
     };
-    if (dragging.current === true) {
+    if (dragging.current) {
       dataContext.moveMember(id, {
         x: positionOnMouseDown.current.x + difference.x,
         y: positionOnMouseDown.current.y + difference.y,
@@ -71,4 +71,7 @@ const memberCss = css`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 255, 0.04);
+  &:hover {
+    background-color: rgba(0, 0, 255, 0.08);
+  }
 `;

@@ -20,14 +20,16 @@ export const Canvas = () => {
       />
     );
   });
+
   return (
     <div css={canvas}>
       <div css={originator}>
-        <>
-          {relations}
-          {members}
-        </>
+        {relations}
+        {members}
       </div>
+      <button onClick={dataContext.addMember} css={button}>
+        +
+      </button>
     </div>
   );
 };
@@ -35,7 +37,13 @@ const canvas = css`
   width: 1200px;
   height: 800px;
   background-color: #eee;
+  position: relative;
 `;
 const originator = css`
   transform: translate(600px, 400px);
+`;
+const button = css`
+  position: absolute;
+  left: 0;
+  top: 0;
 `;
