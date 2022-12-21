@@ -20,24 +20,24 @@ export const data: Data = {
       id: "0",
       name: "apple",
       position: {
-        x: 10,
-        y: 20,
+        x: 0,
+        y: 0,
       },
     },
     {
       id: "1",
       name: "orange",
       position: {
-        x: 40,
-        y: 60,
+        x: 0,
+        y: 80,
       },
     },
     {
       id: "2",
       name: "grape",
       position: {
-        x: 140,
-        y: 30,
+        x: 0,
+        y: 160,
       },
     },
   ],

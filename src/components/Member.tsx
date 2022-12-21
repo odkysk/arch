@@ -37,7 +37,6 @@ export const Member = ({ id }: Props) => {
   const handleEndMouseMove = (event: MouseEvent) => {
     dragging.current = false;
   };
-
   // console.log(`rendered Member ${name}`);
   return (
     <div
@@ -51,7 +50,13 @@ export const Member = ({ id }: Props) => {
       onMouseUp={handleEndMouseMove}
       onMouseLeave={handleEndMouseMove}
     >
-      {name}
+      <input
+        type="text"
+        // value={name}
+        css={css`
+          width: 100%;
+        `}
+      />
     </div>
   );
 };
@@ -60,8 +65,8 @@ const memberCss = css`
   font-size: 12px;
   padding: 12px;
   border: solid 1px rgba(0, 0, 255, 0.1);
-  width: 60px;
-  height: 30px;
+  width: 120px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -17,8 +17,8 @@ export const Relation = ({ start, end }: Props) => {
     x: end.x + viewWidth / 2,
     y: end.y + viewHeight / 2,
   };
-  const MemberSizeX = 60;
-  const MemberSizeY = 30;
+  const MemberSizeX = 120;
+  const MemberSizeY = 60;
   // console.log(`rendered Relation`);
   return (
     <div
