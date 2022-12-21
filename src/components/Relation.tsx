@@ -6,6 +6,7 @@ interface Props {
   end: Position;
 }
 export const Relation = ({ start, end }: Props) => {
+  //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 1200;
   const viewHeight = 800;
   const startRelative: Position = {
@@ -16,6 +17,8 @@ export const Relation = ({ start, end }: Props) => {
     x: end.x + viewWidth / 2,
     y: end.y + viewHeight / 2,
   };
+  const MemberSizeX = 60;
+  const MemberSizeY = 30;
   return (
     <div
       css={css`
@@ -26,8 +29,8 @@ export const Relation = ({ start, end }: Props) => {
     >
       <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
         <line
-          x1={startRelative.x + 30}
-          y1={startRelative.y + 15}
+          x1={startRelative.x + MemberSizeX / 2}
+          y1={startRelative.y + MemberSizeY / 2}
           x2={endRelative.x + 30}
           y2={endRelative.y + 15}
           stroke="rgba(255,0,0,0.5)"
