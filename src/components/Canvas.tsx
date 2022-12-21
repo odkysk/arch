@@ -6,21 +6,12 @@ import { Member } from "./Member";
 import { Relation } from "./Relation";
 export const Canvas = () => {
   const dataContext = useContext(DataContext);
-  const members = dataContext.members.map((member) => {
-    return (
-      <Member
-        key={member.id}
-        id={member.id}
-        name={member.name}
-        position={member.position}
-      />
-    );
+  const members = dataContext.data.members.map((member) => {
+    return <Member key={member.id} id={member.id} />;
   });
-  const relations = dataContext.relations.map((relation) => {
-    const startMember = dataContext.members.find(
-      (e) => e.id === relation.start
-    );
-    const endMember = dataContext.members.find((e) => e.id === relation.end);
+  const relations = dataContext.data.relations.map((relation) => {
+    const startMember = dataContext.findMember(relation.start);
+    const endMember = dataContext.findMember(relation.end);
     return (
       <Relation
         key={relation.id}
@@ -33,8 +24,8 @@ export const Canvas = () => {
     <div css={canvas}>
       <div css={originator}>
         <>
-          {members}
           {relations}
+          {members}
         </>
       </div>
     </div>

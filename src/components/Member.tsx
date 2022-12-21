@@ -1,26 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState } from "react";
-import { Position } from "../models/Position";
+import { useContext } from "react";
+import { DataContext } from "../contexts/dataContext";
 interface Props {
   id: string;
-  name: string;
-  position: Position;
 }
-export const Member = ({
-  id,
-  name = "title",
-  position = { x: 0, y: 0 },
-}: Props) => {
-  const [positionX, setPositionX] = useState(0);
+export const Member = ({ id }: Props) => {
+  const dataContext = useContext(DataContext);
+  const name = dataContext.findMember(id).name;
+  const position = dataContext.findMember(id).position;
   const handleClick = () => {
-    setPositionX(positionX + 1);
+    dataContext.moveMember(id, { x: 10, y: 10 });
   };
+  console.log(`rendered Member ${name}`);
   return (
     <div
       id={id}
       css={[member, css``]}
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      style={{
+        transform: `translate(${position.x}px, ${position.y}px)`,
+      }}
       onClick={handleClick}
     >
       {name}
