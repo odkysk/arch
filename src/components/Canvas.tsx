@@ -2,10 +2,12 @@
 import { css } from "@emotion/react";
 import { useContext } from "react";
 import { DataContext } from "../contexts/dataContext";
+import { ToolContext } from "../contexts/toolContext";
 import { Member } from "./Member";
 import { Relation } from "./Relation";
 export const Canvas = () => {
   const dataContext = useContext(DataContext);
+  const toolContext = useContext(ToolContext);
   const members = dataContext.data.members.map((member) => {
     return <Member key={member.id} id={member.id} />;
   });
@@ -20,16 +22,42 @@ export const Canvas = () => {
       />
     );
   });
-
   return (
-    <div css={canvas}>
+    <div
+      css={canvas}
+      style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
+    >
       <div css={originator}>
         {relations}
         {members}
       </div>
-      <button onClick={dataContext.addMember} css={button}>
-        +
-      </button>
+      <div css={buttons}>
+        <button onClick={dataContext.addMember}>+</button>
+        <button
+          css={toolContext.mode === "selection" && activeModeButton}
+          onClick={() => {
+            toolContext.setMode("selection");
+          }}
+        >
+          select mode
+        </button>
+        <button
+          css={toolContext.mode === "member" && activeModeButton}
+          onClick={() => {
+            toolContext.setMode("member");
+          }}
+        >
+          member mode
+        </button>
+        <button
+          css={toolContext.mode === "relation" && activeModeButton}
+          onClick={() => {
+            toolContext.setMode("relation");
+          }}
+        >
+          relation mode
+        </button>
+      </div>
     </div>
   );
 };
@@ -42,8 +70,14 @@ const canvas = css`
 const originator = css`
   transform: translate(600px, 400px);
 `;
-const button = css`
+const buttons = css`
   position: absolute;
   left: 0;
   top: 0;
+  display: flex;
+`;
+const activeModeButton = css`
+  color: white;
+  background-color: blue;
+  border-color: black;
 `;

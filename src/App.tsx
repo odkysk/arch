@@ -3,13 +3,17 @@ import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/Canvas";
 import { DataContextProvider } from "./contexts/dataContext";
+import { ToolContextProvider } from "./contexts/toolContext";
+
 export default function App() {
   return (
-    <DataContextProvider>
-      <main css={main}>
-        <Canvas />
-      </main>
-    </DataContextProvider>
+    <ToolContextProvider>
+      <DataContextProvider>
+        <main css={main}>
+          <Canvas />
+        </main>
+      </DataContextProvider>
+    </ToolContextProvider>
   );
 }
 const main = css`

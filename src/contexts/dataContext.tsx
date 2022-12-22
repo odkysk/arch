@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { Data, data as saveData } from "../data/data";
 import { Member } from "../models/Members";
 import { Position } from "../models/Position";
@@ -20,7 +20,7 @@ export const DataContextProvider = ({ children }: Props) => {
       dataState.members[0]
     );
   };
-  // TODO: Canvas内のすべてが再レンダリングされていまうのでメモ化する必要がある
+  // TODO: Canvas内のすべてが再レンダリングされてしまうのでメモ化する必要がある?
   const moveMember = (memberId: string, position: Position) => {
     setDataState({
       members: dataState.members.map((member) =>
