@@ -2,20 +2,32 @@
 import { css } from "@emotion/react";
 import { MouseEvent, useContext, useRef } from "react";
 import { DataContext } from "../contexts/dataContext";
+import { useCursorPosition } from "../hooks/useCursorPosition";
 import { Position } from "../models/Position";
 interface Props {
   id: string;
+  setRelationPreviewStart: (position: Position) => void;
+  setRelationPreviewEnd: (position: Position) => void;
 }
-export const Member = ({ id }: Props) => {
+export const Member = ({
+  id,
+  setRelationPreviewStart,
+  setRelationPreviewEnd,
+}: Props) => {
   const dataContext = useContext(DataContext);
   const member = dataContext.findMember(id);
-  const name = member.name;
   const position = member.position;
 
   const dragging = useRef(false);
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
-
+  const cursorPosition = useCursorPosition();
+  const handleClickStartRalating = () => {
+    setRelationPreviewStart(cursorPosition);
+  };
+  const handleClickEndRalating = () => {
+    setRelationPreviewEnd(cursorPosition);
+  };
   const handleMouseDown = (event: MouseEvent) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
     cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
@@ -37,6 +49,7 @@ export const Member = ({ id }: Props) => {
   const handleEndMouseMove = (event: MouseEvent) => {
     dragging.current = false;
   };
+
   return (
     <div
       id={id}
@@ -49,13 +62,16 @@ export const Member = ({ id }: Props) => {
       onMouseUp={handleEndMouseMove}
       onMouseLeave={handleEndMouseMove}
     >
+      <button onClick={handleClickEndRalating} css={button}>
+        V
+      </button>
       <input
         type="text"
-        // value={name}
         css={css`
           width: 100%;
         `}
       />
+      <button onClick={handleClickStartRalating}>▼</button>
     </div>
   );
 };
@@ -70,7 +86,13 @@ const memberCss = css`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   &:hover {
     background-color: rgba(0, 0, 255, 0.08);
   }
+`;
+const button = css`
+  bgc
 `;

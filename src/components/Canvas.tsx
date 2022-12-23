@@ -2,15 +2,30 @@
 import { css } from "@emotion/react";
 import { useContext } from "react";
 import { DataContext } from "../contexts/dataContext";
+import { PreviewContext } from "../contexts/previewContext";
 import { ToolContext } from "../contexts/toolContext";
 import { useCursorPosition } from "../hooks/useCursorPosition";
 import { Member } from "./Member";
+import { Preview } from "./Preview";
 import { Relation } from "./Relation";
 export const Canvas = () => {
   const dataContext = useContext(DataContext);
   const toolContext = useContext(ToolContext);
+  const previewContext = useContext(PreviewContext);
+  const cursorPosition = useCursorPosition();
   const members = dataContext.data.members.map((member) => {
-    return <Member key={member.id} id={member.id} />;
+    return (
+      <Member
+        key={member.id}
+        id={member.id}
+        setRelationPreviewStart={(position) => {
+          previewContext.setRelationStart(position);
+        }}
+        setRelationPreviewEnd={(position) => {
+          previewContext.setRelationEnd(position);
+        }}
+      />
+    );
   });
   const relations = dataContext.data.relations.map((relation) => {
     const startMember = dataContext.findMember(relation.start);
@@ -23,7 +38,7 @@ export const Canvas = () => {
       />
     );
   });
-  const cursorPosition = useCursorPosition();
+
   return (
     <div
       id="canvas"
@@ -31,6 +46,7 @@ export const Canvas = () => {
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
     >
       <div css={originator}>
+        <Preview />
         {relations}
         {members}
       </div>

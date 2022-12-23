@@ -17,8 +17,6 @@ export const Relation = ({ start, end }: Props) => {
     x: end.x + viewWidth / 2,
     y: end.y + viewHeight / 2,
   };
-  const MemberSizeX = 120;
-  const MemberSizeY = 60;
   // console.log(`rendered Relation`);
   return (
     <div
@@ -30,10 +28,10 @@ export const Relation = ({ start, end }: Props) => {
     >
       <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
         <line
-          x1={startRelative.x + MemberSizeX / 2}
-          y1={startRelative.y + MemberSizeY / 2}
-          x2={endRelative.x + MemberSizeX / 2}
-          y2={endRelative.y + MemberSizeY / 2}
+          x1={startRelative.x}
+          y1={startRelative.y}
+          x2={endRelative.x}
+          y2={endRelative.y}
           stroke="rgba(255,0,0,0.5)"
           strokeWidth="2"
         />
