@@ -37,7 +37,6 @@ export const Member = ({ id }: Props) => {
   const handleEndMouseMove = (event: MouseEvent) => {
     dragging.current = false;
   };
-  // console.log(`rendered Member ${name}`);
   return (
     <div
       id={id}

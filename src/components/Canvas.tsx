@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { useContext } from "react";
 import { DataContext } from "../contexts/dataContext";
 import { ToolContext } from "../contexts/toolContext";
+import { useCursorPosition } from "../hooks/useCursorPosition";
 import { Member } from "./Member";
 import { Relation } from "./Relation";
 export const Canvas = () => {
@@ -22,8 +23,10 @@ export const Canvas = () => {
       />
     );
   });
+  const cursorPosition = useCursorPosition();
   return (
     <div
+      id="canvas"
       css={canvas}
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
     >
@@ -53,14 +56,19 @@ export const Canvas = () => {
           css={toolContext.mode === "relation" && activeModeButton}
           onClick={() => {
             toolContext.setMode("relation");
+            dataContext.addRelation();
           }}
         >
           relation mode
         </button>
+        <p>
+          cursor: {cursorPosition.x}, {cursorPosition.y}
+        </p>
       </div>
     </div>
   );
 };
+
 const canvas = css`
   width: 1200px;
   height: 800px;
@@ -69,6 +77,8 @@ const canvas = css`
 `;
 const originator = css`
   transform: translate(600px, 400px);
+  width: 0px;
+  height: 0px;
 `;
 const buttons = css`
   position: absolute;
