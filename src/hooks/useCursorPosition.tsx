@@ -20,7 +20,6 @@ export const useCursorPosition = () => {
             canvasHeight / 2,
         });
       }
-      console.log(position);
     };
     if (window) {
       window.addEventListener("mousemove", updatePosition);

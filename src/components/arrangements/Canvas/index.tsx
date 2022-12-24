@@ -1,44 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useContext } from "react";
-import { DataContext } from "../contexts/dataContext";
-import { PreviewContext } from "../contexts/previewContext";
-import { ToolContext } from "../contexts/toolContext";
-import { useCursorPosition } from "../hooks/useCursorPosition";
-import { Member } from "./Member";
+import { DataContext } from "../../../contexts/dataContext";
+import { ToolContext } from "../../../contexts/toolContext";
+import { Members } from "./Members";
 import { Preview } from "./Preview";
-import { Relation } from "./Relation";
+import { Relations } from "./Relations";
 export const Canvas = () => {
-  const dataContext = useContext(DataContext);
   const toolContext = useContext(ToolContext);
-  const previewContext = useContext(PreviewContext);
-  const cursorPosition = useCursorPosition();
-  const members = dataContext.data.members.map((member) => {
-    return (
-      <Member
-        key={member.id}
-        id={member.id}
-        setRelationPreviewStart={(position) => {
-          previewContext.setRelationStart(position);
-        }}
-        setRelationPreviewEnd={(position) => {
-          previewContext.setRelationEnd(position);
-        }}
-      />
-    );
-  });
-  const relations = dataContext.data.relations.map((relation) => {
-    const startMember = dataContext.findMember(relation.start);
-    const endMember = dataContext.findMember(relation.end);
-    return (
-      <Relation
-        key={relation.id}
-        start={startMember ? startMember.position : { x: 0, y: 0 }}
-        end={endMember ? endMember.position : { x: 0, y: 0 }}
-      />
-    );
-  });
-
+  const dataContext = useContext(DataContext);
   return (
     <div
       id="canvas"
@@ -47,8 +17,8 @@ export const Canvas = () => {
     >
       <div css={originator}>
         <Preview />
-        {relations}
-        {members}
+        <Relations />
+        <Members />
       </div>
       <div css={buttons}>
         <button onClick={dataContext.addMember}>+</button>
@@ -77,14 +47,10 @@ export const Canvas = () => {
         >
           relation mode
         </button>
-        <p>
-          cursor: {cursorPosition.x}, {cursorPosition.y}
-        </p>
       </div>
     </div>
   );
 };
-
 const canvas = css`
   width: 1200px;
   height: 800px;
@@ -98,6 +64,7 @@ const originator = css`
 `;
 const buttons = css`
   position: absolute;
+
   left: 0;
   top: 0;
   display: flex;

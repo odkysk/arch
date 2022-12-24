@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import "reseter.css";
-import { Canvas } from "./components/Canvas";
+import { Canvas } from "./components/arrangements/Canvas";
 import { DataContextProvider } from "./contexts/dataContext";
 import { PreviewContextProvider } from "./contexts/previewContext";
 import { ToolContextProvider } from "./contexts/toolContext";
