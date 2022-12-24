@@ -5,7 +5,7 @@ interface Context {
   relating: boolean;
   startRelating: (id: string) => void;
   relationStart: undefined | string;
-  endRelating: (id: string) => void;
+  endRelating: (id?: string) => void;
 }
 export const ActionContext = createContext<Context>({
   relating: false,
@@ -29,7 +29,7 @@ export const ActionContextProvider = ({ children }: Props) => {
     // setRelationStart(id);
     relationStart.current = id;
   };
-  const endRelating = (id: string) => {
+  const endRelating = (id?: string) => {
     setRelating(false);
     if (id !== undefined && relationStart !== undefined) {
       relationEnd.current = id;

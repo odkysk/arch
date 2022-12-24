@@ -19,7 +19,8 @@ export const Member = ({ id }: Props) => {
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
 
-  const handleClickStartRelating = () => {
+  const handleClickStartRelating = (event: MouseEvent) => {
+    event.stopPropagation();
     actionContext.startRelating(id);
   };
 
@@ -27,10 +28,6 @@ export const Member = ({ id }: Props) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
     cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
     dragging.current = true;
-
-    if (actionContext.relating) {
-      actionContext.endRelating(id);
-    }
   };
 
   const handleMouseMove = (event: MouseEvent) => {
@@ -48,7 +45,15 @@ export const Member = ({ id }: Props) => {
   const handleEndMouseMove = (event: MouseEvent) => {
     dragging.current = false;
   };
-
+  const handleMouseUp = (event: MouseEvent) => {
+    handleEndMouseMove(event);
+    if (actionContext.relating) {
+      actionContext.endRelating(id);
+    }
+  };
+  const handleMouseLeave = (event: MouseEvent) => {
+    handleEndMouseMove(event);
+  };
   return (
     <div
       id={id}
@@ -58,8 +63,8 @@ export const Member = ({ id }: Props) => {
       }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
-      onMouseUp={handleEndMouseMove}
-      onMouseLeave={handleEndMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
     >
       <button>V</button>
       <input
@@ -69,7 +74,7 @@ export const Member = ({ id }: Props) => {
         `}
         value={name}
       />
-      <button onClick={handleClickStartRelating}>▼</button>
+      <button onMouseDown={handleClickStartRelating}>▼</button>
     </div>
   );
 };

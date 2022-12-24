@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useContext } from "react";
+import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { ToolContext } from "../../../contexts/toolContext";
 import { Members } from "./Members";
@@ -9,11 +10,16 @@ import { Relations } from "./Relations";
 export const Canvas = () => {
   const toolContext = useContext(ToolContext);
   const dataContext = useContext(DataContext);
+  const actionContext = useContext(ActionContext);
+  const handleMouseUp = () => {
+    actionContext.endRelating();
+  };
   return (
     <div
       id="canvas"
       css={canvas}
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
+      onMouseUp={handleMouseUp}
     >
       <div css={originator}>
         <Preview />
