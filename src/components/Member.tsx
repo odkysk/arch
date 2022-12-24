@@ -22,15 +22,15 @@ export const Member = ({ id }: Props) => {
   const handleClickStartRelating = () => {
     actionContext.startRelating(id);
   };
-  const handleClickEndRelating = () => {
-    actionContext.endRelating(id);
-    console.log(dataContext.data);
-  };
 
   const handleMouseDown = (event: MouseEvent) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
     cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
     dragging.current = true;
+
+    if (actionContext.relating) {
+      actionContext.endRelating(id);
+    }
   };
 
   const handleMouseMove = (event: MouseEvent) => {
@@ -61,7 +61,7 @@ export const Member = ({ id }: Props) => {
       onMouseUp={handleEndMouseMove}
       onMouseLeave={handleEndMouseMove}
     >
-      <button onClick={handleClickEndRelating}>V</button>
+      <button>V</button>
       <input
         type="text"
         css={css`
