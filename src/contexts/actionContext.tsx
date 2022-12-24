@@ -1,4 +1,12 @@
-import { ReactNode, createContext, useContext, useRef, useState } from "react";
+import {
+  MouseEvent,
+  ReactNode,
+  createContext,
+  useContext,
+  useRef,
+  useState,
+} from "react";
+import { DOMEvent } from "../models/DOMEvent";
 import { DataContext } from "./dataContext";
 
 interface Context {
@@ -6,27 +14,36 @@ interface Context {
   startRelating: (id: string) => void;
   relationStart: undefined | string;
   endRelating: (id?: string) => void;
+  dispatch: (id: string, eventType: DOMEvent, event?: MouseEvent) => void;
 }
 export const ActionContext = createContext<Context>({
   relating: false,
   startRelating: () => {},
   relationStart: "0",
   endRelating: () => {},
+  dispatch: () => {},
 });
 interface Props {
   children: ReactNode;
 }
 export const ActionContextProvider = ({ children }: Props) => {
+  const dispatch = (id: string, eventType: DOMEvent, event?: MouseEvent) => {
+    listen(id, eventType, event);
+  };
+  const listen = (id: string, eventType: DOMEvent, event?: MouseEvent) => {
+    console.log("listen");
+    if (id === "canvas" && eventType === "onMouseUp") {
+      endRelating();
+    }
+  };
+
   const dataContext = useContext(DataContext);
   const [relating, setRelating] = useState(false);
-  // const [relationStart, setRelationStart] = useState<undefined | string>();
   const relationStart = useRef<string>("0");
   const relationEnd = useRef<string>("0");
-  console.log(`render actionContext ${relationStart}, ${relationEnd}`);
 
   const startRelating = (id: string) => {
     setRelating(true);
-    // setRelationStart(id);
     relationStart.current = id;
   };
   const endRelating = (id?: string) => {
@@ -45,6 +62,7 @@ export const ActionContextProvider = ({ children }: Props) => {
         startRelating,
         relationStart: relationStart.current,
         endRelating,
+        dispatch,
       }}
     >
       {children}

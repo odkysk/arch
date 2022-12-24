@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 import { Data, data as saveData } from "../data/data";
-import { Member } from "../models/Members";
+import { Member } from "../models/Member";
 import { Position } from "../models/Position";
 export const DataContext = createContext({
   data: saveData,

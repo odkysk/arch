@@ -12,7 +12,7 @@ export const Canvas = () => {
   const dataContext = useContext(DataContext);
   const actionContext = useContext(ActionContext);
   const handleMouseUp = () => {
-    actionContext.endRelating();
+    actionContext.dispatch("canvas", "onMouseUp");
   };
   return (
     <div

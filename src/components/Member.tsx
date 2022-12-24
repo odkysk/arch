@@ -54,6 +54,9 @@ export const Member = ({ id }: Props) => {
   const handleMouseLeave = (event: MouseEvent) => {
     handleEndMouseMove(event);
   };
+  const handleClick = (event: MouseEvent) => {
+    actionContext.dispatch(id, "onClick", event);
+  };
   return (
     <div
       id={id}
@@ -61,6 +64,7 @@ export const Member = ({ id }: Props) => {
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
+      onClick={handleClick}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
