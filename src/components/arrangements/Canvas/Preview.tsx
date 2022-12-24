@@ -1,13 +1,25 @@
 import { useContext } from "react";
-import { PreviewContext } from "../../../contexts/previewContext";
+import { ActionContext } from "../../../contexts/actionContext";
+import { DataContext } from "../../../contexts/dataContext";
+import { useCursorPosition } from "../../../hooks/useCursorPosition";
 import { Relation } from "../../Relation";
 export const Preview = () => {
-  const previewContext = useContext(PreviewContext);
-  const relationStart = previewContext.relationPreviewStart;
-  const relationEnd = previewContext.relationPreviewEnd;
+  const dataContext = useContext(DataContext);
+  const cursorPosition = useCursorPosition();
+  const actionContext = useContext(ActionContext);
+
   return (
     <>
-      <Relation start={relationStart} end={relationEnd} />
+      {actionContext.relating && (
+        <Relation
+          start={
+            actionContext.relationStart !== undefined
+              ? dataContext.findMember(actionContext.relationStart).position
+              : { x: 0, y: 0 }
+          }
+          end={cursorPosition}
+        />
+      )}
     </>
   );
 };

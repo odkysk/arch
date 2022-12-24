@@ -2,20 +2,20 @@
 import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
+import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
-import { PreviewContextProvider } from "./contexts/previewContext";
 import { ToolContextProvider } from "./contexts/toolContext";
 
 export default function App() {
   return (
     <DataContextProvider>
-      <PreviewContextProvider>
+      <ActionContextProvider>
         <ToolContextProvider>
           <main css={main}>
             <Canvas />
           </main>
         </ToolContextProvider>
-      </PreviewContextProvider>
+      </ActionContextProvider>
     </DataContextProvider>
   );
 }

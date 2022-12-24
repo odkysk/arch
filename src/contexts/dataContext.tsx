@@ -7,7 +7,7 @@ export const DataContext = createContext({
   findMember: (memberId: string) => saveData.members[0],
   moveMember: (memberId: string, position: Position) => {},
   addMember: () => {},
-  addRelation: () => {},
+  addRelation: (start: string, end: string) => {},
 });
 interface Props {
   children: ReactNode;
@@ -51,19 +51,18 @@ export const DataContextProvider = ({ children }: Props) => {
       relations: dataState.relations,
     });
   };
-  const addRelation = () => {
+  const addRelation = (start: string, end: string) => {
     setDataState({
       members: dataState.members,
       relations: [
         ...dataState.relations,
         {
-          id: dataState.relations.length.toString(),
-          start: "1",
-          end: dataState.members.length.toString(),
+          id: dataState.relations.length?.toString(),
+          start: start,
+          end: end,
         },
       ],
     });
-    console.log(dataState.members.length);
   };
   return (
     <DataContext.Provider

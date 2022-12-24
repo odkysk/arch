@@ -1,33 +1,32 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { MouseEvent, useContext, useRef } from "react";
+import { ActionContext } from "../contexts/actionContext";
 import { DataContext } from "../contexts/dataContext";
-import { useCursorPosition } from "../hooks/useCursorPosition";
 import { Position } from "../models/Position";
 interface Props {
   id: string;
-  setRelationPreviewStart: (position: Position) => void;
-  setRelationPreviewEnd: (position: Position) => void;
 }
-export const Member = ({
-  id,
-  setRelationPreviewStart,
-  setRelationPreviewEnd,
-}: Props) => {
+export const Member = ({ id }: Props) => {
   const dataContext = useContext(DataContext);
+  const actionContext = useContext(ActionContext);
+
   const member = dataContext.findMember(id);
+  const name = member.name;
   const position = member.position;
 
   const dragging = useRef(false);
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
-  const cursorPosition = useCursorPosition();
-  const handleClickStartRalating = () => {
-    setRelationPreviewStart(cursorPosition);
+
+  const handleClickStartRelating = () => {
+    actionContext.startRelating(id);
   };
-  const handleClickEndRalating = () => {
-    setRelationPreviewEnd(cursorPosition);
+  const handleClickEndRelating = () => {
+    actionContext.endRelating(id);
+    console.log(dataContext.data);
   };
+
   const handleMouseDown = (event: MouseEvent) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
     cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
@@ -62,16 +61,15 @@ export const Member = ({
       onMouseUp={handleEndMouseMove}
       onMouseLeave={handleEndMouseMove}
     >
-      <button onClick={handleClickEndRalating} css={button}>
-        V
-      </button>
+      <button onClick={handleClickEndRelating}>V</button>
       <input
         type="text"
         css={css`
           width: 100%;
         `}
+        value={name}
       />
-      <button onClick={handleClickStartRalating}>▼</button>
+      <button onClick={handleClickStartRelating}>▼</button>
     </div>
   );
 };
@@ -92,7 +90,4 @@ const memberCss = css`
   &:hover {
     background-color: rgba(0, 0, 255, 0.08);
   }
-`;
-const button = css`
-  bgc
 `;

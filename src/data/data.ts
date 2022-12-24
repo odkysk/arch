@@ -18,7 +18,7 @@ export const data: Data = {
   members: [
     {
       id: "0",
-      name: "apple",
+      name: "0",
       position: {
         x: 0,
         y: 0,
@@ -26,7 +26,7 @@ export const data: Data = {
     },
     {
       id: "1",
-      name: "orange",
+      name: "1",
       position: {
         x: 0,
         y: 80,
@@ -34,15 +34,12 @@ export const data: Data = {
     },
     {
       id: "2",
-      name: "grape",
+      name: "2",
       position: {
         x: 0,
         y: 160,
       },
     },
   ],
-  relations: [
-    { id: "0", start: "0", end: "1" },
-    { id: "1", start: "1", end: "2" },
-  ],
+  relations: [],
 };

@@ -42,7 +42,6 @@ export const Canvas = () => {
           css={toolContext.mode === "relation" && activeModeButton}
           onClick={() => {
             toolContext.setMode("relation");
-            dataContext.addRelation();
           }}
         >
           relation mode
@@ -64,7 +63,6 @@ const originator = css`
 `;
 const buttons = css`
   position: absolute;
-
   left: 0;
   top: 0;
   display: flex;
