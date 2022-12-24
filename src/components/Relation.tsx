@@ -4,8 +4,9 @@ import { Position } from "../models/Position";
 interface Props {
   start: Position;
   end: Position;
+  preview?: boolean;
 }
-export const Relation = ({ start, end }: Props) => {
+export const Relation = ({ start, end, preview = false }: Props) => {
   //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 1200;
   const viewHeight = 800;
@@ -20,11 +21,17 @@ export const Relation = ({ start, end }: Props) => {
   // console.log(`rendered Relation`);
   return (
     <div
-      css={css`
-        position: absolute;
-        left: -600px;
-        top: -400px;
-      `}
+      css={[
+        css`
+          position: absolute;
+          left: -600px;
+          top: -400px;
+        `,
+        preview &&
+          css`
+            opacity: 0.33;
+          `,
+      ]}
     >
       <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
         <line

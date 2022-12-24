@@ -18,6 +18,7 @@ export const Preview = () => {
               : { x: 0, y: 0 }
           }
           end={cursorPosition}
+          preview
         />
       )}
     </>
