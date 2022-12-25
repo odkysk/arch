@@ -57,13 +57,16 @@ export const Relation = ({
           <line
             css={css`
               pointer-events: all;
+              &:hover {
+                stroke: rgba(255, 123, 123, 0.5);
+              }
             `}
             x1={startRelative.x}
             y1={startRelative.y}
             x2={endRelative.x}
             y2={endRelative.y}
-            stroke="rgba(255,0,0,2)"
-            strokeWidth="2"
+            stroke="rgba(255,0,0,0.5)"
+            strokeWidth="4"
             onClick={() => {
               console.log("delete");
               dataContext.deleteRelation(id);
