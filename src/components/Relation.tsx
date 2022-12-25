@@ -1,12 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { ChangeEvent, useContext } from "react";
+import { DataContext } from "../contexts/dataContext";
 import { Position } from "../models/Position";
+import { Relation as RelationModel } from "../models/Relation";
 interface Props {
+  id: string;
+  relation: RelationModel;
   start: Position;
   end: Position;
   preview?: boolean;
 }
-export const Relation = ({ start, end, preview = false }: Props) => {
+export const Relation = ({
+  id,
+  relation,
+  start,
+  end,
+  preview = false,
+}: Props) => {
+  const dataContext = useContext(DataContext);
+  const name = relation.name;
+
   //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 1200;
   const viewHeight = 800;
@@ -18,7 +32,12 @@ export const Relation = ({ start, end, preview = false }: Props) => {
     x: end.x + viewWidth / 2,
     y: end.y + viewHeight / 2,
   };
-  // console.log(`rendered Relation`);
+  const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event) {
+      dataContext.updateRelationName(id, event.target.value);
+    }
+    console.log(dataContext.data.relations);
+  };
   return (
     <div
       css={[
@@ -43,17 +62,20 @@ export const Relation = ({ start, end, preview = false }: Props) => {
           strokeWidth="2"
         />
       </svg>
-      <p
+      <input
         style={{
           fontSize: "12px",
+          width: "60px",
           position: "absolute",
           transformOrigin: "0.5, 0.5",
           left: (startRelative.x + endRelative.x) / 2,
           top: (startRelative.y + endRelative.y) / 2,
+          backgroundColor: "rgba(0,0,0,0)",
+          border: "none",
         }}
-      >
-        name
-      </p>
+        value={name}
+        onChange={handleChangeValue}
+      ></input>
     </div>
   );
 };

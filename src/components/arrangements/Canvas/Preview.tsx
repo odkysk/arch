@@ -11,6 +11,13 @@ export const Preview = () => {
     <>
       {actionContext.newRelationExists && (
         <Relation
+          id={"preview"}
+          relation={{
+            id: "previewRelation",
+            name: "preview",
+            start: "0",
+            end: "0",
+          }}
           start={{
             x:
               dataContext.findMember(actionContext.newRelation.start).position

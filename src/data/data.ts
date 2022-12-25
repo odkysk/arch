@@ -10,7 +10,7 @@ export const data: Data = {
   members: [
     {
       id: "0",
-      name: "0",
+      name: "りんご",
       position: {
         x: 0,
         y: 0,
@@ -18,7 +18,7 @@ export const data: Data = {
     },
     {
       id: "1",
-      name: "1",
+      name: "みかん",
       position: {
         x: 0,
         y: 80,
@@ -26,7 +26,7 @@ export const data: Data = {
     },
     {
       id: "2",
-      name: "2",
+      name: "ぶどう",
       position: {
         x: 0,
         y: 160,

@@ -10,14 +10,16 @@ export const Relations = () => {
     console.log(dataContext.data.relations);
     return (
       <Relation
+        id={relation.id}
         key={relation.id}
+        relation={relation}
         start={{
           x: startMember.position.x + 60,
-          y: startMember.position.y + 60,
+          y: startMember.position.y + 55,
         }}
         end={{
           x: endMember.position.x + 60,
-          y: endMember.position.y,
+          y: endMember.position.y + 5,
         }}
       />
     );

@@ -74,16 +74,24 @@ export const Member = ({ id }: Props) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      <button>V</button>
+      <button css={button}>○</button>
       <input
         type="text"
         css={css`
           width: 100%;
         `}
+        style={{
+          fontSize: "16px",
+          textAlign: "center",
+          backgroundColor: "rgba(0,0,0,0)",
+          border: "none",
+        }}
         value={name}
         onChange={handleChangeValue}
       />
-      <button onMouseDown={handleMouseDownRelationStart}>▼</button>
+      <button onMouseDown={handleMouseDownRelationStart} css={button}>
+        ▼
+      </button>
     </div>
   );
 };
@@ -104,4 +112,8 @@ const memberCss = css`
   &:hover {
     background-color: rgba(0, 0, 255, 0.08);
   }
+`;
+const button = css`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 `;
