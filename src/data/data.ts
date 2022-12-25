@@ -1,14 +1,6 @@
-import { Position } from "../models/Position";
-interface Member {
-  id: string;
-  name: string;
-  position: Position;
-}
-interface Relation {
-  id: string;
-  start: string;
-  end: string;
-}
+import { Member } from "../models/Member";
+import { Relation } from "../models/Relation";
+
 export interface Data {
   members: Member[];
   relations: Relation[];

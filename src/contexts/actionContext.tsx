@@ -18,7 +18,7 @@ interface Context {
   dispatch: (id: string, eventType: DOMEvent, event?: MouseEvent) => void;
 }
 export const ActionContext = createContext<Context>({
-  newRelation: { id: "0", start: "0", end: "0" },
+  newRelation: { id: "0", name: "name", start: "0", end: "0" },
   newRelationExists: true,
   setNewRelationStart: () => {},
   setNewRelationEnd: () => {},
@@ -39,7 +39,7 @@ export const ActionContextProvider = ({ children }: Props) => {
   };
 
   const dataContext = useContext(DataContext);
-  const newRelation = useRef({ id: "0", start: "0", end: "0" });
+  const newRelation = useRef({ id: "0", name: "name", start: "0", end: "0" });
   const [newRelationExists, setNewRelationExists] = useState(false);
 
   const setNewRelationStart = (id: string) => {
@@ -50,13 +50,16 @@ export const ActionContextProvider = ({ children }: Props) => {
     if (newRelationExists) {
       newRelation.current.end = id;
       dataContext.addRelation(
+        "name",
         newRelation.current.start,
         newRelation.current.end
       );
       setNewRelationExists(false);
     }
   };
-  const endRelating = (id?: string) => {};
+  const endRelating = (id?: string) => {
+    setNewRelationExists(false);
+  };
   return (
     <ActionContext.Provider
       value={{

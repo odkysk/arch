@@ -43,6 +43,17 @@ export const Relation = ({ start, end, preview = false }: Props) => {
           strokeWidth="2"
         />
       </svg>
+      <p
+        style={{
+          fontSize: "12px",
+          position: "absolute",
+          transformOrigin: "0.5, 0.5",
+          left: (startRelative.x + endRelative.x) / 2,
+          top: (startRelative.y + endRelative.y) / 2,
+        }}
+      >
+        name
+      </p>
     </div>
   );
 };
