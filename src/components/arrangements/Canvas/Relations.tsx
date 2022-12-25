@@ -11,8 +11,14 @@ export const Relations = () => {
     return (
       <Relation
         key={relation.id}
-        start={startMember.position}
-        end={endMember.position}
+        start={{
+          x: startMember.position.x + 60,
+          y: startMember.position.y + 60,
+        }}
+        end={{
+          x: endMember.position.x + 60,
+          y: endMember.position.y,
+        }}
       />
     );
   });
