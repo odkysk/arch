@@ -29,6 +29,7 @@ export const DataContextProvider = ({ children }: Props) => {
 
   const moveMember = (memberId: string, position: Position) => {
     setDataState({
+      ...dataState,
       members: dataState.members.map((member) =>
         member.id === memberId
           ? {
@@ -37,11 +38,11 @@ export const DataContextProvider = ({ children }: Props) => {
             }
           : { ...member }
       ),
-      relations: dataState.relations,
     });
   };
   const updateMemberName = (memberId: string, name: string) => {
     setDataState({
+      ...dataState,
       members: dataState.members.map((member) =>
         member.id === memberId
           ? {
@@ -50,11 +51,11 @@ export const DataContextProvider = ({ children }: Props) => {
             }
           : { ...member }
       ),
-      relations: dataState.relations,
     });
   };
   const addMember = () => {
     setDataState({
+      ...dataState,
       members: [
         ...dataState.members,
         {
@@ -66,12 +67,11 @@ export const DataContextProvider = ({ children }: Props) => {
           },
         },
       ],
-      relations: dataState.relations,
     });
   };
   const updateRelationName = (relationId: string, name: string) => {
     setDataState({
-      members: dataState.members,
+      ...dataState,
       relations: dataState.relations.map((relation) =>
         relation.id === relationId
           ? {
@@ -84,7 +84,7 @@ export const DataContextProvider = ({ children }: Props) => {
   };
   const addRelation = (name: string, start: string, end: string) => {
     setDataState({
-      members: dataState.members,
+      ...dataState,
       relations: [
         ...dataState.relations,
         {
@@ -98,7 +98,7 @@ export const DataContextProvider = ({ children }: Props) => {
   };
   const deleteRelation = (id: string) => {
     setDataState({
-      members: dataState.members,
+      ...dataState,
       relations: dataState.relations.filter((relation) => {
         return relation.id !== id;
       }),
