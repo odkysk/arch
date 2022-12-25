@@ -11,6 +11,7 @@ export const DataContext = createContext({
   addMember: () => {},
   updateRelationName: (relationId: string, name: string) => {},
   addRelation: (name: string, start: string, end: string) => {},
+  deleteRelation: (id: string) => {},
 });
 interface Props {
   children: ReactNode;
@@ -25,6 +26,7 @@ export const DataContextProvider = ({ children }: Props) => {
     );
   };
   // TODO: Canvas内のすべてが再レンダリングされてしまうのでメモ化する必要がある?
+
   const moveMember = (memberId: string, position: Position) => {
     setDataState({
       members: dataState.members.map((member) =>
@@ -94,6 +96,14 @@ export const DataContextProvider = ({ children }: Props) => {
       ],
     });
   };
+  const deleteRelation = (id: string) => {
+    setDataState({
+      members: dataState.members,
+      relations: dataState.relations.filter((relation) => {
+        return relation.id !== id;
+      }),
+    });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -104,6 +114,7 @@ export const DataContextProvider = ({ children }: Props) => {
         addMember,
         updateRelationName,
         addRelation,
+        deleteRelation,
       }}
     >
       {children}

@@ -36,7 +36,6 @@ export const Relation = ({
     if (event) {
       dataContext.updateRelationName(id, event.target.value);
     }
-    console.log(dataContext.data.relations);
   };
   return (
     <div
@@ -54,20 +53,21 @@ export const Relation = ({
       ]}
     >
       <div>
-        <svg
-          id="Relation"
-          width="1200"
-          height="800"
-          viewBox="0 0 1200 800"
-          // style={{ pointerEvents: "visiblePainted" }}
-        >
+        <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
           <line
+            css={css`
+              pointer-events: all;
+            `}
             x1={startRelative.x}
             y1={startRelative.y}
             x2={endRelative.x}
             y2={endRelative.y}
-            stroke="rgba(255,0,0,0.5)"
+            stroke="rgba(255,0,0,2)"
             strokeWidth="2"
+            onClick={() => {
+              console.log("delete");
+              dataContext.deleteRelation(id);
+            }}
           />
         </svg>
       </div>

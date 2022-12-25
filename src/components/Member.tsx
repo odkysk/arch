@@ -59,7 +59,6 @@ export const Member = ({ id }: Props) => {
     if (event) {
       dataContext.updateMemberName(id, event.target.value);
     }
-    console.log(dataContext.data.members);
   };
   return (
     <div

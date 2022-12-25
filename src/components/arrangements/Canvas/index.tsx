@@ -20,6 +20,9 @@ export const Canvas = () => {
       css={canvas}
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
       onMouseUp={handleMouseUp}
+      onClick={() => {
+        console.log(dataContext.data);
+      }}
     >
       <div css={originator}>
         <Preview />
