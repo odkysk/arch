@@ -11,15 +11,17 @@ import { DataContext } from "./dataContext";
 
 interface Context {
   relating: boolean;
-  startRelating: (id: string) => void;
   relationStart: undefined | string;
+  relationEnd: undefined | string;
+  startRelating: (id: string) => void;
   endRelating: (id?: string) => void;
   dispatch: (id: string, eventType: DOMEvent, event?: MouseEvent) => void;
 }
 export const ActionContext = createContext<Context>({
   relating: false,
-  startRelating: () => {},
   relationStart: "0",
+  relationEnd: "0",
+  startRelating: () => {},
   endRelating: () => {},
   dispatch: () => {},
 });
@@ -39,8 +41,8 @@ export const ActionContextProvider = ({ children }: Props) => {
 
   const dataContext = useContext(DataContext);
   const [relating, setRelating] = useState(false);
-  const relationStart = useRef<string>("0");
-  const relationEnd = useRef<string>("0");
+  const relationStart = useRef<string | undefined>("999");
+  const relationEnd = useRef<string | undefined>("999");
 
   const startRelating = (id: string) => {
     setRelating(true);
@@ -48,19 +50,22 @@ export const ActionContextProvider = ({ children }: Props) => {
   };
   const endRelating = (id?: string) => {
     setRelating(false);
-    if (id !== undefined && relationStart !== undefined) {
+    if (
+      id !== undefined &&
+      relationStart.current !== undefined &&
+      relationEnd.current !== undefined
+    ) {
       relationEnd.current = id;
-      if (relationEnd !== undefined) {
-        dataContext.addRelation(relationStart.current, relationEnd.current);
-      }
+      dataContext.addRelation(relationStart.current, relationEnd.current);
     }
   };
   return (
     <ActionContext.Provider
       value={{
         relating,
-        startRelating,
         relationStart: relationStart.current,
+        relationEnd: relationEnd.current,
+        startRelating,
         endRelating,
         dispatch,
       }}
