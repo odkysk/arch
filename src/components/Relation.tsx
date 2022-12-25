@@ -45,6 +45,7 @@ export const Relation = ({
           position: absolute;
           left: -600px;
           top: -400px;
+          pointer-events: none;
         `,
         preview &&
           css`
@@ -52,16 +53,24 @@ export const Relation = ({
           `,
       ]}
     >
-      <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
-        <line
-          x1={startRelative.x}
-          y1={startRelative.y}
-          x2={endRelative.x}
-          y2={endRelative.y}
-          stroke="rgba(255,0,0,0.5)"
-          strokeWidth="2"
-        />
-      </svg>
+      <div>
+        <svg
+          id="Relation"
+          width="1200"
+          height="800"
+          viewBox="0 0 1200 800"
+          // style={{ pointerEvents: "visiblePainted" }}
+        >
+          <line
+            x1={startRelative.x}
+            y1={startRelative.y}
+            x2={endRelative.x}
+            y2={endRelative.y}
+            stroke="rgba(255,0,0,0.5)"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
       <input
         style={{
           fontSize: "12px",
@@ -72,6 +81,7 @@ export const Relation = ({
           top: (startRelative.y + endRelative.y) / 2,
           backgroundColor: "rgba(0,0,0,0)",
           border: "none",
+          pointerEvents: "all",
         }}
         value={name}
         onChange={handleChangeValue}
