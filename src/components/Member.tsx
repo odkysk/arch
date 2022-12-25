@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { MouseEvent, useContext, useRef } from "react";
+import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
 import { ActionContext } from "../contexts/actionContext";
 import { DataContext } from "../contexts/dataContext";
 import { Position } from "../models/Position";
@@ -55,6 +55,12 @@ export const Member = ({ id }: Props) => {
   const handleClick = (event: MouseEvent) => {
     actionContext.dispatch(id, "onClick", event);
   };
+  const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event) {
+      dataContext.updateMemberName(id, event.target.value);
+    }
+    console.log(dataContext.data.members);
+  };
   return (
     <div
       id={id}
@@ -75,6 +81,7 @@ export const Member = ({ id }: Props) => {
           width: 100%;
         `}
         value={name}
+        onChange={handleChangeValue}
       />
       <button onMouseDown={handleMouseDownRelationStart}>▼</button>
     </div>

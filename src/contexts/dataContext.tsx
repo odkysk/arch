@@ -7,6 +7,7 @@ export const DataContext = createContext({
   data: saveData,
   findMember: (memberId: string) => saveData.members[0],
   moveMember: (memberId: string, position: Position) => {},
+  updateMemberName: (memberId: string, name: string) => {},
   addMember: () => {},
   addRelation: (name: string, start: string, end: string) => {},
 });
@@ -30,6 +31,19 @@ export const DataContextProvider = ({ children }: Props) => {
           ? {
               ...member,
               position: position,
+            }
+          : { ...member }
+      ),
+      relations: dataState.relations,
+    });
+  };
+  const updateMemberName = (memberId: string, name: string) => {
+    setDataState({
+      members: dataState.members.map((member) =>
+        member.id === memberId
+          ? {
+              ...member,
+              name: name,
             }
           : { ...member }
       ),
@@ -71,6 +85,7 @@ export const DataContextProvider = ({ children }: Props) => {
       value={{
         data: dataState,
         moveMember,
+        updateMemberName,
         findMember,
         addMember,
         addRelation,
