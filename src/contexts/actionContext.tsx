@@ -7,22 +7,21 @@ import {
   useState,
 } from "react";
 import { DOMEvent } from "../models/DOMEvent";
+import { Relation } from "../models/Relation";
 import { DataContext } from "./dataContext";
 
 interface Context {
-  relating: boolean;
-  relationStart: undefined | string;
-  relationEnd: undefined | string;
-  startRelating: (id: string) => void;
-  endRelating: (id?: string) => void;
+  newRelation: Relation;
+  newRelationExists: boolean;
+  setNewRelationStart: (id: string) => void;
+  setNewRelationEnd: (id: string) => void;
   dispatch: (id: string, eventType: DOMEvent, event?: MouseEvent) => void;
 }
 export const ActionContext = createContext<Context>({
-  relating: false,
-  relationStart: "0",
-  relationEnd: "0",
-  startRelating: () => {},
-  endRelating: () => {},
+  newRelation: { id: "0", start: "0", end: "0" },
+  newRelationExists: true,
+  setNewRelationStart: () => {},
+  setNewRelationEnd: () => {},
   dispatch: () => {},
 });
 interface Props {
@@ -40,33 +39,31 @@ export const ActionContextProvider = ({ children }: Props) => {
   };
 
   const dataContext = useContext(DataContext);
-  const [relating, setRelating] = useState(false);
-  const relationStart = useRef<string | undefined>("999");
-  const relationEnd = useRef<string | undefined>("999");
+  const newRelation = useRef({ id: "0", start: "0", end: "0" });
+  const [newRelationExists, setNewRelationExists] = useState(false);
 
-  const startRelating = (id: string) => {
-    setRelating(true);
-    relationStart.current = id;
+  const setNewRelationStart = (id: string) => {
+    newRelation.current.start = id;
+    setNewRelationExists(true);
   };
-  const endRelating = (id?: string) => {
-    setRelating(false);
-    if (
-      id !== undefined &&
-      relationStart.current !== undefined &&
-      relationEnd.current !== undefined
-    ) {
-      relationEnd.current = id;
-      dataContext.addRelation(relationStart.current, relationEnd.current);
+  const setNewRelationEnd = (id: string) => {
+    if (newRelationExists) {
+      newRelation.current.end = id;
+      dataContext.addRelation(
+        newRelation.current.start,
+        newRelation.current.end
+      );
+      setNewRelationExists(false);
     }
   };
+  const endRelating = (id?: string) => {};
   return (
     <ActionContext.Provider
       value={{
-        relating,
-        relationStart: relationStart.current,
-        relationEnd: relationEnd.current,
-        startRelating,
-        endRelating,
+        newRelation: newRelation.current,
+        newRelationExists,
+        setNewRelationStart,
+        setNewRelationEnd,
         dispatch,
       }}
     >

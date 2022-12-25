@@ -9,20 +9,16 @@ export const Preview = () => {
   const actionContext = useContext(ActionContext);
   return (
     <>
-      {actionContext.relating && (
+      {actionContext.newRelationExists && (
         <Relation
-          start={
-            actionContext.relationStart !== undefined
-              ? {
-                  x:
-                    dataContext.findMember(actionContext.relationStart).position
-                      .x + 60,
-                  y:
-                    dataContext.findMember(actionContext.relationStart).position
-                      .y + 60,
-                }
-              : { x: 0, y: 0 }
-          }
+          start={{
+            x:
+              dataContext.findMember(actionContext.newRelation.start).position
+                .x + 60,
+            y:
+              dataContext.findMember(actionContext.newRelation.start).position
+                .y + 60,
+          }}
           end={cursorPosition}
           preview
         />

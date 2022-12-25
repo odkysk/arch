@@ -19,9 +19,9 @@ export const Member = ({ id }: Props) => {
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
 
-  const handleClickStartRelating = (event: MouseEvent) => {
+  const handleMouseDownRelationStart = (event: MouseEvent) => {
     event.stopPropagation();
-    actionContext.startRelating(id);
+    actionContext.setNewRelationStart(id);
   };
 
   const handleMouseDown = (event: MouseEvent) => {
@@ -47,9 +47,7 @@ export const Member = ({ id }: Props) => {
   };
   const handleMouseUp = (event: MouseEvent) => {
     handleEndMouseMove(event);
-    if (actionContext.relating) {
-      actionContext.endRelating(id);
-    }
+    actionContext.setNewRelationEnd(id);
   };
   const handleMouseLeave = (event: MouseEvent) => {
     handleEndMouseMove(event);
@@ -78,7 +76,7 @@ export const Member = ({ id }: Props) => {
         `}
         value={name}
       />
-      <button onMouseDown={handleClickStartRelating}>▼</button>
+      <button onMouseDown={handleMouseDownRelationStart}>▼</button>
     </div>
   );
 };
