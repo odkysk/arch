@@ -6,7 +6,7 @@ export const DataContext = createContext({
   data: saveData,
   loadData: (data: Data) => {},
   findMember: (memberId: string) => saveData.members[0],
-  moveMember: (memberId: string, position: Position) => {},
+  moveMember: (viewId: string, memberId: string, position: Position) => {},
   updateMemberName: (memberId: string, name: string) => {},
   addMember: () => {},
   updateRelationName: (relationId: string, name: string) => {},
@@ -40,16 +40,19 @@ export const DataContextProvider = ({ children }: Props) => {
   };
   // TODO: Canvas内のすべてが再レンダリングされてしまうのでメモ化する必要がある?
 
-  const moveMember = (memberId: string, position: Position) => {
+  const moveMember = (viewId: string, memberId: string, position: Position) => {
     setDataState({
       ...dataState,
-      members: dataState.members.map((member) =>
-        member.id === memberId
-          ? {
-              ...member,
-              position: position,
-            }
-          : { ...member }
+      view_member_arrangements: dataState.view_member_arrangements.map(
+        (arrangement) =>
+          arrangement.view === viewId && arrangement.member === memberId
+            ? {
+                ...arrangement,
+                position: position,
+              }
+            : {
+                ...arrangement,
+              }
       ),
     });
   };
@@ -74,10 +77,6 @@ export const DataContextProvider = ({ children }: Props) => {
         {
           id: dataState.members.length.toString(),
           name: "",
-          position: {
-            x: 0,
-            y: 0,
-          },
         },
       ],
     });

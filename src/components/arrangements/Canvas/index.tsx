@@ -37,14 +37,11 @@ export const Canvas = () => {
       css={canvas}
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
       onMouseUp={handleMouseUp}
-      onClick={() => {
-        // console.log(dataContext.data);
-      }}
     >
       <div css={originator}>
         <Preview />
         <Relations />
-        <Members />
+        <Members view={"1"} />
       </div>
       <div css={buttons}>
         <button onClick={dataContext.addMember} css={button}>
