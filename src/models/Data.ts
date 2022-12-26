@@ -5,7 +5,6 @@ export interface Position {
 export interface Member {
   id: string;
   name: string;
-  position: Position;
 }
 export interface Relation {
   id: string;
