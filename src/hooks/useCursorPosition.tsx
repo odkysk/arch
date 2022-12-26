@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Position } from "../models/Position";
+import { Position } from "../models/Data";
 
 export const useCursorPosition = () => {
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });

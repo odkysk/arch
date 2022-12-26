@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
 import { ActionContext } from "../contexts/actionContext";
 import { DataContext } from "../contexts/dataContext";
-import { Position } from "../models/Position";
+import { Position } from "../models/Data";
 interface Props {
   id: string;
 }

@@ -2,8 +2,7 @@
 import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../contexts/dataContext";
-import { Position } from "../models/Position";
-import { Relation as RelationModel } from "../models/Relation";
+import { Position, Relation as RelationModel } from "../models/Data";
 interface Props {
   id: string;
   relation: RelationModel;

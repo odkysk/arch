@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { DOMEvent } from "../models/DOMEvent";
-import { Relation } from "../models/Relation";
+import { Relation } from "../models/Data";
 import { DataContext } from "./dataContext";
 
 interface Context {
