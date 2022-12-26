@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 import { data as saveData } from "../data/data";
-import { Data, Member, Position } from "../models/Data";
+import { Arrangement, Data, Member, Position } from "../models/Data";
 
 export const DataContext = createContext({
   data: saveData,
@@ -12,6 +12,7 @@ export const DataContext = createContext({
   updateRelationName: (relationId: string, name: string) => {},
   addRelation: (name: string, start: string, end: string) => {},
   deleteRelation: (id: string) => {},
+  getMemberArrangements: (viewId: string) => saveData.view_member_arrangements,
 });
 interface Props {
   children: ReactNode;
@@ -19,6 +20,15 @@ interface Props {
 
 export const DataContextProvider = ({ children }: Props) => {
   const [dataState, setDataState] = useState<Data>(saveData);
+  const getMemberArrangements = (viewId: string) => {
+    let result: Arrangement[] = [];
+    dataState.view_member_arrangements.map((arrangement) => {
+      if (arrangement.view === viewId) {
+        result.push(arrangement);
+      }
+    });
+    return result;
+  };
   const loadData = (data: Data) => {
     setDataState(data);
   };
@@ -119,6 +129,7 @@ export const DataContextProvider = ({ children }: Props) => {
         updateRelationName,
         addRelation,
         deleteRelation,
+        getMemberArrangements,
       }}
     >
       {children}
