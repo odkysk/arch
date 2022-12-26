@@ -91,15 +91,24 @@ export const DataContextProvider = ({ children }: Props) => {
     });
   };
   const addMember = () => {
+    const newMemberId = dataState.members.length.toString();
+    const newArrangements = dataState.views.map((view) => ({
+      view: view.id,
+      member: newMemberId,
+      position: { x: 0, y: 0 },
+      visible: true,
+    }));
     setDataState({
       ...dataState,
       members: [
         ...dataState.members,
         {
-          id: dataState.members.length.toString(),
+          id: newMemberId,
           name: "",
         },
       ],
+      view_member_arrangements:
+        dataState.view_member_arrangements.concat(newArrangements),
     });
   };
   const updateRelationName = (relationId: string, name: string) => {

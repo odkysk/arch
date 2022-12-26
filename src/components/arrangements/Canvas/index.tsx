@@ -20,7 +20,6 @@ export const Canvas = () => {
   const [view, setView] = useState("0");
   const handleChangeView: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setView(event.target.value);
-    console.log(event);
   };
   const handleMouseUp = () => {
     actionContext.dispatch("canvas", "onMouseUp");

@@ -67,7 +67,6 @@ export const Relation = ({
             stroke="rgba(255,0,0,0.5)"
             strokeWidth="4"
             onClick={() => {
-              console.log("delete");
               dataContext.deleteRelation(id);
             }}
           />
