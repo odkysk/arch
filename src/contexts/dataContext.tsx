@@ -2,10 +2,25 @@ import { ReactNode, createContext, useState } from "react";
 import { data as saveData } from "../data/data";
 import { Arrangement, Data, Member, Position } from "../models/Data";
 
-export const DataContext = createContext({
+interface Context {
+  data: Data;
+  loadData: (data: Data) => void;
+  findMember: (memberId: string) => Member;
+  getMemberPosition: (viewId: string, memberId: string) => Position;
+  moveMember: (viewId: string, memberId: string, position: Position) => void;
+  updateMemberName: (memberId: string, name: string) => void;
+  addMember: () => void;
+  updateRelationName: (relationId: string, name: string) => void;
+  addRelation: (name: string, start: string, end: string) => void;
+  deleteRelation: (id: string) => void;
+  getMemberArrangements: (viewId: string) => Arrangement[];
+}
+
+export const DataContext = createContext<Context>({
   data: saveData,
   loadData: (data: Data) => {},
   findMember: (memberId: string) => saveData.members[0],
+  getMemberPosition: (viewId: string, memberId: string) => ({ x: 0, y: 0 }),
   moveMember: (viewId: string, memberId: string, position: Position) => {},
   updateMemberName: (memberId: string, name: string) => {},
   addMember: () => {},
@@ -39,7 +54,13 @@ export const DataContextProvider = ({ children }: Props) => {
     );
   };
   // TODO: Canvas内のすべてが再レンダリングされてしまうのでメモ化する必要がある?
-
+  const getMemberPosition = (viewId: string, memberId: string) => {
+    const arrangement = dataState.view_member_arrangements.find(
+      (arrangement) =>
+        arrangement.view === viewId && arrangement.member === memberId
+    );
+    return arrangement?.position || { x: 0, y: 0 };
+  };
   const moveMember = (viewId: string, memberId: string, position: Position) => {
     setDataState({
       ...dataState,
@@ -122,6 +143,7 @@ export const DataContextProvider = ({ children }: Props) => {
         data: dataState,
         loadData,
         moveMember,
+        getMemberPosition,
         updateMemberName,
         findMember,
         addMember,

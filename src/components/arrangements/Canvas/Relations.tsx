@@ -2,23 +2,30 @@ import { useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
 import { Relation } from "../../Relation";
 
-export const Relations = () => {
+interface Props {
+  view: string;
+}
+
+export const Relations = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const relations = dataContext.data.relations.map((relation) => {
-    const startMember = dataContext.findMember(relation.start);
-    const endMember = dataContext.findMember(relation.end);
+    const startMemberPosition = dataContext.getMemberPosition(
+      view,
+      relation.start
+    );
+    const endMemberPosition = dataContext.getMemberPosition(view, relation.end);
     return (
       <Relation
         id={relation.id}
         key={relation.id}
         relation={relation}
         start={{
-          x: startMember.position.x + 60,
-          y: startMember.position.y + 55,
+          x: startMemberPosition.x + 60,
+          y: startMemberPosition.y + 55,
         }}
         end={{
-          x: endMember.position.x + 60,
-          y: endMember.position.y + 5,
+          x: endMemberPosition.x + 60,
+          y: endMemberPosition.y + 5,
         }}
       />
     );

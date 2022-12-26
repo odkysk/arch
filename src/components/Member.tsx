@@ -6,14 +6,15 @@ import { DataContext } from "../contexts/dataContext";
 import { Position } from "../models/Data";
 interface Props {
   id: string;
+  view: string;
 }
-export const Member = ({ id }: Props) => {
+export const Member = ({ id, view }: Props) => {
   const dataContext = useContext(DataContext);
   const actionContext = useContext(ActionContext);
 
   const member = dataContext.findMember(id);
   const name = member.name;
-  const position = member.position;
+  const position = dataContext.getMemberPosition(view, id);
 
   const dragging = useRef(false);
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
@@ -36,7 +37,7 @@ export const Member = ({ id }: Props) => {
       y: event.clientY - cursorPositionOnMouseDown.current.y,
     };
     if (dragging.current) {
-      dataContext.moveMember(id, {
+      dataContext.moveMember(view, id, {
         x: positionOnMouseDown.current.x + difference.x,
         y: positionOnMouseDown.current.y + difference.y,
       });
@@ -52,9 +53,6 @@ export const Member = ({ id }: Props) => {
   const handleMouseLeave = (event: MouseEvent) => {
     handleEndMouseMove(event);
   };
-  const handleClick = (event: MouseEvent) => {
-    actionContext.dispatch(id, "onClick", event);
-  };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
       dataContext.updateMemberName(id, event.target.value);
@@ -67,7 +65,6 @@ export const Member = ({ id }: Props) => {
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
-      onClick={handleClick}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

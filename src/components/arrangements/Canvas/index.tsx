@@ -1,6 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, FormEvent, useContext } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FormEvent,
+  useContext,
+  useState,
+} from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { ToolContext } from "../../../contexts/toolContext";
@@ -11,6 +17,11 @@ export const Canvas = () => {
   const toolContext = useContext(ToolContext);
   const dataContext = useContext(DataContext);
   const actionContext = useContext(ActionContext);
+  const [view, setView] = useState("0");
+  const handleChangeView: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    setView(event.target.value);
+    console.log(event);
+  };
   const handleMouseUp = () => {
     actionContext.dispatch("canvas", "onMouseUp");
   };
@@ -39,9 +50,9 @@ export const Canvas = () => {
       onMouseUp={handleMouseUp}
     >
       <div css={originator}>
-        <Preview />
-        <Relations />
-        <Members view={"1"} />
+        <Preview view={view} />
+        <Relations view={view} />
+        <Members view={view} />
       </div>
       <div css={buttons}>
         <button onClick={dataContext.addMember} css={button}>
@@ -64,6 +75,10 @@ export const Canvas = () => {
             />
           </label>
         </form>
+        <select name="view" id="view" onChange={handleChangeView}>
+          <option value="0">サンプル1</option>
+          <option value="1">サンプル2</option>
+        </select>
       </div>
     </div>
   );
@@ -85,6 +100,7 @@ const buttons = css`
   top: 0;
   display: flex;
   gap: 12px;
+  align-items: center; ;
 `;
 const button = css`
   font-size: 12px;

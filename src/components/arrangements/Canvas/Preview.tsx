@@ -3,7 +3,12 @@ import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { useCursorPosition } from "../../../hooks/useCursorPosition";
 import { Relation } from "../../Relation";
-export const Preview = () => {
+
+interface Props {
+  view: string;
+}
+
+export const Preview = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const cursorPosition = useCursorPosition();
   const actionContext = useContext(ActionContext);
@@ -20,11 +25,15 @@ export const Preview = () => {
           }}
           start={{
             x:
-              dataContext.findMember(actionContext.newRelation.start).position
-                .x + 60,
+              dataContext.getMemberPosition(
+                view,
+                actionContext.newRelation.start
+              ).x + 60,
             y:
-              dataContext.findMember(actionContext.newRelation.start).position
-                .y + 60,
+              dataContext.getMemberPosition(
+                view,
+                actionContext.newRelation.start
+              ).y + 60,
           }}
           end={cursorPosition}
           preview
