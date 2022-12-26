@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useContext } from "react";
+import { ChangeEvent, FormEvent, useContext } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { ToolContext } from "../../../contexts/toolContext";
@@ -14,6 +14,23 @@ export const Canvas = () => {
   const handleMouseUp = () => {
     actionContext.dispatch("canvas", "onMouseUp");
   };
+  const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    const file = event.target.files?.[0];
+    reader.readAsText(file as File);
+    reader.onload = () => {
+      const json = JSON.parse(reader.result as string);
+      dataContext.loadData(json);
+    };
+    //同じファイルだとonChangeが発火しないので空にする
+    event.target.value = "";
+  };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+  const saveData = new Blob([JSON.stringify(dataContext.data)], {
+    type: "text/json",
+  });
   return (
     <div
       id="canvas"
@@ -21,7 +38,7 @@ export const Canvas = () => {
       style={toolContext.mode === "relation" ? { cursor: "crosshair" } : {}}
       onMouseUp={handleMouseUp}
       onClick={() => {
-        console.log(dataContext.data);
+        // console.log(dataContext.data);
       }}
     >
       <div css={originator}>
@@ -30,31 +47,26 @@ export const Canvas = () => {
         <Members />
       </div>
       <div css={buttons}>
-        <button onClick={dataContext.addMember}>+</button>
-        <button
-          css={toolContext.mode === "selection" && activeModeButton}
-          onClick={() => {
-            toolContext.setMode("selection");
-          }}
-        >
-          select mode
+        <button onClick={dataContext.addMember} css={button}>
+          add member
         </button>
-        <button
-          css={toolContext.mode === "member" && activeModeButton}
-          onClick={() => {
-            toolContext.setMode("member");
-          }}
-        >
-          member mode
-        </button>
-        <button
-          css={toolContext.mode === "relation" && activeModeButton}
-          onClick={() => {
-            toolContext.setMode("relation");
-          }}
-        >
-          relation mode
-        </button>
+        <a download="arch.json" href={window.URL.createObjectURL(saveData)}>
+          <button css={button}>save</button>
+        </a>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <p css={button}>load</p>
+            <input
+              type="file"
+              id="file"
+              accept=".json"
+              onChange={handleUpload}
+              css={css`
+                display: none;
+              `}
+            />
+          </label>
+        </form>
       </div>
     </div>
   );
@@ -75,9 +87,15 @@ const buttons = css`
   left: 0;
   top: 0;
   display: flex;
+  gap: 12px;
 `;
-const activeModeButton = css`
-  color: white;
-  background-color: blue;
-  border-color: black;
+const button = css`
+  font-size: 12px;
+  background-color: lightgrey;
+  border: solid 1px black;
+  padding: 6px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-contents: center; ;
 `;

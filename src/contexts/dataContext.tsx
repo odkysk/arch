@@ -5,6 +5,7 @@ import { Position } from "../models/Position";
 
 export const DataContext = createContext({
   data: saveData,
+  loadData: (data: Data) => {},
   findMember: (memberId: string) => saveData.members[0],
   moveMember: (memberId: string, position: Position) => {},
   updateMemberName: (memberId: string, name: string) => {},
@@ -19,6 +20,9 @@ interface Props {
 
 export const DataContextProvider = ({ children }: Props) => {
   const [dataState, setDataState] = useState<Data>(saveData);
+  const loadData = (data: Data) => {
+    setDataState(data);
+  };
   const findMember = (memberId: string) => {
     return (
       dataState.members.find((member: Member) => member.id === memberId) ??
@@ -108,6 +112,7 @@ export const DataContextProvider = ({ children }: Props) => {
     <DataContext.Provider
       value={{
         data: dataState,
+        loadData,
         moveMember,
         updateMemberName,
         findMember,
