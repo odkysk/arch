@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, ChangeEventHandler, FormEvent, useContext } from "react";
-import { DataContext } from "../../../contexts/dataContext";
-import { ViewContext } from "../../../contexts/viewContext";
+import { DataContext } from "../../contexts/dataContext";
+import { ViewContext } from "../../contexts/viewContext";
 export const Toolbar = () => {
   const dataContext = useContext(DataContext);
   const { view, setView } = useContext(ViewContext);
