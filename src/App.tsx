@@ -5,17 +5,20 @@ import { Canvas } from "./components/arrangements/Canvas";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
 import { ToolContextProvider } from "./contexts/toolContext";
+import { ViewContextProvider } from "./contexts/viewContext";
 
 export default function App() {
   return (
     <DataContextProvider>
-      <ActionContextProvider>
-        <ToolContextProvider>
-          <main css={main}>
-            <Canvas />
-          </main>
-        </ToolContextProvider>
-      </ActionContextProvider>
+      <ViewContextProvider>
+        <ActionContextProvider>
+          <ToolContextProvider>
+            <main css={main}>
+              <Canvas />
+            </main>
+          </ToolContextProvider>
+        </ActionContextProvider>
+      </ViewContextProvider>
     </DataContextProvider>
   );
 }
