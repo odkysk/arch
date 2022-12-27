@@ -61,7 +61,13 @@ export const Member = ({ id, view }: Props) => {
   return (
     <div
       id={id}
-      css={[memberCss, css``]}
+      css={[
+        memberCss,
+        !dragging.current &&
+          css`
+            transition: all 300ms ease-out;
+          `,
+      ]}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}

@@ -51,7 +51,9 @@ export const Toolbar = () => {
       </form>
       <select name="view" id="view" onChange={handleChangeView}>
         {dataContext.data.views.map((view) => (
-          <option value={view.id}>{view.name}</option>
+          <option key={view.id} value={view.id}>
+            {view.name}
+          </option>
         ))}
       </select>
     </div>

@@ -16,8 +16,8 @@ export const Relations = ({ view }: Props) => {
     const endMemberPosition = dataContext.getMemberPosition(view, relation.end);
     return (
       <Relation
-        id={relation.id}
         key={relation.id}
+        id={relation.id}
         relation={relation}
         start={{
           x: startMemberPosition.x + 60,
