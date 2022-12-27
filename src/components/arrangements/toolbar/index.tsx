@@ -28,7 +28,7 @@ export const Toolbar = () => {
     type: "text/json",
   });
   return (
-    <div css={buttons}>
+    <div css={toolbar}>
       <button onClick={dataContext.addMember} css={button}>
         add member
       </button>
@@ -57,7 +57,7 @@ export const Toolbar = () => {
     </div>
   );
 };
-const buttons = css`
+const toolbar = css`
   position: absolute;
   left: 0;
   top: 0;

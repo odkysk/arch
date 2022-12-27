@@ -21,8 +21,8 @@ export const Relation = ({
   const name = relation.name;
 
   //このコンポーネントはCanvas全体をviewBoxとする
-  const viewWidth = 1200;
-  const viewHeight = 800;
+  const viewWidth = 2400;
+  const viewHeight = 1600;
   const startRelative: Position = {
     x: start.x + viewWidth / 2,
     y: start.y + viewHeight / 2,
@@ -41,8 +41,8 @@ export const Relation = ({
       css={[
         css`
           position: absolute;
-          left: -600px;
-          top: -400px;
+          left: ${-viewWidth / 2}px;
+          top: ${-viewHeight / 2}px;
           pointer-events: none;
         `,
         preview &&
@@ -52,7 +52,12 @@ export const Relation = ({
       ]}
     >
       <div>
-        <svg id="Relation" width="1200" height="800" viewBox="0 0 1200 800">
+        <svg
+          id="Relation"
+          width={viewWidth}
+          height={viewHeight}
+          viewBox={`0 0 ${viewWidth} ${viewHeight}`}
+        >
           <line
             css={css`
               pointer-events: all;

@@ -15,8 +15,8 @@ export default function App() {
         <ActionContextProvider>
           <ToolContextProvider>
             <main css={main}>
-              <Toolbar />
               <Canvas />
+              <Toolbar />
             </main>
           </ToolContextProvider>
         </ActionContextProvider>
@@ -29,5 +29,4 @@ const main = css`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #ddd;
 `;

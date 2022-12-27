@@ -32,13 +32,13 @@ export const Canvas = () => {
   );
 };
 const canvas = css`
-  width: 1200px;
-  height: 800px;
-  background-color: #eee;
-  position: relative;
+  width: 2400px;
+  height: 1600px;
+  background-color: #f5f5f5;
+  position: absolute;
 `;
 const originator = css`
-  transform: translate(600px, 400px);
+  transform: translate(1200px, 800px);
   width: 0px;
   height: 0px;
 `;

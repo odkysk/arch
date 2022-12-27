@@ -3,8 +3,8 @@ import { Position } from "../models/Data";
 
 export const useCursorPosition = () => {
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-  const canvasWidth = 1200;
-  const canvasHeight = 800;
+  const canvasWidth = 2400;
+  const canvasHeight = 1600;
   useEffect(() => {
     const canvas = document.getElementById("canvas");
     const updatePosition = (event: MouseEvent) => {
