@@ -1,17 +1,18 @@
-import React, { createContext, useState } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
+import { DataContext } from "./dataContext";
+
 export const ViewContext = createContext({
   view: "0",
   setView: (id: string) => {},
 });
 
 interface ViewContextProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 export const ViewContextProvider = ({ children }: ViewContextProviderProps) => {
-  const [view, setViewState] = useState<string>("0");
-  const setView = (id: string) => {
-    setViewState(id);
-  };
+  const dataContext = useContext(DataContext);
+  const [view, setView] = useState<string>(dataContext.data.views[0].id);
+
   return (
     <ViewContext.Provider
       value={{

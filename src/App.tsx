@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
+import { Toolbar } from "./components/arrangements/Toolbar";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
 import { ToolContextProvider } from "./contexts/toolContext";
@@ -14,6 +15,7 @@ export default function App() {
         <ActionContextProvider>
           <ToolContextProvider>
             <main css={main}>
+              <Toolbar />
               <Canvas />
             </main>
           </ToolContextProvider>
