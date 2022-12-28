@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { data as saveData } from "../data/data";
 import { Arrangement, Data, Member, Position } from "../models/Data";
 
@@ -94,7 +94,7 @@ export const DataContextProvider = ({ children }: Props) => {
     });
   };
   const addMember = () => {
-    const newMemberId = dataState.members.length.toString();
+    const newMemberId = makeId();
     const newArrangements = dataState.views.map((view) => ({
       view: view.id,
       member: newMemberId,
@@ -106,8 +106,8 @@ export const DataContextProvider = ({ children }: Props) => {
       members: [
         ...dataState.members,
         {
-          id: makeId(),
-          name: "",
+          id: newMemberId,
+          name: "new member",
         },
       ],
       view_member_arrangements:
