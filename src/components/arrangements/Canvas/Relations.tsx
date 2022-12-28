@@ -9,12 +9,17 @@ interface Props {
 export const Relations = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const relations = dataContext.data.relations.map((relation) => {
-    const startMemberPosition = dataContext.getMemberPosition(
+    const startMemberArrangement = dataContext.getMemberArrangement(
       view,
       relation.start
     );
-    const endMemberPosition = dataContext.getMemberPosition(view, relation.end);
-    return (
+    const endMemberArrangement = dataContext.getMemberArrangement(
+      view,
+      relation.end
+    );
+    const startMemberPosition = startMemberArrangement.position;
+    const endMemberPosition = endMemberArrangement.position;
+    return startMemberArrangement.visible && endMemberArrangement.visible ? (
       <Relation
         key={relation.id}
         id={relation.id}
@@ -28,6 +33,8 @@ export const Relations = ({ view }: Props) => {
           y: endMemberPosition.y + 5,
         }}
       />
+    ) : (
+      <></>
     );
   });
   return <>{relations}</>;

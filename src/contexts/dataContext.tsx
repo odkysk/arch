@@ -177,18 +177,20 @@ export const DataContextProvider = ({ children }: Props) => {
     });
   };
   const addRelation = (name: string, start: string, end: string) => {
-    setDataState({
-      ...dataState,
-      relations: [
-        ...dataState.relations,
-        {
-          id: makeId(),
-          name: name,
-          start: start,
-          end: end,
-        },
-      ],
-    });
+    if (start !== end) {
+      setDataState({
+        ...dataState,
+        relations: [
+          ...dataState.relations,
+          {
+            id: makeId(),
+            name: name,
+            start: start,
+            end: end,
+          },
+        ],
+      });
+    }
   };
   const deleteRelation = (id: string) => {
     setDataState({
