@@ -83,7 +83,7 @@ export const Member = ({ id, view }: Props) => {
           width: 100%;
         `}
         style={{
-          fontSize: "16px",
+          fontSize: "8px",
           textAlign: "center",
           backgroundColor: "rgba(0,0,0,0)",
           border: "none",
