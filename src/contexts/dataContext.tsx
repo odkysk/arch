@@ -35,6 +35,9 @@ interface Props {
 
 export const DataContextProvider = ({ children }: Props) => {
   const [dataState, setDataState] = useState<Data>(saveData);
+  const makeId = () =>
+    new Date().getTime().toString() + Math.floor(Math.random() * 10).toString();
+
   const getMemberArrangements = (viewId: string) => {
     let result: Arrangement[] = [];
     dataState.view_member_arrangements.map((arrangement) => {
@@ -103,7 +106,7 @@ export const DataContextProvider = ({ children }: Props) => {
       members: [
         ...dataState.members,
         {
-          id: newMemberId,
+          id: makeId(),
           name: "",
         },
       ],
@@ -130,7 +133,7 @@ export const DataContextProvider = ({ children }: Props) => {
       relations: [
         ...dataState.relations,
         {
-          id: dataState.relations.length?.toString(),
+          id: makeId(),
           name: name,
           start: start,
           end: end,

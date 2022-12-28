@@ -60,7 +60,7 @@ export const Toolbar = () => {
   );
 };
 const toolbar = css`
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   display: flex;
