@@ -36,6 +36,7 @@ const canvas = css`
   height: 1600px;
   background-color: #f5f5f5;
   position: absolute;
+  user-select: none;
 `;
 const originator = css`
   transform: translate(1200px, 800px);
