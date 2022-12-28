@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
+import { LeftPanel } from "./components/arrangements/LeftPanel";
 import { Toolbar } from "./components/arrangements/Toolbar";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
@@ -15,6 +16,9 @@ export default function App() {
         <ActionContextProvider>
           <ToolContextProvider>
             <main css={main}>
+              <div css={leftPanel}>
+                <LeftPanel />
+              </div>
               <Canvas />
               <Toolbar />
             </main>
@@ -29,4 +33,11 @@ const main = css`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  position: relative;
+`;
+const leftPanel = css`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
 `;
