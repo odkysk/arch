@@ -33,7 +33,7 @@ export const Relation = ({
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.updateRelationName(id, event.target.value);
+      dataContext.setRelationName(id, event.target.value);
     }
   };
   return (

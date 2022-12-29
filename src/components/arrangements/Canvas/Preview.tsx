@@ -25,15 +25,15 @@ export const Preview = ({ view }: Props) => {
           }}
           start={{
             x:
-              dataContext.getMemberPosition(
+              dataContext.getMemberArrangement(
                 view,
                 actionContext.newRelation.start
-              ).x + 60,
+              ).position.x + 60,
             y:
-              dataContext.getMemberPosition(
+              dataContext.getMemberArrangement(
                 view,
                 actionContext.newRelation.start
-              ).y + 60,
+              ).position.y + 60,
           }}
           end={cursorPosition}
           preview

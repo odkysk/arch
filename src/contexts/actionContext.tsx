@@ -1,13 +1,13 @@
 import {
+  createContext,
   MouseEvent,
   ReactNode,
-  createContext,
   useContext,
   useRef,
   useState,
 } from "react";
-import { DOMEvent } from "../models/DOMEvent";
 import { Relation } from "../models/Data";
+import { DOMEvent } from "../models/DOMEvent";
 import { DataContext } from "./dataContext";
 
 interface Context {

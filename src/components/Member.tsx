@@ -12,9 +12,9 @@ export const Member = ({ id, view }: Props) => {
   const dataContext = useContext(DataContext);
   const actionContext = useContext(ActionContext);
 
-  const member = dataContext.findMember(id);
+  const member = dataContext.getMember(id);
   const name = member.name;
-  const position = dataContext.getMemberPosition(view, id);
+  const position = dataContext.getMemberArrangement(view, id).position;
 
   const dragging = useRef(false);
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
@@ -37,7 +37,7 @@ export const Member = ({ id, view }: Props) => {
       y: event.clientY - cursorPositionOnMouseDown.current.y,
     };
     if (dragging.current) {
-      dataContext.moveMember(view, id, {
+      dataContext.setMemberPosition(view, id, {
         x: positionOnMouseDown.current.x + difference.x,
         y: positionOnMouseDown.current.y + difference.y,
       });
@@ -55,7 +55,7 @@ export const Member = ({ id, view }: Props) => {
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.updateMemberName(id, event.target.value);
+      dataContext.setMemberName(id, event.target.value);
     }
   };
   return (
