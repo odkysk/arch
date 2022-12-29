@@ -10,7 +10,7 @@ export const Members = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const members = dataContext.getMemberArrangements(view).map((arrangement) => {
     const memberId = arrangement.member;
-    if (arrangement.visible) {
+    if (arrangement.isVisible) {
       return <Member key={memberId} id={memberId} view={view} />;
     }
   });

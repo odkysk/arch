@@ -19,7 +19,8 @@ export const Relations = ({ view }: Props) => {
     );
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;
-    return startMemberArrangement.visible && endMemberArrangement.visible ? (
+    return startMemberArrangement.isVisible &&
+      endMemberArrangement.isVisible ? (
       <Relation
         key={relation.id}
         id={relation.id}

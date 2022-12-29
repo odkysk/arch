@@ -20,7 +20,7 @@ export interface Arrangement {
   view: string;
   member: string;
   position: Position;
-  visible: boolean;
+  isVisible: boolean;
 }
 export interface Data {
   members: Member[];

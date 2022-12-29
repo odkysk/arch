@@ -12,21 +12,21 @@ export const LeftPanel = () => {
     <div css={leftPanel}>
       <ul css={memberList}>
         {dataContext.data.members.map((member) => {
-          const visible = dataContext.getMemberArrangement(
+          const isVisible = dataContext.getMemberArrangement(
             currentView,
             member.id
-          ).visible;
+          ).isVisible;
           const handleCheckVisible = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setMemberVisibility(currentView, member.id, !visible);
+            dataContext.setMemberVisibility(currentView, member.id, !isVisible);
             console.log(event.target.value);
-            event.target.value = visible ? "off" : "on";
+            event.target.value = isVisible ? "off" : "on";
           };
           return (
             <li key={member.id}>
               <label css={memberListItemLabel}>
                 <input
                   type="checkBox"
-                  checked={visible}
+                  checked={isVisible}
                   onChange={handleCheckVisible}
                 />
                 {member.name}

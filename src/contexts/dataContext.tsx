@@ -31,7 +31,7 @@ export const DataContext = createContext<Context>({
     view: "undefined",
     member: "undefined",
     position: { x: 0, y: 0 },
-    visible: false,
+    isVisible: false,
   }),
   setMemberVisibility: (
     viewId: string,
@@ -64,7 +64,7 @@ export const DataContextProvider = ({ children }: Props) => {
         view: "undefined",
         member: "undefined",
         position: { x: 0, y: 0 },
-        visible: false,
+        isVisible: false,
       }
     );
   };
@@ -80,7 +80,7 @@ export const DataContextProvider = ({ children }: Props) => {
   const setMemberVisibility = (
     viewId: string,
     memberId: string,
-    visible: boolean
+    isVisible: boolean
   ) => {
     setDataState({
       ...dataState,
@@ -89,7 +89,7 @@ export const DataContextProvider = ({ children }: Props) => {
           return arrangement.view === viewId && arrangement.member === memberId
             ? {
                 ...arrangement,
-                visible: visible,
+                isVisible: isVisible,
               }
             : arrangement;
         }
@@ -148,7 +148,7 @@ export const DataContextProvider = ({ children }: Props) => {
       view: view.id,
       member: newMemberId,
       position: { x: 0, y: 0 },
-      visible: true,
+      isVisible: true,
     }));
     setDataState({
       ...dataState,
