@@ -16,6 +16,7 @@ export const LeftPanel = () => {
   const relations = dataContext.data.relations;
   return (
     <div css={leftPanel}>
+      <p css={listName}>relations</p>
       <ul css={list}>
         {relations.map((relation) => {
           const handleClickRelationVisibility = () => {
@@ -23,7 +24,6 @@ export const LeftPanel = () => {
               currentView,
               relation.id
             );
-            console.log(currentVisibility);
             dataContext.setRelationVisibility(
               currentView,
               relation.id,
@@ -48,6 +48,7 @@ export const LeftPanel = () => {
         })}
       </ul>
       <ul css={list}>
+        <p css={listName}>members</p>
         {dataContext.data.members.map((member) => {
           const isVisible = dataContext.getMemberArrangement(
             currentView,
@@ -79,6 +80,13 @@ const leftPanel = css`
   height: 80vh;
   background-color: #fff;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: scroll;
+`;
+const listName = css`
+  font-size: 12px;
 `;
 const list = css`
   list-style: none;
