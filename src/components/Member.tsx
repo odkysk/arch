@@ -26,6 +26,7 @@ export const Member = ({ id, view }: Props) => {
   };
 
   const handleMouseDown = (event: MouseEvent) => {
+    console.log(relatedRelations);
     positionOnMouseDown.current = { x: position.x, y: position.y };
     cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
     dragging.current = true;
@@ -58,6 +59,7 @@ export const Member = ({ id, view }: Props) => {
       dataContext.setMemberName(id, event.target.value);
     }
   };
+  const relatedRelations = dataContext.getRelationsRelatedToMember(id);
   return (
     <div
       id={id}

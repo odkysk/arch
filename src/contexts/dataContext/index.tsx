@@ -5,6 +5,7 @@ import {
   Data,
   Member,
   Position,
+  Relation,
   View_Relation_Visibility,
 } from "../../models/Data";
 import { addMember as addMemberCallback } from "./addMember";
@@ -13,6 +14,7 @@ import { deleteRelation as deleteRelationCallback } from "./deleteRelation";
 import { getMember as getMemberCallback } from "./getMember";
 import { getMemberArrangement as getMemberArrangementCallback } from "./getMemberArrangement";
 import { getMemberArrangements as getMemberArrangementsCallback } from "./getMemberArrangements";
+import { getRelationsRelatedToMember as getRelationsRelatedToMemberCallback } from "./getRelationsRlatedToMember";
 import { getRelationVisibility as getRelationVisibilityCallback } from "./getRelationVisibility";
 import { loadData as loadDataCallback } from "./loadData";
 import { setMemberName as setMemberNameCallback } from "./setMemberName";
@@ -32,6 +34,7 @@ export const DataContext = createContext(
       viewId: string,
       relationId: string
     ) => View_Relation_Visibility;
+    getRelationsRelatedToMember: (memberId: string) => Relation[];
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -77,6 +80,8 @@ export const DataContextProvider = ({ children }: Props) => {
     },
     getRelationVisibility: (viewId: string, relationId: string) =>
       getRelationVisibilityCallback(data, viewId, relationId),
+    getRelationsRelatedToMember: (memberId: string) =>
+      getRelationsRelatedToMemberCallback(data, memberId),
     setMemberVisibility: (
       viewId: string,
       memberId: string,
