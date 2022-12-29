@@ -32,4 +32,5 @@ export interface Data {
   relations: Relation[];
   views: View[];
   view_member_arrangements: Arrangement[];
+  view_relationName_visibilities: View_RelationName_Visibility[];
 }

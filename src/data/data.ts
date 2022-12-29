@@ -14,4 +14,5 @@ export const data: Data = {
   view_member_arrangements: [
     //MEMO: すべてのmemberのすべてのviewに対してレコードが存在することを約束する方法がわからない
   ],
+  view_relationName_visibilities: [],
 };

@@ -20,6 +20,14 @@ export const addRelation = (
           endMemberId: endMemberId,
         },
       ],
+      view_relationName_visibilities:
+        data.view_relationName_visibilities.concat(
+          data.views.map((view) => ({
+            viewId: view.id,
+            relationName: name,
+            isVisible: true,
+          }))
+        ),
     });
   }
 };
