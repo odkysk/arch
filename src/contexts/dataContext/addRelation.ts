@@ -8,26 +8,26 @@ export const addRelation = (
   startMemberId: string,
   endMemberId: string
 ) => {
+  const relationId = makeId();
   if (startMemberId !== endMemberId) {
     setData({
       ...data,
       relations: [
         ...data.relations,
         {
-          id: makeId(),
+          id: relationId,
           name: name,
           startMemberId: startMemberId,
           endMemberId: endMemberId,
         },
       ],
-      view_relationName_visibilities:
-        data.view_relationName_visibilities.concat(
-          data.views.map((view) => ({
-            viewId: view.id,
-            relationName: name,
-            isVisible: true,
-          }))
-        ),
+      view_relation_visibilities: data.view_relation_visibilities.concat(
+        data.views.map((view) => ({
+          viewId: view.id,
+          relationId: relationId,
+          isVisible: true,
+        }))
+      ),
     });
   }
 };

@@ -5,14 +5,14 @@ export const setRelationVisibility = (
   data: Data,
   setData: Dispatch<Data>,
   viewId: string,
-  relationName: string,
+  relationId: string,
   isVisible: boolean
 ) => {
   setData({
     ...data,
-    view_relationName_visibilities: data.view_relationName_visibilities.map(
+    view_relation_visibilities: data.view_relation_visibilities.map(
       (visibility) =>
-        visibility.viewId === viewId && visibility.relationName === relationName
+        visibility.viewId === viewId && visibility.relationId === relationId
           ? { ...visibility, isVisible: isVisible }
           : visibility
     ),

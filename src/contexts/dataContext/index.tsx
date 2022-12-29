@@ -42,7 +42,7 @@ export const DataContext = createContext(
     deleteRelation: (relationId: string) => void;
     setRelationVisibility: (
       viewId: string,
-      relationName: string,
+      relationId: string,
       isVisible: boolean
     ) => void;
   }
@@ -98,14 +98,14 @@ export const DataContextProvider = ({ children }: Props) => {
     },
     setRelationVisibility: (
       viewId: string,
-      relationName: string,
+      relationId: string,
       isVisible: boolean
     ) => {
       setRelationVisibilityCallback(
         data,
         setData,
         viewId,
-        relationName,
+        relationId,
         isVisible
       );
     },

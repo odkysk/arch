@@ -22,9 +22,9 @@ export interface Arrangement {
   position: Position;
   isVisible: boolean;
 }
-export interface View_RelationName_Visibility {
+export interface View_Relation_Visibility {
   viewId: string;
-  relationName: string;
+  relationId: string;
   isVisible: boolean;
 }
 export interface Data {
@@ -32,5 +32,5 @@ export interface Data {
   relations: Relation[];
   views: View[];
   view_member_arrangements: Arrangement[];
-  view_relationName_visibilities: View_RelationName_Visibility[];
+  view_relation_visibilities: View_Relation_Visibility[];
 }
