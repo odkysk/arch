@@ -32,7 +32,7 @@ export const ActionContextProvider = ({ children }: Props) => {
     listen(id, eventType, event);
   };
   const listen = (id: string, eventType: DOMEvent, event?: MouseEvent) => {
-    console.log("listen");
+    console.log(dataContext);
     if (id === "canvas" && eventType === "onMouseUp") {
       endRelating();
     }

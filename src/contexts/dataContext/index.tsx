@@ -1,12 +1,19 @@
 import { createContext, ReactNode, useState } from "react";
 import { data as saveData } from "../../data/data";
-import { Arrangement, Data, Member, Position } from "../../models/Data";
+import {
+  Arrangement,
+  Data,
+  Member,
+  Position,
+  View_Relation_Visibility,
+} from "../../models/Data";
 import { addMember as addMemberCallback } from "./addMember";
 import { addRelation as addRelationCallback } from "./addRelation";
 import { deleteRelation as deleteRelationCallback } from "./deleteRelation";
 import { getMember as getMemberCallback } from "./getMember";
 import { getMemberArrangement as getMemberArrangementCallback } from "./getMemberArrangement";
 import { getMemberArrangements as getMemberArrangementsCallback } from "./getMemberArrangements";
+import { getRelationVisibility as getRelationVisibilityCallback } from "./getRelationVisibility";
 import { loadData as loadDataCallback } from "./loadData";
 import { setMemberName as setMemberNameCallback } from "./setMemberName";
 import { setMemberPosition as setMemberPositionCallback } from "./setMemberPosition";
@@ -21,6 +28,10 @@ export const DataContext = createContext(
     getMember: (memberId: string) => Member;
     getMemberArrangement: (viewId: string, memberId: string) => Arrangement;
     getMemberArrangements: (viewId: string) => Arrangement[];
+    getRelationVisibility: (
+      viewId: string,
+      relationId: string
+    ) => View_Relation_Visibility;
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -50,7 +61,6 @@ export const DataContext = createContext(
 interface Props {
   children: ReactNode;
 }
-
 export const DataContextProvider = ({ children }: Props) => {
   const [data, setData] = useState<Data>(saveData);
   // MEMO: Canvas内のすべてが再レンダリングされてしまうのでパフォーマンスは最悪
@@ -58,15 +68,15 @@ export const DataContextProvider = ({ children }: Props) => {
     loadData: (data: Data) => {
       loadDataCallback(setData, data);
     },
-    getMember: (memberId: string) => {
-      return getMemberCallback(data, memberId);
-    },
+    getMember: (memberId: string) => getMemberCallback(data, memberId),
     getMemberArrangement: (viewId: string, memberId: string) => {
       return getMemberArrangementCallback(data, viewId, memberId);
     },
     getMemberArrangements: (viewId: string) => {
       return getMemberArrangementsCallback(data, viewId);
     },
+    getRelationVisibility: (viewId: string, relationId: string) =>
+      getRelationVisibilityCallback(data, viewId, relationId),
     setMemberVisibility: (
       viewId: string,
       memberId: string,

@@ -17,9 +17,11 @@ export const Relations = ({ view }: Props) => {
       view,
       relation.endMemberId
     );
+    const visibility = dataContext.getRelationVisibility(view, relation.id);
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;
-    return startMemberArrangement.isVisible &&
+    return visibility.isVisible &&
+      startMemberArrangement.isVisible &&
       endMemberArrangement.isVisible ? (
       <Relation
         key={relation.id}

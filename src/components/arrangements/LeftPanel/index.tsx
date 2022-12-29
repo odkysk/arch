@@ -7,10 +7,47 @@ export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const viewContext = useContext(ViewContext);
   const currentView = viewContext.view;
+  const uniqueRelationNames = Array.from(
+    new Set(
+      dataContext.data.view_relation_visibilities.map((e) => e.relationId)
+    )
+  );
 
+  const relations = dataContext.data.relations;
   return (
     <div css={leftPanel}>
-      <ul css={memberList}>
+      <ul css={list}>
+        {relations.map((relation) => {
+          const handleClickRelationVisibility = () => {
+            const currentVisibility = dataContext.getRelationVisibility(
+              currentView,
+              relation.id
+            );
+            console.log(currentVisibility);
+            dataContext.setRelationVisibility(
+              currentView,
+              relation.id,
+              !currentVisibility.isVisible
+            );
+          };
+          return (
+            <li key={relation.id}>
+              <label css={memberListItemLabel}>
+                <input
+                  type="checkBox"
+                  onClick={handleClickRelationVisibility}
+                  checked={
+                    dataContext.getRelationVisibility(currentView, relation.id)
+                      .isVisible
+                  }
+                />
+                <p>{relation.name}</p>
+              </label>
+            </li>
+          );
+        })}
+      </ul>
+      <ul css={list}>
         {dataContext.data.members.map((member) => {
           const isVisible = dataContext.getMemberArrangement(
             currentView,
@@ -43,7 +80,7 @@ const leftPanel = css`
   background-color: #fff;
   padding: 12px;
 `;
-const memberList = css`
+const list = css`
   list-style: none;
   display: flex;
   flex-direction: column;
