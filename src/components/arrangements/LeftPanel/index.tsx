@@ -7,11 +7,6 @@ export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const viewContext = useContext(ViewContext);
   const currentView = viewContext.view;
-  const uniqueRelationNames = Array.from(
-    new Set(
-      dataContext.data.view_relation_visibilities.map((e) => e.relationId)
-    )
-  );
 
   const relations = dataContext.data.relations;
   return (
@@ -36,7 +31,7 @@ export const LeftPanel = () => {
                 <input
                   type="checkBox"
                   onClick={handleClickRelationVisibility}
-                  checked={
+                  defaultChecked={
                     dataContext.getRelationVisibility(currentView, relation.id)
                       .isVisible
                   }
