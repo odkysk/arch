@@ -5,8 +5,8 @@ import { makeId } from "../../utilities/makeId";
 export const addMember = (data: Data, setData: Dispatch<Data>) => {
   const newMemberId = makeId();
   const newArrangements = data.views.map((view) => ({
-    view: view.id,
-    member: newMemberId,
+    viewId: view.id,
+    memberId: newMemberId,
     position: { x: 0, y: 0 },
     isVisible: true,
   }));

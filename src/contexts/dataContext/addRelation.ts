@@ -5,10 +5,10 @@ export const addRelation = (
   data: Data,
   setData: Dispatch<Data>,
   name: string,
-  start: string,
-  end: string
+  startMemberId: string,
+  endMemberId: string
 ) => {
-  if (start !== end) {
+  if (startMemberId !== endMemberId) {
     setData({
       ...data,
       relations: [
@@ -16,8 +16,8 @@ export const addRelation = (
         {
           id: makeId(),
           name: name,
-          start: start,
-          end: end,
+          startMemberId: startMemberId,
+          endMemberId: endMemberId,
         },
       ],
     });

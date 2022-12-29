@@ -10,7 +10,7 @@ export const setMemberPosition = (
   setData({
     ...data,
     view_member_arrangements: data.view_member_arrangements.map((arrangement) =>
-      arrangement.view === viewId && arrangement.member === memberId
+      arrangement.viewId === viewId && arrangement.memberId === memberId
         ? {
             ...arrangement,
             position: position,

@@ -33,8 +33,12 @@ export const DataContext = createContext(
     setMemberName: (memberId: string, name: string) => void;
     addMember: () => void;
     setRelationName: (relationId: string, name: string) => void;
-    addRelation: (name: string, start: string, end: string) => void;
-    deleteRelation: (id: string) => void;
+    addRelation: (
+      name: string,
+      startMemberId: string,
+      endMemberId: string
+    ) => void;
+    deleteRelation: (relationId: string) => void;
   }
 );
 interface Props {
@@ -77,14 +81,14 @@ export const DataContextProvider = ({ children }: Props) => {
     setRelationName: (relationId: string, name: string) => {
       setRelationNameCallback(data, setData, relationId, name);
     },
-    addRelation: (name: string, start: string, end: string) => {
-      addRelationCallback(data, setData, name, start, end);
+    addRelation: (name: string, startMemberId: string, endMemberId: string) => {
+      addRelationCallback(data, setData, name, startMemberId, endMemberId);
     },
     addMember: () => {
       addMemberCallback(data, setData);
     },
-    deleteRelation: (id: string) => {
-      deleteRelationCallback(data, setData, id);
+    deleteRelation: (relationId: string) => {
+      deleteRelationCallback(data, setData, relationId);
     },
   };
 

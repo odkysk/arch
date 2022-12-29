@@ -11,11 +11,11 @@ export const Relations = ({ view }: Props) => {
   const relations = dataContext.data.relations.map((relation) => {
     const startMemberArrangement = dataContext.getMemberArrangement(
       view,
-      relation.start
+      relation.startMemberId
     );
     const endMemberArrangement = dataContext.getMemberArrangement(
       view,
-      relation.end
+      relation.endMemberId
     );
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;

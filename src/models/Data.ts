@@ -9,17 +9,22 @@ export interface Member {
 export interface Relation {
   id: string;
   name: string;
-  start: string;
-  end: string;
+  startMemberId: string;
+  endMemberId: string;
 }
 export interface View {
   id: string;
   name: string;
 }
 export interface Arrangement {
-  view: string;
-  member: string;
+  viewId: string;
+  memberId: string;
   position: Position;
+  isVisible: boolean;
+}
+export interface View_RelationName_Visibility {
+  viewId: string;
+  relationName: string;
   isVisible: boolean;
 }
 export interface Data {

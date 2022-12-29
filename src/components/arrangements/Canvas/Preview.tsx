@@ -20,19 +20,19 @@ export const Preview = ({ view }: Props) => {
           relation={{
             id: "previewRelation",
             name: "preview",
-            start: "0",
-            end: "0",
+            startMemberId: "99999999",
+            endMemberId: "99999999",
           }}
           start={{
             x:
               dataContext.getMemberArrangement(
                 view,
-                actionContext.newRelation.start
+                actionContext.newRelation.startMemberId
               ).position.x + 60,
             y:
               dataContext.getMemberArrangement(
                 view,
-                actionContext.newRelation.start
+                actionContext.newRelation.startMemberId
               ).position.y + 60,
           }}
           end={cursorPosition}
