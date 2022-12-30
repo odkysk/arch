@@ -11,6 +11,7 @@ export const LeftPanel = () => {
   const relations = dataContext.data.relations;
   return (
     <div css={leftPanel}>
+      <hr />
       <p css={listName}>relations</p>
       <ul css={list}>
         {relations.map((relation) => {
@@ -40,8 +41,9 @@ export const LeftPanel = () => {
           );
         })}
       </ul>
+      <hr />
+      <p css={listName}>members</p>
       <ul css={list}>
-        <p css={listName}>members</p>
         {dataContext.data.members.map((member) => {
           const isVisible = dataContext.getMemberArrangement(
             currentView,
@@ -70,13 +72,11 @@ export const LeftPanel = () => {
   );
 };
 const leftPanel = css`
-  height: 80vh;
-  background-color: #fff;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  overflow: scroll;
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 const listName = css`
   font-size: 12px;
@@ -88,6 +88,7 @@ const list = css`
   margin: 0;
 `;
 const memberListItemLabel = css`
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 6px;

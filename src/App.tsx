@@ -37,7 +37,10 @@ const main = css`
 `;
 const leftPanel = css`
   position: fixed;
-  left: 0;
-  bottom: 0;
+  left: 20px;
+  bottom: 20px;
   z-index: 100;
+  max-height: 80vh;
+  overflow: scroll;
+  overscroll-behavior: none;
 `;
