@@ -14,27 +14,25 @@ export const LeftPanel = () => {
       <p css={listName}>relations</p>
       <ul css={list}>
         {relations.map((relation) => {
+          const currentVisibility = dataContext.getRelationVisibility(
+            currentView,
+            relation.id
+          );
           const handleClickRelationVisibility = () => {
-            const currentVisibility = dataContext.getRelationVisibility(
-              currentView,
-              relation.id
-            );
             dataContext.setRelationVisibility(
               currentView,
               relation.id,
               !currentVisibility.isVisible
             );
           };
+          const checked = currentVisibility;
           return (
             <li key={relation.id}>
               <label css={memberListItemLabel}>
                 <input
                   type="checkBox"
                   onClick={handleClickRelationVisibility}
-                  defaultChecked={
-                    dataContext.getRelationVisibility(currentView, relation.id)
-                      .isVisible
-                  }
+                  checked={checked.isVisible}
                 />
                 <p>{relation.name}</p>
               </label>
