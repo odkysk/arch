@@ -80,14 +80,11 @@ export const Member = ({ id, view }: Props) => {
       <input
         type="text"
         css={css`
-          width: 100%;
+          width: 160px;
+          text-align: center;
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
         `}
-        style={{
-          fontSize: "8px",
-          textAlign: "center",
-          backgroundColor: "rgba(0,0,0,0)",
-          border: "none",
-        }}
         value={name}
         onChange={handleChangeValue}
       />
@@ -99,7 +96,6 @@ export const Member = ({ id, view }: Props) => {
 };
 const memberCss = css`
   position: absolute;
-  font-size: 12px;
   padding: 12px;
   border: solid 1px rgba(0, 0, 255, 0.1);
   width: 120px;

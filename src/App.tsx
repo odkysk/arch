@@ -20,7 +20,9 @@ export default function App() {
                 <LeftPanel />
               </div>
               <Canvas />
-              <Toolbar />
+              <div css={toolBar}>
+                <Toolbar />
+              </div>
             </main>
           </ToolContextProvider>
         </ActionContextProvider>
@@ -43,4 +45,10 @@ const leftPanel = css`
   max-height: 80vh;
   overflow: scroll;
   overscroll-behavior: none;
+`;
+const toolBar = css`
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  z-index: 100;
 `;

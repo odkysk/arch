@@ -1,18 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, ChangeEventHandler, useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
 import { ViewContext } from "../../../contexts/viewContext";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
-  const viewContext = useContext(ViewContext);
-  const currentView = viewContext.view;
+  const { view, setView } = useContext(ViewContext);
 
+  const currentView = view;
+  const handleChangeView: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    setView(event.target.value);
+  };
   const relations = dataContext.data.relations;
   return (
     <div css={leftPanel}>
+      <p css={sectionName}>view</p>
+      <select name="view" id="view" onChange={handleChangeView}>
+        {dataContext.data.views.map((view) => (
+          <option key={view.id} value={view.id}>
+            {view.name}
+          </option>
+        ))}
+      </select>
       <hr />
-      <p css={listName}>relations</p>
+      <p css={sectionName}>relations</p>
       <ul css={list}>
         {relations.map((relation) => {
           const currentVisibility = dataContext.getRelationVisibility(
@@ -42,7 +53,7 @@ export const LeftPanel = () => {
         })}
       </ul>
       <hr />
-      <p css={listName}>members</p>
+      <p css={sectionName}>members</p>
       <ul css={list}>
         {dataContext.data.members.map((member) => {
           const isVisible = dataContext.getMemberArrangement(
@@ -68,6 +79,7 @@ export const LeftPanel = () => {
           );
         })}
       </ul>
+      <button onClick={dataContext.addMember}>add member</button>
     </div>
   );
 };
@@ -78,7 +90,7 @@ const leftPanel = css`
   gap: 6px;
   background-color: rgba(0, 0, 0, 0.1);
 `;
-const listName = css`
+const sectionName = css`
   font-size: 12px;
 `;
 const list = css`

@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useContext } from "react";
+import { ChangeEvent, FormEvent, useContext } from "react";
 import { DataContext } from "../../contexts/dataContext";
 import { ViewContext } from "../../contexts/viewContext";
 export const Toolbar = () => {
   const dataContext = useContext(DataContext);
   const { view, setView } = useContext(ViewContext);
 
-  const handleChangeView: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    setView(event.target.value);
-  };
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     const file = event.target.files?.[0];
@@ -29,9 +26,6 @@ export const Toolbar = () => {
   });
   return (
     <div css={toolbar}>
-      <button onClick={dataContext.addMember} css={button}>
-        add member
-      </button>
       <a download="arch.json" href={window.URL.createObjectURL(saveData)}>
         <button css={button}>save</button>
       </a>
@@ -49,23 +43,13 @@ export const Toolbar = () => {
           />
         </label>
       </form>
-      <select name="view" id="view" onChange={handleChangeView}>
-        {dataContext.data.views.map((view) => (
-          <option key={view.id} value={view.id}>
-            {view.name}
-          </option>
-        ))}
-      </select>
     </div>
   );
 };
 const toolbar = css`
-  position: fixed;
-  left: 0;
-  top: 0;
   display: flex;
-  gap: 12px;
-  align-items: center; ;
+  gap: 20px;
+  align-items: center;
 `;
 const button = css`
   font-size: 12px;
@@ -75,5 +59,5 @@ const button = css`
   height: 24px;
   display: flex;
   align-items: center;
-  justify-contents: center; ;
+  justify-contents: center;
 `;
