@@ -63,6 +63,10 @@ export const Member = ({ id, view }: Props) => {
       id={id}
       css={[
         memberCss,
+        dragging.current &&
+          css`
+            z-index: 1;
+          `,
         !dragging.current &&
           css`
             transition: all 300ms ease-out;
