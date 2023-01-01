@@ -9,6 +9,7 @@ import { colors } from "../../../../styles/colors";
 import { body, box } from "../../../../styles/css";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
+import { Views } from "./Views";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const { view, setView } = useContext(ViewContext);
@@ -19,6 +20,7 @@ export const LeftPanel = () => {
   const relations = dataContext.data.relations;
   return (
     <div css={[leftPanel, box]}>
+      <Views />
       <select name="view" id="view" onChange={handleChangeView}>
         {dataContext.data.views.map((view) => (
           <option key={view.id} value={view.id}>
