@@ -4,6 +4,7 @@ import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
 import { ActionContext } from "../contexts/actionContext";
 import { DataContext } from "../contexts/dataContext";
 import { Position } from "../models/Data";
+import { body, box, rounded } from "../styles/css";
 interface Props {
   id: string;
   view: string;
@@ -63,6 +64,8 @@ export const Member = ({ id, view }: Props) => {
       id={id}
       css={[
         memberCss,
+        box,
+        rounded,
         dragging.current &&
           css`
             z-index: 1;
@@ -83,12 +86,15 @@ export const Member = ({ id, view }: Props) => {
       <button css={button}>○</button>
       <input
         type="text"
-        css={css`
-          width: 160px;
-          text-align: center;
-          background-color: rgba(0, 0, 0, 0);
-          border: none;
-        `}
+        css={[
+          body,
+          css`
+            width: 160px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+          `,
+        ]}
         value={name}
         onChange={handleChangeValue}
       />
@@ -98,6 +104,7 @@ export const Member = ({ id, view }: Props) => {
     </div>
   );
 };
+
 const memberCss = css`
   position: absolute;
   padding: 12px;
@@ -107,7 +114,6 @@ const memberCss = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 255, 0.04);
   display: flex;
   flex-direction: column;
   gap: 6px;
