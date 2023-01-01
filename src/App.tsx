@@ -7,6 +7,7 @@ import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
 import { ToolContextProvider } from "./contexts/toolContext";
 import { ViewContextProvider } from "./contexts/viewContext";
+import "./styles/global.css";
 
 export default function App() {
   return (

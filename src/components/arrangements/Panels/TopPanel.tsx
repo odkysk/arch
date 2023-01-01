@@ -30,7 +30,7 @@ export const TopPanel = () => {
       </a>
       <form onSubmit={handleSubmit}>
         <label>
-          <p css={button}>load</p>
+          <p css={[button]}>load</p>
           <input
             type="file"
             id="file"
@@ -47,8 +47,9 @@ export const TopPanel = () => {
 };
 const navigation = css`
   display: flex;
-  gap: 20px;
+  gap: 12px;
   align-items: center;
+  justify-content: center;
   background-color: ${colors.system.black};
   height: 44px;
 `;

@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../../contexts/dataContext";
 import { Position, Relation as RelationModel } from "../../models/Data";
+import { colors } from "../../styles/colors";
 interface Props {
   id: string;
   relation: RelationModel;
@@ -69,8 +70,8 @@ export const Relation = ({
             y1={startRelative.y}
             x2={endRelative.x}
             y2={endRelative.y}
-            stroke="rgba(255,0,0,0.5)"
-            strokeWidth="4"
+            stroke={colors.purple.main}
+            strokeWidth={3}
             onClick={() => {
               dataContext.deleteRelation(id);
             }}

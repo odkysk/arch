@@ -1,15 +1,21 @@
 import { css, SerializedStyles } from "@emotion/react";
 export const heading = css`
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 1.5em;
+  line-height: 133%;
+  cursor: default;
+  user-select: none;
 `;
 export const body = css`
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: default;
+  user-select: none;
 `;
 export const caption = css`
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 0.8em;
+  line-height: 150%;
+  cursor: default;
+  user-select: none;
 `;
 export const box = css`
   box-shadow: 0 12 48px rgba(0, 0, 0, 0.3);

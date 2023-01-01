@@ -21,6 +21,9 @@ export const IconButton = ({ icon, ...props }: Props) => {
 const button = css`
   width: 24px;
   height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   appearance: none;
   background-color: rgba(0, 0, 0, 0);
   border: none;
