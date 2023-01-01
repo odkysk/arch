@@ -108,7 +108,7 @@ export const Member = ({ id, view }: Props) => {
 const memberCss = css`
   position: absolute;
   padding: 12px;
-  border: solid 1px rgba(0, 0, 255, 0.1);
+  border: solid 1.5px rgba(0, 0, 255, 0.1);
   width: 120px;
   height: 60px;
   display: flex;

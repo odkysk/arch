@@ -7,7 +7,7 @@ import {
   useRef,
 } from "react";
 import { colors } from "../../styles/colors";
-import { body, rounded } from "../../styles/css";
+import { body, onHover, rounded } from "../../styles/css";
 interface Props
   extends DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -48,5 +48,10 @@ const input = css`
     background-color: ${colors.system.white};
     border: solid 1.5px ${colors.system.greyBorder};
   }
+  ${onHover(
+    css`
+      border: solid 1.5px ${colors.system.greyBorder};
+    `
+  )}
+  transition:all 100ms ease-out;
 `;
-const focused = css``;

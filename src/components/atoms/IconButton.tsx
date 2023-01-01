@@ -29,6 +29,6 @@ const button = css`
   border: none;
   ${onHover(css`
     background-color: ${colors.system.greyBackground};
-    border: solid 1px ${colors.system.greyBorder};
+    border: solid 1.5px ${colors.system.greyBorder};
   `)}
 `;
