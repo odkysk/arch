@@ -34,7 +34,6 @@ export const Canvas = () => {
 const canvas = css`
   width: 2400px;
   height: 1600px;
-  background-color: #f5f5f5;
   position: absolute;
   user-select: none;
 `;

@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, ChangeEventHandler, useContext } from "react";
-import { DataContext } from "../../../contexts/dataContext";
-import { ViewContext } from "../../../contexts/viewContext";
-import { box, rounded } from "../../../styles/css";
+import { DataContext } from "../../../../contexts/dataContext";
+import { ViewContext } from "../../../../contexts/viewContext";
+import { colors } from "../../../../styles/colors";
+import { box } from "../../../../styles/css";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const { view, setView } = useContext(ViewContext);
@@ -14,7 +15,7 @@ export const LeftPanel = () => {
   };
   const relations = dataContext.data.relations;
   return (
-    <div css={[leftPanel, box, rounded]}>
+    <div css={[leftPanel, box]}>
       <p css={sectionName}>view</p>
       <select name="view" id="view" onChange={handleChangeView}>
         {dataContext.data.views.map((view) => (
@@ -86,10 +87,13 @@ export const LeftPanel = () => {
 };
 const leftPanel = css`
   padding: 12px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  background-color: rgba(0, 0, 0, 0.1);
+  border-right: solid 1px ${colors.system.greyBorder};
+  background-color: ${colors.system.greyBackground};
 `;
 const sectionName = css`
   font-size: 12px;

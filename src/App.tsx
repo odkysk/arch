@@ -2,8 +2,7 @@
 import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
-import { LeftPanel } from "./components/arrangements/LeftPanel";
-import { Toolbar } from "./components/arrangements/Toolbar";
+import { Panels } from "./components/arrangements/Panels";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
 import { ToolContextProvider } from "./contexts/toolContext";
@@ -16,13 +15,8 @@ export default function App() {
         <ActionContextProvider>
           <ToolContextProvider>
             <main css={main}>
-              <div css={leftPanel}>
-                <LeftPanel />
-              </div>
               <Canvas />
-              <div css={toolBar}>
-                <Toolbar />
-              </div>
+              <Panels />
             </main>
           </ToolContextProvider>
         </ActionContextProvider>
@@ -37,18 +31,19 @@ const main = css`
   min-height: 100vh;
   position: relative;
 `;
-const leftPanel = css`
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  z-index: 100;
-  max-height: 80vh;
-  overflow: scroll;
-  overscroll-behavior: none;
-`;
-const toolBar = css`
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  z-index: 100;
-`;
+// const panels = css`
+//   position: fixed;
+//   left: 20px;
+//   bottom: 20px;
+//   z-index: 100;
+//   max-height: 80vh;
+//   overflow: scroll;
+//   overscroll-behavior: none;
+// `;
+// const navigation = css`
+//   position: fixed;
+//   top: 0;
+//   width: 100%;
+//   height: 44px;
+//   z-index: 100;
+// `;

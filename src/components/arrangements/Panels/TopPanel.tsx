@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, FormEvent, useContext } from "react";
-import { DataContext } from "../../contexts/dataContext";
-import { ViewContext } from "../../contexts/viewContext";
-export const Toolbar = () => {
+import { DataContext } from "../../../contexts/dataContext";
+import { colors } from "../../../styles/colors";
+import { box } from "../../../styles/css";
+export const TopPanel = () => {
   const dataContext = useContext(DataContext);
-  const { view, setView } = useContext(ViewContext);
-
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     const file = event.target.files?.[0];
@@ -25,7 +24,7 @@ export const Toolbar = () => {
     type: "text/json",
   });
   return (
-    <div css={toolbar}>
+    <div css={[navigation, box]}>
       <a download="arch.json" href={window.URL.createObjectURL(saveData)}>
         <button css={button}>save</button>
       </a>
@@ -46,10 +45,12 @@ export const Toolbar = () => {
     </div>
   );
 };
-const toolbar = css`
+const navigation = css`
   display: flex;
   gap: 20px;
   align-items: center;
+  background-color: ${colors.system.black};
+  height: 44px;
 `;
 const button = css`
   font-size: 12px;
@@ -59,5 +60,5 @@ const button = css`
   height: 24px;
   display: flex;
   align-items: center;
-  justify-contents: center;
+  justify-content: center;
 `;
