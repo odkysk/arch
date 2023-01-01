@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
-import { Member } from "../../Member";
+import { Member } from "../../canvas/Member";
 
 interface Props {
   view: string;

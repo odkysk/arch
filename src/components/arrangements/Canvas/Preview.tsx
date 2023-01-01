@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { useCursorPosition } from "../../../hooks/useCursorPosition";
-import { Relation } from "../../Relation";
+import { Relation } from "../../canvas/Relation";
 
 interface Props {
   view: string;

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
-import { ActionContext } from "../contexts/actionContext";
-import { DataContext } from "../contexts/dataContext";
-import { Position } from "../models/Data";
-import { body, box, onHover, rounded } from "../styles/css";
+import { ActionContext } from "../../contexts/actionContext";
+import { DataContext } from "../../contexts/dataContext";
+import { Position } from "../../models/Data";
+import { body, box, onHover, rounded } from "../../styles/css";
 interface Props {
   id: string;
   view: string;

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
-import { Relation } from "../../Relation";
+import { Relation } from "../../canvas/Relation";
 
 interface Props {
   view: string;

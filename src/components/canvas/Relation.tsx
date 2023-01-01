@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
-import { DataContext } from "../contexts/dataContext";
-import { Position, Relation as RelationModel } from "../models/Data";
+import { DataContext } from "../../contexts/dataContext";
+import { Position, Relation as RelationModel } from "../../models/Data";
 interface Props {
   id: string;
   relation: RelationModel;
