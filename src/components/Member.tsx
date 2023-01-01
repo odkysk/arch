@@ -4,7 +4,7 @@ import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
 import { ActionContext } from "../contexts/actionContext";
 import { DataContext } from "../contexts/dataContext";
 import { Position } from "../models/Data";
-import { body, box, rounded } from "../styles/css";
+import { body, box, onHover, rounded } from "../styles/css";
 interface Props {
   id: string;
   view: string;
@@ -117,9 +117,11 @@ const memberCss = css`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  &:hover {
-    background-color: rgba(0, 0, 255, 0.08);
-  }
+  ${onHover(
+    css`
+      background-color: rgba(0, 0, 255, 0.08);
+    `
+  )}
 `;
 const button = css`
   background-color: rgba(0, 0, 0, 0);

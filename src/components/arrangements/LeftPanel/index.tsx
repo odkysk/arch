@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { ChangeEvent, ChangeEventHandler, useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
 import { ViewContext } from "../../../contexts/viewContext";
+import { box, rounded } from "../../../styles/css";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const { view, setView } = useContext(ViewContext);
@@ -13,7 +14,7 @@ export const LeftPanel = () => {
   };
   const relations = dataContext.data.relations;
   return (
-    <div css={leftPanel}>
+    <div css={[leftPanel, box, rounded]}>
       <p css={sectionName}>view</p>
       <select name="view" id="view" onChange={handleChangeView}>
         {dataContext.data.views.map((view) => (
