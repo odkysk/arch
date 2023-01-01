@@ -21,13 +21,6 @@ export const LeftPanel = () => {
   return (
     <div css={[leftPanel, box]}>
       <Views />
-      <select name="view" id="view" onChange={handleChangeView}>
-        {dataContext.data.views.map((view) => (
-          <option key={view.id} value={view.id}>
-            {view.name}
-          </option>
-        ))}
-      </select>
       <PanelSection
         title="relation"
         rightIcon={

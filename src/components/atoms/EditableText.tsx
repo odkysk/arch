@@ -1,56 +1,52 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
+import {
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  useRef,
+} from "react";
 import { colors } from "../../styles/colors";
 import { body, rounded } from "../../styles/css";
 interface Props
   extends DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  > {}
-export const EditableText = ({ ...props }: Props) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const handleClickDisplay = () => {
-    setIsFocused(true);
-  };
-  const handleOnBlur = () => {
-    setIsFocused(false);
+  > {
+  onDiscard: (event: any) => void;
+}
+export const EditableText = ({ onDiscard, ...props }: Props) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      ref.current?.blur();
+    } else if (event.key === "Escape") {
+      ref.current?.blur();
+      onDiscard(event);
+    }
   };
   return (
-    <div
-      css={[editableText, rounded, isFocused && focused]}
-      onClick={handleClickDisplay}
-    >
-      {isFocused ? (
-        <input
-          css={[input, body]}
-          autoFocus
-          type="text"
-          {...props}
-          onBlur={handleOnBlur}
-        />
-      ) : (
-        <p css={[body, text]}>{props.value}</p>
-      )}
-    </div>
+    <input
+      ref={ref}
+      css={[input, body, rounded]}
+      autoFocus
+      type="text"
+      {...props}
+      onKeyDown={handleKeyDown}
+    />
   );
 };
-const editableText = css`
-  height: 2em;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-`;
 const input = css`
+  height: 2em;
+  padding: 0 6px;
+  font-size: 14px !important;
   background-color: rgba(0, 0, 0, 0);
-  padding: 0;
   border: none;
   outline: none;
-`;
-const text = css`
   border: solid 1.5px rgba(0, 0, 0, 0);
+  &:focus {
+    background-color: ${colors.system.white};
+    border: solid 1.5px ${colors.system.greyBorder};
+  }
 `;
-const focused = css`
-  background-color: ${colors.system.white};
-  border: solid 1.5px ${colors.system.greyBorder};
-`;
+const focused = css``;
