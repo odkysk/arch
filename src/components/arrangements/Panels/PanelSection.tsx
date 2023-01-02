@@ -52,6 +52,7 @@ const head = css`
   display: flex;
   align-items: center;
   gap: 6px;
+  min-height: 24px;
 `;
 const titleCss = css`
   color: ${colors.system.grey};

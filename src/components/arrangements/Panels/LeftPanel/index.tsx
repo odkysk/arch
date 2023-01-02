@@ -9,61 +9,16 @@ import { colors } from "../../../../styles/colors";
 import { body, box } from "../../../../styles/css";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
+import { Relations } from "./Relations";
 import { Views } from "./Views";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
   const { currentViewId } = useContext(ViewContext);
-  const relations = dataContext.data.relations;
   return (
     <div css={[leftPanel, box]}>
       <Views />
-      <PanelSection
-        title="relation"
-        rightIcon={
-          <IconButton
-            onClick={(e) => {
-              console.log("iconButton");
-              e.stopPropagation();
-            }}
-            icon={
-              <FontAwesomeIcon
-                icon={faPlus}
-                fontSize="1em"
-                color={colors.system.grey}
-              />
-            }
-          />
-        }
-      >
-        <ul css={list}>
-          {relations.map((relation) => {
-            const currentVisibility = dataContext.getRelationVisibility(
-              currentViewId,
-              relation.id
-            );
-            const handleClickRelationVisibility = () => {
-              dataContext.setRelationVisibility(
-                currentViewId,
-                relation.id,
-                !currentVisibility.isVisible
-              );
-            };
-            const checked = currentVisibility;
-            return (
-              <li key={relation.id}>
-                <label css={memberListItemLabel}>
-                  <input
-                    type="checkBox"
-                    onClick={handleClickRelationVisibility}
-                    checked={checked.isVisible}
-                  />
-                  <p>{relation.name}</p>
-                </label>
-              </li>
-            );
-          })}
-        </ul>
-      </PanelSection>
+
+      <Relations />
       <PanelSection
         title="member"
         rightIcon={
