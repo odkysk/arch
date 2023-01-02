@@ -17,19 +17,20 @@ interface Props
   onDiscard?: (event: any) => void;
 }
 export const EditableText = ({ onDiscard, ...props }: Props) => {
-  const initialValue = useRef("");
+  const valueOnFocus = useRef("");
   const ref = useRef<HTMLInputElement>(null);
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     props.onFocus && props.onFocus(event);
-    initialValue.current = event.target.value;
+    valueOnFocus.current = event.target.value;
   };
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       //日本語変換完了のEnter (keyCode === 229) との判別
       if (event.keyCode !== 229) ref.current?.blur();
     } else if (event.key === "Escape") {
+      //discard機能
       ref.current?.blur();
-      if (ref.current) ref.current.value = initialValue.current;
+      if (ref.current) ref.current.value = valueOnFocus.current;
     }
   };
   return (
@@ -52,14 +53,14 @@ const input = css`
   border: none;
   outline: none;
   border: solid 1.5px rgba(0, 0, 0, 0);
-  &:focus {
-    background-color: ${colors.system.white};
-    border: solid 1.5px ${colors.system.greyBorder};
-  }
   ${onHover(
     css`
       border: solid 1.5px ${colors.system.greyBorder};
     `
   )}
-  transition:all 100ms ease-out;
+  &:focus {
+    background-color: ${colors.system.white};
+    border: solid 1.5px ${colors.system.greyBorder};
+  }
+  transition: all 100ms ease-out;
 `;

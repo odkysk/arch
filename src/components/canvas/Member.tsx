@@ -4,6 +4,7 @@ import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
 import { ActionContext } from "../../contexts/actionContext";
 import { DataContext } from "../../contexts/dataContext";
 import { Position } from "../../models/Data";
+import { colors } from "../../styles/colors";
 import { body, box, onHover, rounded } from "../../styles/css";
 interface Props {
   id: string;
@@ -108,7 +109,8 @@ export const Member = ({ id, view }: Props) => {
 const memberCss = css`
   position: absolute;
   padding: 12px;
-  border: solid 1.5px rgba(0, 0, 255, 0.1);
+  border: solid 1.5px ${colors.purple.border};
+  background-color: ${colors.purple.background};
   width: 120px;
   height: 60px;
   display: flex;
@@ -119,7 +121,7 @@ const memberCss = css`
   gap: 6px;
   ${onHover(
     css`
-      background-color: rgba(0, 0, 255, 0.08);
+      background-color: rgba(171, 111, 255, 0.1);
     `
   )}
 `;
