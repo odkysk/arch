@@ -15,7 +15,7 @@ export const LeftPanel = () => {
   );
 };
 const leftPanel = css`
-  padding: 12px;
+  padding: 8px;
   width: 100%;
   height: 100%;
   display: flex;

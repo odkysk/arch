@@ -8,7 +8,7 @@ export const colors = {
     black: "rgba(22, 22, 22, 1)",
     grey: "rgba(22, 22, 22, 0.4)",
     greyBorder: "rgba(22, 22, 22, 0.1)",
-    greyBackground: "rgba(204, 204, 204, 0.3)",
+    greyBackground: "rgba(204, 204, 204, 0.2)",
     white: "#FFFFFF",
     accent: "#3B51D3",
     success: "#007835",
