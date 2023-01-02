@@ -25,7 +25,8 @@ export const EditableText = ({ onDiscard, ...props }: Props) => {
   };
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      ref.current?.blur();
+      //日本語変換完了のEnter (keyCode === 229) との判別
+      if (event.keyCode !== 229) ref.current?.blur();
     } else if (event.key === "Escape") {
       ref.current?.blur();
       if (ref.current) ref.current.value = initialValue.current;
