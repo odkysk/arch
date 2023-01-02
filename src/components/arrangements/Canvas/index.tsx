@@ -10,7 +10,7 @@ import { Relations } from "./Relations";
 export const Canvas = () => {
   const toolContext = useContext(ToolContext);
   const actionContext = useContext(ActionContext);
-  const { view } = useContext(ViewContext);
+  const { currentViewId } = useContext(ViewContext);
 
   const handleMouseUp = () => {
     actionContext.dispatch("canvas", "onMouseUp");
@@ -24,9 +24,9 @@ export const Canvas = () => {
       onMouseUp={handleMouseUp}
     >
       <div css={originator}>
-        <Preview view={view} />
-        <Relations view={view} />
-        <Members view={view} />
+        <Preview view={currentViewId} />
+        <Relations view={currentViewId} />
+        <Members view={currentViewId} />
       </div>
     </div>
   );

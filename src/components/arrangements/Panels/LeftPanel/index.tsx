@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, ChangeEventHandler, useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { colors } from "../../../../styles/colors";
@@ -12,11 +12,7 @@ import { PanelSection } from "../PanelSection";
 import { Views } from "./Views";
 export const LeftPanel = () => {
   const dataContext = useContext(DataContext);
-  const { view, setView } = useContext(ViewContext);
-  const currentView = view;
-  const handleChangeView: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    setView(event.target.value);
-  };
+  const { currentViewId } = useContext(ViewContext);
   const relations = dataContext.data.relations;
   return (
     <div css={[leftPanel, box]}>
@@ -42,12 +38,12 @@ export const LeftPanel = () => {
         <ul css={list}>
           {relations.map((relation) => {
             const currentVisibility = dataContext.getRelationVisibility(
-              currentView,
+              currentViewId,
               relation.id
             );
             const handleClickRelationVisibility = () => {
               dataContext.setRelationVisibility(
-                currentView,
+                currentViewId,
                 relation.id,
                 !currentVisibility.isVisible
               );
@@ -89,14 +85,14 @@ export const LeftPanel = () => {
         <ul css={list}>
           {dataContext.data.members.map((member) => {
             const isVisible = dataContext.getMemberArrangement(
-              currentView,
+              currentViewId,
               member.id
             ).isVisible;
             const handleCheckVisible = (
               event: ChangeEvent<HTMLInputElement>
             ) => {
               dataContext.setMemberVisibility(
-                currentView,
+                currentViewId,
                 member.id,
                 !isVisible
               );

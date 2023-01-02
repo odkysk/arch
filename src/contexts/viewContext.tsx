@@ -2,8 +2,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { DataContext } from "./dataContext";
 
 export const ViewContext = createContext({
-  view: "0",
-  setView: (id: string) => {},
+  currentViewId: "0",
+  setCurrentViewId: (id: string) => {},
 });
 
 interface ViewContextProviderProps {
@@ -11,13 +11,15 @@ interface ViewContextProviderProps {
 }
 export const ViewContextProvider = ({ children }: ViewContextProviderProps) => {
   const dataContext = useContext(DataContext);
-  const [view, setView] = useState<string>(dataContext.data.views[0].id);
+  const [currentViewId, setCurrentViewId] = useState<string>(
+    dataContext.data.views[0].id
+  );
 
   return (
     <ViewContext.Provider
       value={{
-        view,
-        setView,
+        currentViewId,
+        setCurrentViewId,
       }}
     >
       {children}
