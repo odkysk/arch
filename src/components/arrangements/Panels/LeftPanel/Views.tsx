@@ -2,16 +2,24 @@
 import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, FocusEvent, useContext, useRef } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  PointerEvent,
+  useContext,
+  useRef,
+} from "react";
 import { DataContext } from "../../../../contexts/dataContext/index";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { colors } from "../../../../styles/colors";
+import { box, rounded } from "../../../../styles/css";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
 
 export const Views = () => {
-  const viewContext = useContext(ViewContext);
+  const { currentViewId, setCurrentViewId } = useContext(ViewContext);
+
   const initialInputText = useRef("");
   const dataContext = useContext(DataContext);
   const views = dataContext.data.views;
@@ -45,14 +53,44 @@ export const Views = () => {
           const handleDiscard = (event: ChangeEvent<HTMLInputElement>) => {
             dataContext.setViewName(view.id, initialInputText.current);
           };
+          const handleClickView = (e: PointerEvent<HTMLDivElement>) => {
+            setCurrentViewId(view.id);
+          };
           return (
-            <EditableText
-              key={view.id}
-              value={view.name}
-              onFocus={handleFocus}
-              onChange={handleChange}
-              onDiscard={handleDiscard}
-            />
+            <div
+              onClick={handleClickView}
+              css={[
+                view.id === currentViewId &&
+                  css`
+                    background-color: rgba(255, 255, 255, 0.86);
+                    ${box}
+                  `,
+                rounded,
+                css`
+                  position: relative;
+                `,
+              ]}
+            >
+              <EditableText
+                key={view.id}
+                value={view.name}
+                onFocus={handleFocus}
+                onChange={handleChange}
+                onDiscard={handleDiscard}
+              />
+              {view.id !== currentViewId && (
+                //InputへのFocusを阻むためのdiv
+                <div
+                  css={css`
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                  `}
+                ></div>
+              )}
+            </div>
           );
         })}
       </div>

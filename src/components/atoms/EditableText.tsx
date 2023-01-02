@@ -37,6 +37,7 @@ export const EditableText = ({ onDiscard, ...props }: Props) => {
   );
 };
 const input = css`
+  width: 100%;
   height: 2em;
   padding: 0 6px;
   font-size: 14px !important;
