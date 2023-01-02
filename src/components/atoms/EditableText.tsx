@@ -36,7 +36,6 @@ export const EditableText = ({ onDiscard, ...props }: Props) => {
     <input
       ref={ref}
       css={[input, body, rounded]}
-      autoFocus
       type="text"
       {...props}
       onFocus={handleFocus}

@@ -65,7 +65,7 @@ export const Views = () => {
                 onChange={handleChange}
               />
               {view.id !== currentViewId && (
-                //Inputへのfocusを阻むためのdiv
+                //InputへのFocusを阻むためのdiv
                 <div
                   css={css`
                     position: absolute;

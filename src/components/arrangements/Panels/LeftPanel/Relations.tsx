@@ -10,7 +10,7 @@ export const Relations = () => {
   const { currentViewId } = useContext(ViewContext);
   const relations = dataContext.data.relations;
   return (
-    <PanelSection title="relation">
+    <PanelSection title="relations">
       <ul
         css={css`
           margin: 0;
