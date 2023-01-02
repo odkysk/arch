@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEvent, PointerEvent, useContext, useRef } from "react";
+import { ChangeEvent, PointerEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext/index";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { colors } from "../../../../styles/colors";
@@ -13,8 +13,6 @@ import { PanelSection } from "../PanelSection";
 
 export const Views = () => {
   const { currentViewId, setCurrentViewId } = useContext(ViewContext);
-
-  const initialInputText = useRef("");
   const dataContext = useContext(DataContext);
   const views = dataContext.data.views;
   return (
@@ -22,9 +20,8 @@ export const Views = () => {
       title="view"
       rightIcon={
         <IconButton
-          onClick={(e) => {
-            console.log("iconButton");
-            e.stopPropagation();
+          onClick={() => {
+            dataContext.addView();
           }}
           icon={
             <FontAwesomeIcon

@@ -10,6 +10,7 @@ import {
 } from "../../models/Data";
 import { addMember as addMemberCallback } from "./addMember";
 import { addRelation as addRelationCallback } from "./addRelation";
+import { addView as addViewCallback } from "./addView";
 import { deleteRelation as deleteRelationCallback } from "./deleteRelation";
 import { getMember as getMemberCallback } from "./getMember";
 import { getMemberArrangement as getMemberArrangementCallback } from "./getMemberArrangement";
@@ -23,7 +24,6 @@ import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberV
 import { setRelationName as setRelationNameCallback } from "./setRelationName";
 import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
 import { setViewName as setViewNameCallback } from "./setViewName";
-
 export const DataContext = createContext(
   {} as {
     data: Data;
@@ -48,6 +48,7 @@ export const DataContext = createContext(
     ) => void;
     setMemberName: (memberId: string, name: string) => void;
     addMember: () => void;
+    addView: () => void;
     setRelationName: (relationId: string, name: string) => void;
     addRelation: (
       name: string,
@@ -109,6 +110,9 @@ export const DataContextProvider = ({ children }: Props) => {
     },
     addMember: () => {
       addMemberCallback(data, setData);
+    },
+    addView: () => {
+      addViewCallback(data, setData);
     },
     deleteRelation: (relationId: string) => {
       deleteRelationCallback(data, setData, relationId);
