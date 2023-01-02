@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import {
   DetailedHTMLProps,
+  FocusEvent,
   InputHTMLAttributes,
   KeyboardEvent,
   useRef,
@@ -13,16 +14,21 @@ interface Props
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
-  onDiscard: (event: any) => void;
+  onDiscard?: (event: any) => void;
 }
 export const EditableText = ({ onDiscard, ...props }: Props) => {
+  const initialValue = useRef("");
   const ref = useRef<HTMLInputElement>(null);
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    props.onFocus && props.onFocus(event);
+    initialValue.current = event.target.value;
+  };
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       ref.current?.blur();
     } else if (event.key === "Escape") {
       ref.current?.blur();
-      onDiscard(event);
+      if (ref.current) ref.current.value = initialValue.current;
     }
   };
   return (
@@ -32,6 +38,7 @@ export const EditableText = ({ onDiscard, ...props }: Props) => {
       autoFocus
       type="text"
       {...props}
+      onFocus={handleFocus}
       onKeyDown={handleKeyDown}
     />
   );

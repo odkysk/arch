@@ -2,13 +2,7 @@
 import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  ChangeEvent,
-  FocusEvent,
-  PointerEvent,
-  useContext,
-  useRef,
-} from "react";
+import { ChangeEvent, PointerEvent, useContext, useRef } from "react";
 import { DataContext } from "../../../../contexts/dataContext/index";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { colors } from "../../../../styles/colors";
@@ -44,14 +38,8 @@ export const Views = () => {
     >
       <div css={viewsCss}>
         {views.map((view) => {
-          const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
-            initialInputText.current = event.target.value;
-          };
           const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
             dataContext.setViewName(view.id, event.target.value);
-          };
-          const handleDiscard = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setViewName(view.id, initialInputText.current);
           };
           const handleClickView = (e: PointerEvent<HTMLDivElement>) => {
             setCurrentViewId(view.id);
@@ -74,12 +62,10 @@ export const Views = () => {
               <EditableText
                 key={view.id}
                 value={view.name}
-                onFocus={handleFocus}
                 onChange={handleChange}
-                onDiscard={handleDiscard}
               />
               {view.id !== currentViewId && (
-                //InputへのFocusを阻むためのdiv
+                //Inputへのfocusを阻むためのdiv
                 <div
                   css={css`
                     position: absolute;
