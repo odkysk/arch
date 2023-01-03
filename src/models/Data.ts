@@ -2,6 +2,10 @@ export interface Position {
   x: number;
   y: number;
 }
+type AddPosition = (a: Position, b: Position) => Position;
+export const addPosition: AddPosition = (a, b) => {
+  return { x: a.x + b.x, y: a.y + b.y };
+};
 export interface Member {
   id: string;
   name: string;
