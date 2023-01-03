@@ -21,7 +21,6 @@ export const Member = ({ id, view }: Props) => {
   const dragging = useRef(false);
   const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
-
   const handleMouseDownRelationStart = (event: MouseEvent) => {
     event.stopPropagation();
     actionContext.setNewRelationStart(id);
@@ -73,7 +72,7 @@ export const Member = ({ id, view }: Props) => {
           `,
         !dragging.current &&
           css`
-            transition: all 300ms ease-out;
+            transition: all 100ms ease-out;
           `,
       ]}
       style={{
@@ -118,6 +117,7 @@ const memberCss = css`
   justify-content: center;
   display: flex;
   flex-direction: column;
+  transform-origin: 0.5 0.5;
   gap: 6px;
   ${onHover(
     css`
