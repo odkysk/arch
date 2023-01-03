@@ -1,11 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, FormEvent, useContext } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { DataContext } from "../../../contexts/dataContext";
 import { colors } from "../../../styles/colors";
-import { box } from "../../../styles/css";
+import { box, rounded } from "../../../styles/css";
+import { EditableText } from "../../atoms/EditableText";
 export const TopPanel = () => {
   const dataContext = useContext(DataContext);
+  const [fileName, setFileName] = useState("file name");
+  const handleChangeFileNameInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setFileName(e.target.value);
+  };
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     const file = event.target.files?.[0];
@@ -25,7 +30,24 @@ export const TopPanel = () => {
   });
   return (
     <div css={[navigation, box]}>
-      <a download="arch.json" href={window.URL.createObjectURL(saveData)}>
+      <div
+        css={css`
+          width: 120px;
+        `}
+      >
+        <EditableText
+          value={fileName}
+          color="red"
+          onChange={handleChangeFileNameInput}
+        />
+      </div>
+      <a
+        download={`${fileName}.json`}
+        href={window.URL.createObjectURL(saveData)}
+        css={css`
+          text-decoration: none !important;
+        `}
+      >
         <button css={button}>save</button>
       </a>
       <form onSubmit={handleSubmit}>
@@ -48,18 +70,22 @@ export const TopPanel = () => {
 const navigation = css`
   display: flex;
   gap: 12px;
+  padding: 0 8px;
   align-items: center;
-  justify-content: center;
-  background-color: ${colors.system.black};
-  height: 44px;
+  background-color: ${colors.system.greyBackground};
+  border-bottom: solid 1.5px ${colors.system.greyBorder};
+  height: 100%;
+  ${box}
 `;
 const button = css`
   font-size: 12px;
-  background-color: lightgrey;
-  border: solid 1px black;
+  background-color: ${colors.system.greyBackground};
+  border: solid 1px ${colors.system.greyBorder};
+  text-decoration: none;
   padding: 6px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  ${rounded}
 `;

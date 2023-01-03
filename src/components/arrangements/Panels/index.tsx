@@ -26,21 +26,23 @@ const panel = css`
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
+
   flex-direction: column;
   pointer-events: none;
 `;
 const topPanel = css`
+  height: 44px;
   top: 0;
   pointer-events: all;
 `;
 const lowerPanels = css`
+  flex: 1;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  flex: 1;
 `;
 const leftPanel = css`
   width: 220px;
