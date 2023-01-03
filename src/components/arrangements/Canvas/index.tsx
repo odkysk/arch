@@ -6,6 +6,7 @@ import {
   PointerEvent,
   useContext,
   useState,
+  WheelEvent,
 } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { ViewContext } from "../../../contexts/viewContext";
@@ -19,12 +20,10 @@ export const Canvas = () => {
   const { currentViewId } = useContext(ViewContext);
   const [isHandMode, setIsHandMode] = useState(false);
   const [isGrabbing, setIsGrabbing] = useState(false);
+  const [isZoomMode, setIsZoomMode] = useState(false);
 
   // scale canvas
   const [scale, setScale] = useState(1);
-  const handlePlus = () => setScale(scale + 0.05);
-  const handleMinus = () => setScale(scale - 0.05);
-
   const { translation, isDragging } = useDrag(isGrabbing);
 
   const handleMouseDown = (event: PointerEvent<HTMLDivElement>) => {
@@ -35,20 +34,28 @@ export const Canvas = () => {
     if (event.button === 1) setIsGrabbing(false);
     actionContext.dispatch("canvas", "onMouseUp");
   };
-  const handleMouseMove = (event: PointerEvent<HTMLDivElement>) => {};
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.repeat) return;
     if (event.key === " ") {
       setIsHandMode(true);
     }
+    if (event.key === "Meta") setIsZoomMode(true);
+    if (event.metaKey && event.key === "0") setScale(1);
   };
   const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.repeat) return;
-    if (event.key === " ") {
-      setIsHandMode(false);
-    }
-    setIsGrabbing(false);
+    if (event.key === " ") setIsHandMode(false);
+    if (event.key === "Meta") setIsZoomMode(false);
   };
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (isZoomMode) {
+      if (event.deltaY < 0 && scale < 1.6) setScale(scale + 0.2);
+      if (event.deltaY > 0 && scale > 0.6) setScale(scale - 0.2);
+      if (scale < 0.4) setScale(0.2);
+      if (scale > 1.6) setScale(1.6);
+    }
+  };
+
   return (
     <div
       id="canvas"
@@ -68,21 +75,17 @@ export const Canvas = () => {
       ]}
       style={{
         transform: `translate(
-          ${translation.x}px,
-          ${translation.y}px
+          ${translation.x / scale}px,
+          ${translation.y / scale}px
         )`,
       }}
       tabIndex={0}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
+      onWheel={handleWheel}
     >
-      <div css={scaler}>
-        <p onClick={handlePlus}>+</p>
-        <p onClick={handleMinus}>-</p>
-      </div>
       <div css={originator}>
         <Preview view={currentViewId} />
         <Relations view={currentViewId} />
@@ -98,6 +101,7 @@ const canvas = css`
   user-select: none;
   border: 1.5px solid ${colors.system.greyBorder};
   background-color: ${colors.system.white};
+  backface-visibility: hidden;
 `;
 const originator = css`
   transform: translate(1200px, 800px);
