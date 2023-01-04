@@ -68,13 +68,13 @@ export const TopPanel = () => {
   );
 };
 const navigation = css`
+  height: 100%;
   display: flex;
   gap: 12px;
   padding: 0 8px;
   align-items: center;
   background-color: ${colors.system.greyBackground};
   border-bottom: solid 1.5px ${colors.system.greyBorder};
-  height: 100%;
   ${box}
 `;
 const button = css`

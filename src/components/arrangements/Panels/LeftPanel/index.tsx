@@ -23,4 +23,5 @@ const leftPanel = css`
   gap: 6px;
   border-right: solid 1px ${colors.system.greyBorder};
   background-color: ${colors.system.greyBackground};
+  overflow: scroll;
 `;

@@ -29,20 +29,19 @@ const panel = css`
   width: 100vw;
   height: 100vh;
   display: flex;
-
   flex-direction: column;
   pointer-events: none;
 `;
 const topPanel = css`
   height: 44px;
-  top: 0;
   pointer-events: all;
 `;
 const lowerPanels = css`
   flex: 1;
-  width: 100%;
   display: flex;
+  align-items: stretch;
   justify-content: space-between;
+  overflow: hidden;
 `;
 const leftPanel = css`
   width: 220px;
