@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { EditableText } from "../../../atoms/EditableText";
@@ -9,6 +9,9 @@ export const Relations = () => {
   const dataContext = useContext(DataContext);
   const { currentViewId } = useContext(ViewContext);
   const relations = dataContext.data.relations;
+  const uniqueRelationNames = [
+    ...new Set(relations.map((relation) => relation.name)),
+  ];
   return (
     <PanelSection title="relations">
       <ul
@@ -16,30 +19,33 @@ export const Relations = () => {
           margin: 0;
         `}
       >
-        {relations.map((relation) => {
-          const currentVisibility = dataContext.getRelationVisibility(
-            currentViewId,
-            relation.id
+        {uniqueRelationNames.map((name) => {
+          /* 将来的にはdataContextのrelation classテーブルで管理する必要がありそう */
+          const filteredRelations = relations.filter(
+            (relation) => relation.name === name
           );
-          const handleClickRelationVisibility = () => {
+          const filteredRelationIds = filteredRelations.map(
+            (relation) => relation.id
+          );
+          const firstRelationIsVisible = dataContext.getRelationVisibility(
+            currentViewId,
+            filteredRelationIds[0]
+          ).isVisible;
+          const handleChange = () => {
             dataContext.setRelationVisibility(
               currentViewId,
-              relation.id,
-              !currentVisibility.isVisible
+              filteredRelationIds,
+              !firstRelationIsVisible
             );
           };
-          const checked = currentVisibility;
-          const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setRelationName(relation.id, event.target.value);
-          };
           return (
-            <li key={relation.id} css={list}>
+            <li key={name} css={list}>
               <input
                 type="checkBox"
-                onClick={handleClickRelationVisibility}
-                checked={checked.isVisible}
+                onChange={handleChange}
+                checked={firstRelationIsVisible}
               />
-              <EditableText value={relation.name} onChange={handleChange} />
+              <EditableText value={name} />
             </li>
           );
         })}
