@@ -54,11 +54,6 @@ export const Members = () => {
           };
           return (
             <li key={member.id} css={list}>
-              <input
-                type="checkBox"
-                checked={isVisible}
-                onChange={handleCheckVisible}
-              />
               <EditableText onChange={handleChangeName} value={member.name} />
             </li>
           );
