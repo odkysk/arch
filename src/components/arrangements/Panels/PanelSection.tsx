@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode, useState } from "react";
 import { colors } from "../../../styles/colors";
 import { caption } from "../../../styles/css";
+
 interface Props {
   title: string;
   canFold?: boolean;
@@ -24,7 +25,7 @@ export const PanelSection = ({
     console.log(isOpen);
   };
   return (
-    <div>
+    <div css={panelSection}>
       <div css={head}>
         {canFold && (
           <FontAwesomeIcon
@@ -35,7 +36,7 @@ export const PanelSection = ({
                 transform: rotate(90deg);
               `
             }
-            icon={faChevronRight}
+            icon={faCaretRight}
             fontSize="0.75em"
             color={colors.system.grey}
           />
@@ -48,10 +49,13 @@ export const PanelSection = ({
   );
 };
 
+const panelSection = css`
+  padding: 0 6px;
+`;
 const head = css`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
   min-height: 24px;
 `;
 const titleCss = css`
