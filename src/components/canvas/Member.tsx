@@ -1,9 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ActionContext } from "../../contexts/actionContext";
 import { DataContext } from "../../contexts/dataContext";
-import { Position } from "../../models/Data";
+import { useDrag } from "../../hooks/useDrag";
+import { addPosition, Position } from "../../models/Data";
 import { colors } from "../../styles/colors";
 import { body, box, onHover, rounded } from "../../styles/css";
 interface Props {
@@ -18,8 +26,8 @@ export const Member = ({ id, view }: Props) => {
   const name = member.name;
   const position = dataContext.getMemberArrangement(view, id).position;
 
-  const dragging = useRef(false);
-  const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const { translation } = useDrag(isDragging);
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const handleMouseDownRelationStart = (event: MouseEvent) => {
     event.stopPropagation();
@@ -28,31 +36,25 @@ export const Member = ({ id, view }: Props) => {
 
   const handleMouseDown = (event: MouseEvent) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
-    cursorPositionOnMouseDown.current = { x: event.clientX, y: event.clientY };
-    dragging.current = true;
+    setIsDragging(true);
   };
 
-  const handleMouseMove = (event: MouseEvent) => {
-    const difference: Position = {
-      x: event.clientX - cursorPositionOnMouseDown.current.x,
-      y: event.clientY - cursorPositionOnMouseDown.current.y,
-    };
-    if (dragging.current) {
-      dataContext.setMemberPosition(view, id, {
-        x: positionOnMouseDown.current.x + difference.x,
-        y: positionOnMouseDown.current.y + difference.y,
-      });
+  const handleMouseMove = () => {
+    if (isDragging) {
+      dataContext.setMemberPosition(
+        view,
+        id,
+        addPosition(positionOnMouseDown.current, translation)
+      );
     }
   };
-  const handleEndMouseMove = (event: MouseEvent) => {
-    dragging.current = false;
-  };
+  useEffect(() => {
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  });
   const handleMouseUp = (event: MouseEvent) => {
-    handleEndMouseMove(event);
+    setIsDragging(false);
     actionContext.setNewRelationEnd(id);
-  };
-  const handleMouseLeave = (event: MouseEvent) => {
-    handleEndMouseMove(event);
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
@@ -66,11 +68,11 @@ export const Member = ({ id, view }: Props) => {
         memberCss,
         box,
         rounded,
-        dragging.current &&
+        isDragging &&
           css`
             z-index: 1;
           `,
-        !dragging.current &&
+        !isDragging &&
           css`
             transition: all 100ms ease-out;
           `,
@@ -79,9 +81,7 @@ export const Member = ({ id, view }: Props) => {
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
       onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
     >
       <button css={button}>○</button>
       <input
