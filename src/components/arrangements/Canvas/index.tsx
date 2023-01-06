@@ -5,12 +5,14 @@ import {
   MouseEvent,
   PointerEvent,
   useContext,
+  useRef,
   useState,
   WheelEvent,
 } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { ViewContext } from "../../../contexts/viewContext";
 import { useDrag } from "../../../hooks/useDrag";
+import { addPosition, Position } from "../../../models/Data";
 import { colors } from "../../../styles/colors";
 import { Members } from "./Members";
 import { Preview } from "./Preview";
@@ -22,17 +24,25 @@ export const Canvas = () => {
   const [isGrabbing, setIsGrabbing] = useState(false);
   const [isZoomMode, setIsZoomMode] = useState(false);
 
-  // scale canvas
   const [scale, setScale] = useState(1);
-  const { translation, isDragging } = useDrag(isGrabbing);
-
+  const { translation } = useDrag(isGrabbing);
+  const [canvasTranslation, setCanvasTranslation] = useState({ x: 0, y: 0 });
+  const canvasTranslationOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const handleMouseDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button === 1) setIsGrabbing(true);
     if (isHandMode && event.button === 0) setIsGrabbing(true);
+    canvasTranslationOnMouseDown.current = canvasTranslation;
   };
   const handleMouseUp = (event: MouseEvent<HTMLDivElement>) => {
     if (event.button === 1) setIsGrabbing(false);
     actionContext.dispatch("canvas", "onMouseUp");
+  };
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (isGrabbing) {
+      setCanvasTranslation(
+        addPosition(canvasTranslationOnMouseDown.current, translation)
+      );
+    }
   };
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.repeat) return;
@@ -68,15 +78,15 @@ export const Canvas = () => {
           css`
             cursor: grab;
           `,
-        isDragging &&
+        isGrabbing &&
           css`
             cursor: grabbing;
           `,
       ]}
       style={{
         transform: `translate(
-          ${translation.x / scale}px,
-          ${translation.y / scale}px
+          ${canvasTranslation.x / scale}px,
+          ${canvasTranslation.y / scale}px
         )`,
       }}
       tabIndex={0}
@@ -85,6 +95,7 @@ export const Canvas = () => {
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       onWheel={handleWheel}
+      onMouseMove={handleMouseMove}
     >
       <div css={originator}>
         <Preview view={currentViewId} />
