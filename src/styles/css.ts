@@ -12,7 +12,7 @@ export const body = css`
   user-select: none;
 `;
 export const caption = css`
-  font-size: 0.8em;
+  font-size: 0.86em;
   line-height: 150%;
   cursor: default;
   user-select: none;
