@@ -8,7 +8,7 @@ export const addView = (data: Data, setData: Dispatch<Data>) => {
     viewId: newViewId,
     memberId: member.id,
     position: { x: 0, y: 0 },
-    isVisible: false,
+    isVisible: true,
   }));
   const newRelationVisibilities = data.view_relation_visibilities.map(
     (visibility) => ({
