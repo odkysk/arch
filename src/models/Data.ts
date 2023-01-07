@@ -17,10 +17,6 @@ export interface Relation {
   name: string;
   color: CanvasColor;
   shape: "straight";
-  options?: {
-    showInParents: boolean;
-    showInChildren: boolean;
-  };
 }
 export interface Connection {
   id: string;
@@ -39,11 +35,14 @@ export interface Arrangement {
   position: Position;
   isVisible: boolean;
 }
-export interface View_Connection_Visibility {
-  //TODO: Relationにする
+export interface View_Relation_Visibility {
   viewId: string;
-  connectionId: string;
+  relationId: string;
   isVisible: boolean;
+  options?: {
+    showInParents: boolean;
+    showInChildren: boolean;
+  };
 }
 export interface Data {
   members: Member[];
@@ -51,5 +50,5 @@ export interface Data {
   connections: Connection[];
   views: View[];
   view_member_arrangements: Arrangement[];
-  view_connection_visibilities: View_Connection_Visibility[];
+  view_relation_visibilities: View_Relation_Visibility[];
 }

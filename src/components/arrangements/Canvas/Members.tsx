@@ -13,12 +13,12 @@ export const Members = ({ view }: Props) => {
 
     const visibilityByArrangement = arrangement.isVisible;
 
-    const connectedConnections = dataContext.getConnectionsConnectedToMember(
+    const connectedConnections = dataContext.getRelationsConnectedToMember(
       arrangement.memberId
     );
     const connectedConnectionVisibilities = connectedConnections.map(
       (connection) =>
-        dataContext.getConnectionVisibility(view, connection.id).isVisible
+        dataContext.getRelationVisibility(view, connection.id).isVisible
     );
     const visibilityByConnectedConnection =
       connectedConnectionVisibilities.some((e) => e === true) ||

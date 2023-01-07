@@ -17,7 +17,7 @@ export const Connections = ({ view }: Props) => {
       view,
       connection.endMemberId
     );
-    const visibility = dataContext.getConnectionVisibility(view, connection.id);
+    const visibility = dataContext.getRelationVisibility(view, connection.id);
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;
     return visibility.isVisible &&

@@ -4,6 +4,7 @@ import { makeId } from "../../utilities/makeId";
 export const addConnection = (
   data: Data,
   setData: Dispatch<Data>,
+  relationId: string,
   name: string,
   startMemberId: string,
   endMemberId: string
@@ -16,16 +17,16 @@ export const addConnection = (
         ...data.connections,
         {
           id: connectionId,
-          relationId: "0",
+          relationId: relationId,
           name: name,
           startMemberId: startMemberId,
           endMemberId: endMemberId,
         },
       ],
-      view_connection_visibilities: data.view_connection_visibilities.concat(
+      view_relation_visibilities: data.view_relation_visibilities.concat(
         data.views.map((view) => ({
           viewId: view.id,
-          connectionId: connectionId,
+          relationId: connectionId,
           isVisible: true,
         }))
       ),

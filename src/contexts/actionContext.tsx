@@ -61,6 +61,7 @@ export const ActionContextProvider = ({ children }: Props) => {
     if (newConnectionExists) {
       newConnection.current.endMemberId = id;
       dataContext.addConnection(
+        "0",
         "name",
         newConnection.current.startMemberId,
         newConnection.current.endMemberId

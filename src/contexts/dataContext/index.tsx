@@ -6,23 +6,23 @@ import {
   Data,
   Member,
   Position,
-  View_Connection_Visibility,
+  View_Relation_Visibility,
 } from "../../models/Data";
 import { addConnection as addConnectionCallback } from "./addConnection";
 import { addMember as addMemberCallback } from "./addMember";
 import { addView as addViewCallback } from "./addView";
 import { deleteConnection as deleteConnectionCallback } from "./deleteConnection";
-import { getConnectionsConnectedToMember as getConnectionsConnectedToMemberCallback } from "./getConnectionsConnectedToMember";
-import { getConnectionVisibility as getConnectionVisibilityCallback } from "./getConnectionVisibility";
 import { getMember as getMemberCallback } from "./getMember";
 import { getMemberArrangement as getMemberArrangementCallback } from "./getMemberArrangement";
 import { getMemberArrangements as getMemberArrangementsCallback } from "./getMemberArrangements";
+import { getRelationsConnectedToMember as getRelationsConnectedToMemberCallback } from "./getRelationsConnectedToMember";
+import { getRelationVisibility as getRelationVisibilityCallback } from "./getRelationVisibility";
 import { loadData as loadDataCallback } from "./loadData";
 import { setConnectionName as setConnectionNameCallback } from "./setConnectionName";
-import { setConnectionVisibility as setConnectionVisibilityCallback } from "./setConnectionVisibility";
 import { setMemberName as setMemberNameCallback } from "./setMemberName";
 import { setMemberPosition as setMemberPositionCallback } from "./setMemberPosition";
 import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberVisibility";
+import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
 import { setViewName as setViewNameCallback } from "./setViewName";
 export const DataContext = createContext(
   {} as {
@@ -31,11 +31,11 @@ export const DataContext = createContext(
     getMember: (memberId: string) => Member;
     getMemberArrangement: (viewId: string, memberId: string) => Arrangement;
     getMemberArrangements: (viewId: string) => Arrangement[];
-    getConnectionVisibility: (
+    getRelationVisibility: (
       viewId: string,
       connectionId: string
-    ) => View_Connection_Visibility;
-    getConnectionsConnectedToMember: (memberId: string) => Connection[];
+    ) => View_Relation_Visibility;
+    getRelationsConnectedToMember: (memberId: string) => Connection[];
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -51,14 +51,15 @@ export const DataContext = createContext(
     addView: () => void;
     setConnectionName: (connectionId: string, name: string) => void;
     addConnection: (
+      relationId: string,
       name: string,
       startMemberId: string,
       endMemberId: string
     ) => void;
     deleteConnection: (connectionId: string) => void;
-    setConnectionVisibility: (
+    setRelationVisibility: (
       viewId: string,
-      connectionId: string | string[],
+      relationId: string | string[],
       isVisible: boolean
     ) => void;
     setViewName: (viewId: string, name: string) => void;
@@ -81,10 +82,10 @@ export const DataContextProvider = ({ children }: Props) => {
     getMemberArrangements: (viewId: string) => {
       return getMemberArrangementsCallback(data, viewId);
     },
-    getConnectionVisibility: (viewId: string, connectionId: string) =>
-      getConnectionVisibilityCallback(data, viewId, connectionId),
-    getConnectionsConnectedToMember: (memberId: string) =>
-      getConnectionsConnectedToMemberCallback(data, memberId),
+    getRelationVisibility: (viewId: string, relationId: string) =>
+      getRelationVisibilityCallback(data, viewId, relationId),
+    getRelationsConnectedToMember: (memberId: string) =>
+      getRelationsConnectedToMemberCallback(data, memberId),
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -106,11 +107,19 @@ export const DataContextProvider = ({ children }: Props) => {
       setConnectionNameCallback(data, setData, connectionId, name);
     },
     addConnection: (
+      relationId: string,
       name: string,
       startMemberId: string,
       endMemberId: string
     ) => {
-      addConnectionCallback(data, setData, name, startMemberId, endMemberId);
+      addConnectionCallback(
+        data,
+        setData,
+        relationId,
+        name,
+        startMemberId,
+        endMemberId
+      );
     },
     addMember: () => {
       addMemberCallback(data, setData);
@@ -121,16 +130,16 @@ export const DataContextProvider = ({ children }: Props) => {
     deleteConnection: (connectionId: string) => {
       deleteConnectionCallback(data, setData, connectionId);
     },
-    setConnectionVisibility: (
+    setRelationVisibility: (
       viewId: string,
-      connectionId: string | string[],
+      relationId: string | string[],
       isVisible: boolean
     ) => {
-      setConnectionVisibilityCallback(
+      setRelationVisibilityCallback(
         data,
         setData,
         viewId,
-        connectionId,
+        relationId,
         isVisible
       );
     },
