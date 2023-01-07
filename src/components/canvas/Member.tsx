@@ -50,10 +50,16 @@ export const Member = ({ id, view }: Props) => {
   };
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
-    return () => document.removeEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUpDocument);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUpDocument);
+    };
   });
-  const handleMouseUp = (event: MouseEvent) => {
+  const handleMouseUpDocument = () => {
     setIsDragging(false);
+  };
+  const handleMouseUp = (event: MouseEvent) => {
     actionContext.setNewConnectionEnd(id);
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
