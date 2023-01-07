@@ -1,9 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
+import { colors } from "../../../../styles/colors";
 import { EditableText } from "../../../atoms/EditableText";
+import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
 export const Relations = () => {
   const dataContext = useContext(DataContext);
@@ -12,7 +16,23 @@ export const Relations = () => {
   const connections = dataContext.data.connections;
 
   return (
-    <PanelSection title="relations">
+    <PanelSection
+      title="relations"
+      rightIcon={
+        <IconButton
+          onClick={() => {
+            dataContext.addRelation("purple", currentViewId);
+          }}
+          icon={
+            <FontAwesomeIcon
+              icon={faPlus}
+              fontSize="1em"
+              color={colors.system.grey}
+            />
+          }
+        />
+      }
+    >
       <ul>
         {relations.map((relation) => {
           const currentVisibility = dataContext.getRelationVisibility(

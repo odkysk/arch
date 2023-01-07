@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { data as saveData } from "../../data/data";
+import { CanvasColor } from "../../models/Color";
 import {
   Arrangement,
   Connection,
@@ -10,6 +11,7 @@ import {
 } from "../../models/Data";
 import { addConnection as addConnectionCallback } from "./addConnection";
 import { addMember as addMemberCallback } from "./addMember";
+import { addRelation as addRelationCallback } from "./addRelation";
 import { addView as addViewCallback } from "./addView";
 import { deleteConnection as deleteConnectionCallback } from "./deleteConnection";
 import { getMember as getMemberCallback } from "./getMember";
@@ -49,6 +51,7 @@ export const DataContext = createContext(
     setMemberName: (memberId: string, name: string) => void;
     addMember: () => void;
     addView: () => void;
+    addRelation: (color: CanvasColor, visibleViewId?: string) => void;
     setConnectionName: (connectionId: string, name: string) => void;
     addConnection: (
       relationId: string,
@@ -126,6 +129,9 @@ export const DataContextProvider = ({ children }: Props) => {
     },
     addView: () => {
       addViewCallback(data, setData);
+    },
+    addRelation: (color: CanvasColor, visibleViewId?: string) => {
+      addRelationCallback(data, setData, color, visibleViewId);
     },
     deleteConnection: (connectionId: string) => {
       deleteConnectionCallback(data, setData, connectionId);
