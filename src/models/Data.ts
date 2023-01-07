@@ -1,3 +1,5 @@
+import { CanvasColor } from "./Color";
+
 export interface Position {
   x: number;
   y: number;
@@ -10,9 +12,20 @@ export interface Member {
   id: string;
   name: string;
 }
-export interface Connection {
+export interface Relation {
   id: string;
   name: string;
+  color: CanvasColor;
+  shape: "straight";
+  options?: {
+    showInParents: boolean;
+    showInChildren: boolean;
+  };
+}
+export interface Connection {
+  id: string;
+  relationId: string;
+  name: string; //TODO: 消す
   startMemberId: string;
   endMemberId: string;
 }
@@ -27,12 +40,14 @@ export interface Arrangement {
   isVisible: boolean;
 }
 export interface View_Connection_Visibility {
+  //TODO: Relationにする
   viewId: string;
   connectionId: string;
   isVisible: boolean;
 }
 export interface Data {
   members: Member[];
+  relations: Relation[];
   connections: Connection[];
   views: View[];
   view_member_arrangements: Arrangement[];

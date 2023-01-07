@@ -20,6 +20,7 @@ interface Context {
 export const ActionContext = createContext<Context>({
   newConnection: {
     id: "0",
+    relationId: "0",
     name: "name",
     startMemberId: "0",
     endMemberId: "0",
@@ -45,6 +46,7 @@ export const ActionContextProvider = ({ children }: Props) => {
   const dataContext = useContext(DataContext);
   const newConnection = useRef({
     id: "0",
+    relationId: "0",
     name: "name",
     startMemberId: "0",
     endMemberId: "0",

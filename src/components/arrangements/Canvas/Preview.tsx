@@ -19,9 +19,10 @@ export const Preview = ({ view }: Props) => {
           id={"preview"}
           connection={{
             id: "previewConnection",
+            relationId: "0",
             name: "preview",
-            startMemberId: "99999999",
-            endMemberId: "99999999",
+            startMemberId: "0",
+            endMemberId: "0",
           }}
           start={{
             x:
