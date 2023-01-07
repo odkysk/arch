@@ -2,11 +2,16 @@
 import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../../contexts/dataContext";
-import { Connection as ConnectionModel, Position } from "../../models/Data";
-import { colors } from "../../styles/colors";
+import {
+  Connection as ConnectionModel,
+  Position,
+  Relation,
+} from "../../models/Data";
+import { canvasColors } from "../../styles/colors";
 interface Props {
   id: string;
   connection: ConnectionModel;
+  relation: Relation;
   start: Position;
   end: Position;
   preview?: boolean;
@@ -14,6 +19,7 @@ interface Props {
 export const Connection = ({
   id,
   connection,
+  relation,
   start,
   end,
   preview = false,
@@ -63,14 +69,14 @@ export const Connection = ({
             css={css`
               pointer-events: all;
               &:hover {
-                stroke: rgba(255, 123, 123, 0.5);
+                stroke: rgba(0, 0, 0, 0.2);
               }
             `}
             x1={startRelative.x}
             y1={startRelative.y}
             x2={endRelative.x}
             y2={endRelative.y}
-            stroke={colors.purple.main}
+            stroke={canvasColors[relation.color].main}
             strokeWidth={3}
             onClick={() => {
               dataContext.deleteConnection(id);

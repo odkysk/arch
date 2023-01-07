@@ -13,7 +13,7 @@ import { ActionContext } from "../../../contexts/actionContext";
 import { ViewContext } from "../../../contexts/viewContext";
 import { useDrag } from "../../../hooks/useDrag";
 import { addPosition, Position } from "../../../models/Data";
-import { colors } from "../../../styles/colors";
+import { systemColors } from "../../../styles/colors";
 import { Connections } from "./Connections";
 import { Members } from "./Members";
 import { Preview } from "./Preview";
@@ -110,8 +110,8 @@ const canvas = css`
   height: 1600px;
   position: absolute;
   user-select: none;
-  border: 1.5px solid ${colors.system.greyBorder};
-  background-color: ${colors.system.white};
+  border: 1.5px solid ${systemColors.greyBorder};
+  background-color: ${systemColors.white};
   backface-visibility: hidden;
 `;
 const originator = css`

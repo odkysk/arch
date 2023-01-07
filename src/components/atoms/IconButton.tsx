@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
-import { colors } from "../../styles/colors";
+import { systemColors } from "../../styles/colors";
 import { onHover, rounded } from "../../styles/css";
 
 interface Props
@@ -28,7 +28,7 @@ const button = css`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   ${onHover(css`
-    background-color: ${colors.system.greyBackground};
-    border: solid 1.5px ${colors.system.greyBorder};
+    background-color: ${systemColors.greyBackground};
+    border: solid 1.5px ${systemColors.greyBorder};
   `)}
 `;

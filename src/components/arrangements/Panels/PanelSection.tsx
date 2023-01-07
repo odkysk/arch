@@ -3,9 +3,8 @@ import { css } from "@emotion/react";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode, useState } from "react";
-import { colors } from "../../../styles/colors";
+import { systemColors } from "../../../styles/colors";
 import { caption } from "../../../styles/css";
-
 interface Props {
   title: string;
   canFold?: boolean;
@@ -38,7 +37,7 @@ export const PanelSection = ({
             }
             icon={faCaretRight}
             fontSize="0.75em"
-            color={colors.system.grey}
+            color={systemColors.grey}
           />
         )}
         <p css={[titleCss, caption]}>{title}</p>
@@ -59,6 +58,6 @@ const head = css`
   min-height: 24px;
 `;
 const titleCss = css`
-  color: ${colors.system.grey};
+  color: ${systemColors.grey};
   flex: 1;
 `;

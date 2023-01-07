@@ -2,32 +2,35 @@
 import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import { useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
-import { colors } from "../../../../styles/colors";
+import { canvasColors as canvasColorTypes } from "../../../../models/Color";
+import { canvasColors, systemColors } from "../../../../styles/colors";
+import { rounded } from "../../../../styles/css";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
+
 export const Relations = () => {
   const dataContext = useContext(DataContext);
   const relations = dataContext.data.relations;
   const { currentViewId } = useContext(ViewContext);
-  const connections = dataContext.data.connections;
-
+  const randomCanvasColor = () => _.sample(canvasColorTypes) || "blue";
   return (
     <PanelSection
       title="relations"
       rightIcon={
         <IconButton
           onClick={() => {
-            dataContext.addRelation("purple", currentViewId);
+            dataContext.addRelation(randomCanvasColor(), currentViewId);
           }}
           icon={
             <FontAwesomeIcon
               icon={faPlus}
               fontSize="1em"
-              color={colors.system.grey}
+              color={systemColors.grey}
             />
           }
         />
@@ -53,6 +56,18 @@ export const Relations = () => {
                 checked={currentVisibility}
                 onClick={handleCheck}
               />
+              <div
+                css={[
+                  css`
+                    background-color: ${canvasColors[relation.color].main};
+                    height: 8px;
+                    width: 8px;
+                    margin-left: 6px;
+                  `,
+                  rounded,
+                ]}
+              />
+
               <EditableText value={relation.name} />
             </li>
           );

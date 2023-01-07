@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { DataContext } from "../../../contexts/dataContext";
-import { colors } from "../../../styles/colors";
+import { systemColors } from "../../../styles/colors";
 import { box, rounded } from "../../../styles/css";
 import { EditableText } from "../../atoms/EditableText";
 export const TopPanel = () => {
@@ -73,14 +73,14 @@ const navigation = css`
   gap: 12px;
   padding: 0 8px;
   align-items: center;
-  background-color: ${colors.system.greyBackground};
-  border-bottom: solid 1.5px ${colors.system.greyBorder};
+  background-color: ${systemColors.greyBackground};
+  border-bottom: solid 1.5px ${systemColors.greyBorder};
   ${box}
 `;
 const button = css`
   font-size: 12px;
-  background-color: ${colors.system.greyBackground};
-  border: solid 1px ${colors.system.greyBorder};
+  background-color: ${systemColors.greyBackground};
+  border: solid 1px ${systemColors.greyBorder};
   text-decoration: none;
   padding: 6px;
   height: 24px;

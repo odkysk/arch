@@ -9,6 +9,12 @@ interface Props {
 export const Connections = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const connections = dataContext.data.connections.map((connection) => {
+    const relation = dataContext.getRelation(connection.relationId) || {
+      id: "0",
+      name: "0",
+      color: "blue",
+      shape: "straight",
+    };
     const startMemberArrangement = dataContext.getMemberArrangement(
       view,
       connection.startMemberId
@@ -29,6 +35,7 @@ export const Connections = ({ view }: Props) => {
       <Connection
         key={connection.id}
         id={connection.id}
+        relation={relation}
         connection={connection}
         start={{
           x: startMemberPosition.x + 60,

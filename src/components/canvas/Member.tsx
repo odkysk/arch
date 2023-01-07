@@ -12,7 +12,7 @@ import { ActionContext } from "../../contexts/actionContext";
 import { DataContext } from "../../contexts/dataContext";
 import { useDrag } from "../../hooks/useDrag";
 import { addPosition, Position } from "../../models/Data";
-import { colors } from "../../styles/colors";
+import { canvasColors } from "../../styles/colors";
 import { body, box, onHover, rounded } from "../../styles/css";
 interface Props {
   id: string;
@@ -114,8 +114,8 @@ export const Member = ({ id, view }: Props) => {
 const memberCss = css`
   position: absolute;
   padding: 12px;
-  border: solid 1.5px ${colors.purple.border};
-  background-color: ${colors.purple.background};
+  border: solid 1.5px ${canvasColors.purple.border};
+  background-color: ${canvasColors.purple.background};
   width: 120px;
   height: 60px;
   display: flex;

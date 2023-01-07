@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { colors } from "../../../../styles/colors";
+import { systemColors } from "../../../../styles/colors";
 import { box } from "../../../../styles/css";
 import { Members } from "./Members";
 import { Relations } from "./Relations";
@@ -21,7 +21,7 @@ const leftPanel = css`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  border-right: solid 1px ${colors.system.greyBorder};
-  background-color: ${colors.system.greyBackground};
+  border-right: solid 1px ${systemColors.greyBorder};
+  background-color: ${systemColors.greyBackground};
   overflow: scroll;
 `;

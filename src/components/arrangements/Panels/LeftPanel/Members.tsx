@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
-import { colors } from "../../../../styles/colors";
+import { systemColors } from "../../../../styles/colors";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
@@ -25,7 +25,7 @@ export const Members = () => {
             <FontAwesomeIcon
               icon={faPlus}
               fontSize="1em"
-              color={colors.system.grey}
+              color={systemColors.grey}
             />
           }
         />

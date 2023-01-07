@@ -7,7 +7,7 @@ import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
 import { ToolContextProvider } from "./contexts/toolContext";
 import { ViewContextProvider } from "./contexts/viewContext";
-import { colors } from "./styles/colors";
+import { systemColors } from "./styles/colors";
 import "./styles/global.css";
 
 export default function App() {
@@ -32,6 +32,6 @@ const main = css`
   justify-content: center;
   min-height: 100vh;
   position: relative;
-  background-color: ${colors.system.greyBackground};
+  background-color: ${systemColors.greyBackground};
   overflow: hidden;
 `;

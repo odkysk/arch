@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, PointerEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext/index";
 import { ViewContext } from "../../../../contexts/viewContext";
-import { colors } from "../../../../styles/colors";
+import { systemColors } from "../../../../styles/colors";
 import { box, rounded } from "../../../../styles/css";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
@@ -27,7 +27,7 @@ export const Views = () => {
             <FontAwesomeIcon
               icon={faPlus}
               fontSize="1em"
-              color={colors.system.grey}
+              color={systemColors.grey}
             />
           }
         />

@@ -7,7 +7,7 @@ import {
   KeyboardEvent,
   useRef,
 } from "react";
-import { colors } from "../../styles/colors";
+import { systemColors } from "../../styles/colors";
 import { body, onHover, rounded } from "../../styles/css";
 interface Props
   extends DetailedHTMLProps<
@@ -55,12 +55,12 @@ const input = css`
   border: solid 1.5px rgba(0, 0, 0, 0);
   ${onHover(
     css`
-      border: solid 1.5px ${colors.system.greyBorder};
+      border: solid 1.5px ${systemColors.greyBorder};
     `
   )}
   &:focus {
-    background-color: ${colors.system.white};
-    border: solid 1.5px ${colors.system.greyBorder};
+    background-color: ${systemColors.white};
+    border: solid 1.5px ${systemColors.greyBorder};
   }
   transition: all 100ms ease-out;
 `;
