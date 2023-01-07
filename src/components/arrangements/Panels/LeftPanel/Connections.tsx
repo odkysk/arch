@@ -5,12 +5,12 @@ import { DataContext } from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { EditableText } from "../../../atoms/EditableText";
 import { PanelSection } from "../PanelSection";
-export const Relations = () => {
+export const Connections = () => {
   const dataContext = useContext(DataContext);
   const { currentViewId } = useContext(ViewContext);
-  const relations = dataContext.data.relations;
-  const uniqueRelationNames = [
-    ...new Set(relations.map((relation) => relation.name)),
+  const connections = dataContext.data.connections;
+  const uniqueConnectionNames = [
+    ...new Set(connections.map((connection) => connection.name)),
   ];
   return (
     <PanelSection title="relations">
@@ -19,23 +19,23 @@ export const Relations = () => {
           margin: 0;
         `}
       >
-        {uniqueRelationNames.map((name) => {
-          /* 将来的にはdataContextのrelation classテーブルで管理する必要がありそう */
-          const filteredRelations = relations.filter(
-            (relation) => relation.name === name
+        {uniqueConnectionNames.map((name) => {
+          /* 将来的にはdataContextのconnection classテーブルで管理する必要がありそう */
+          const filteredConnections = connections.filter(
+            (connection) => connection.name === name
           );
-          const filteredRelationIds = filteredRelations.map(
-            (relation) => relation.id
+          const filteredConnectionIds = filteredConnections.map(
+            (connection) => connection.id
           );
-          const firstRelationIsVisible = dataContext.getRelationVisibility(
+          const firstConnectionIsVisible = dataContext.getConnectionVisibility(
             currentViewId,
-            filteredRelationIds[0]
+            filteredConnectionIds[0]
           ).isVisible;
           const handleChange = () => {
-            dataContext.setRelationVisibility(
+            dataContext.setConnectionVisibility(
               currentViewId,
-              filteredRelationIds,
-              !firstRelationIsVisible
+              filteredConnectionIds,
+              !firstConnectionIsVisible
             );
           };
           return (
@@ -43,7 +43,7 @@ export const Relations = () => {
               <input
                 type="checkBox"
                 onChange={handleChange}
-                checked={firstRelationIsVisible}
+                checked={firstConnectionIsVisible}
               />
               <EditableText value={name} />
             </li>

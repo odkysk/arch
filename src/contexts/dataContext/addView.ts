@@ -10,9 +10,9 @@ export const addView = (data: Data, setData: Dispatch<Data>) => {
     position: { x: 0, y: 0 },
     isVisible: true,
   }));
-  const newRelationVisibilities = data.view_relation_visibilities.map(
+  const newConnectionVisibilities = data.view_connection_visibilities.map(
     (visibility) => ({
-      relationId: visibility.relationId,
+      connectionId: visibility.connectionId,
       viewId: newViewId,
       isVisible: false,
     })
@@ -28,8 +28,8 @@ export const addView = (data: Data, setData: Dispatch<Data>) => {
     ],
     view_member_arrangements:
       data.view_member_arrangements.concat(newArrangements),
-    view_relation_visibilities: data.view_relation_visibilities.concat(
-      newRelationVisibilities
+    view_connection_visibilities: data.view_connection_visibilities.concat(
+      newConnectionVisibilities
     ),
   });
 };

@@ -1,32 +1,32 @@
 import { useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
-import { Relation } from "../../canvas/Relation";
+import { Connection } from "../../canvas/Connection";
 
 interface Props {
   view: string;
 }
 
-export const Relations = ({ view }: Props) => {
+export const Connections = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
-  const relations = dataContext.data.relations.map((relation) => {
+  const connections = dataContext.data.connections.map((connection) => {
     const startMemberArrangement = dataContext.getMemberArrangement(
       view,
-      relation.startMemberId
+      connection.startMemberId
     );
     const endMemberArrangement = dataContext.getMemberArrangement(
       view,
-      relation.endMemberId
+      connection.endMemberId
     );
-    const visibility = dataContext.getRelationVisibility(view, relation.id);
+    const visibility = dataContext.getConnectionVisibility(view, connection.id);
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;
     return visibility.isVisible &&
       startMemberArrangement.isVisible &&
       endMemberArrangement.isVisible ? (
-      <Relation
-        key={relation.id}
-        id={relation.id}
-        relation={relation}
+      <Connection
+        key={connection.id}
+        id={connection.id}
+        connection={connection}
         start={{
           x: startMemberPosition.x + 60,
           y: startMemberPosition.y + 55,
@@ -40,5 +40,5 @@ export const Relations = ({ view }: Props) => {
       <></>
     );
   });
-  return <>{relations}</>;
+  return <>{connections}</>;
 };

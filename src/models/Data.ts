@@ -10,7 +10,7 @@ export interface Member {
   id: string;
   name: string;
 }
-export interface Relation {
+export interface Connection {
   id: string;
   name: string;
   startMemberId: string;
@@ -26,15 +26,15 @@ export interface Arrangement {
   position: Position;
   isVisible: boolean;
 }
-export interface View_Relation_Visibility {
+export interface View_Connection_Visibility {
   viewId: string;
-  relationId: string;
+  connectionId: string;
   isVisible: boolean;
 }
 export interface Data {
   members: Member[];
-  relations: Relation[];
+  connections: Connection[];
   views: View[];
   view_member_arrangements: Arrangement[];
-  view_relation_visibilities: View_Relation_Visibility[];
+  view_connection_visibilities: View_Connection_Visibility[];
 }

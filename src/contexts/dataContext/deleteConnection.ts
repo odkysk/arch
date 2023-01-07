@@ -1,15 +1,15 @@
 import { Dispatch } from "react";
 import { Data } from "../../models/Data";
 
-export const deleteRelation = (
+export const deleteConnection = (
   data: Data,
   setData: Dispatch<Data>,
-  relationId: string
+  connectionId: string
 ) => {
   setData({
     ...data,
-    relations: data.relations.filter((relation) => {
-      return relation.id !== relationId;
+    connections: data.connections.filter((connection) => {
+      return connection.id !== connectionId;
     }),
   });
 };

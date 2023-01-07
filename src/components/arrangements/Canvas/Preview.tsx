@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import { DataContext } from "../../../contexts/dataContext";
 import { useCursorPosition } from "../../../hooks/useCursorPosition";
-import { Relation } from "../../canvas/Relation";
+import { Connection } from "../../canvas/Connection";
 
 interface Props {
   view: string;
@@ -14,11 +14,11 @@ export const Preview = ({ view }: Props) => {
   const actionContext = useContext(ActionContext);
   return (
     <>
-      {actionContext.newRelationExists && (
-        <Relation
+      {actionContext.newConnectionExists && (
+        <Connection
           id={"preview"}
-          relation={{
-            id: "previewRelation",
+          connection={{
+            id: "previewConnection",
             name: "preview",
             startMemberId: "99999999",
             endMemberId: "99999999",
@@ -27,12 +27,12 @@ export const Preview = ({ view }: Props) => {
             x:
               dataContext.getMemberArrangement(
                 view,
-                actionContext.newRelation.startMemberId
+                actionContext.newConnection.startMemberId
               ).position.x + 60,
             y:
               dataContext.getMemberArrangement(
                 view,
-                actionContext.newRelation.startMemberId
+                actionContext.newConnection.startMemberId
               ).position.y + 60,
           }}
           end={cursorPosition}

@@ -14,9 +14,9 @@ import { ViewContext } from "../../../contexts/viewContext";
 import { useDrag } from "../../../hooks/useDrag";
 import { addPosition, Position } from "../../../models/Data";
 import { colors } from "../../../styles/colors";
+import { Connections } from "./Connections";
 import { Members } from "./Members";
 import { Preview } from "./Preview";
-import { Relations } from "./Relations";
 export const Canvas = () => {
   const actionContext = useContext(ActionContext);
   const { currentViewId } = useContext(ViewContext);
@@ -99,7 +99,7 @@ export const Canvas = () => {
     >
       <div css={originator}>
         <Preview view={currentViewId} />
-        <Relations view={currentViewId} />
+        <Connections view={currentViewId} />
         <Members view={currentViewId} />
       </div>
     </div>

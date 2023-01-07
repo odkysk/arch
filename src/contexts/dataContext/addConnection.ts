@@ -1,30 +1,30 @@
 import { Dispatch } from "react";
 import { Data } from "../../models/Data";
 import { makeId } from "../../utilities/makeId";
-export const addRelation = (
+export const addConnection = (
   data: Data,
   setData: Dispatch<Data>,
   name: string,
   startMemberId: string,
   endMemberId: string
 ) => {
-  const relationId = makeId();
+  const connectionId = makeId();
   if (startMemberId !== endMemberId) {
     setData({
       ...data,
-      relations: [
-        ...data.relations,
+      connections: [
+        ...data.connections,
         {
-          id: relationId,
+          id: connectionId,
           name: name,
           startMemberId: startMemberId,
           endMemberId: endMemberId,
         },
       ],
-      view_relation_visibilities: data.view_relation_visibilities.concat(
+      view_connection_visibilities: data.view_connection_visibilities.concat(
         data.views.map((view) => ({
           viewId: view.id,
-          relationId: relationId,
+          connectionId: connectionId,
           isVisible: true,
         }))
       ),

@@ -29,9 +29,9 @@ export const Member = ({ id, view }: Props) => {
   const [isDragging, setIsDragging] = useState(false);
   const { translation } = useDrag(isDragging);
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
-  const handleMouseDownRelationStart = (event: MouseEvent) => {
+  const handleMouseDownConnectionStart = (event: MouseEvent) => {
     event.stopPropagation();
-    actionContext.setNewRelationStart(id);
+    actionContext.setNewConnectionStart(id);
   };
 
   const handleMouseDown = (event: MouseEvent) => {
@@ -54,7 +54,7 @@ export const Member = ({ id, view }: Props) => {
   });
   const handleMouseUp = (event: MouseEvent) => {
     setIsDragging(false);
-    actionContext.setNewRelationEnd(id);
+    actionContext.setNewConnectionEnd(id);
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
@@ -98,7 +98,7 @@ export const Member = ({ id, view }: Props) => {
         value={name}
         onChange={handleChangeValue}
       />
-      <button onMouseDown={handleMouseDownRelationStart} css={button}>
+      <button onMouseDown={handleMouseDownConnectionStart} css={button}>
         ▼
       </button>
     </div>

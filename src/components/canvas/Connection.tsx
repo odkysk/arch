@@ -2,24 +2,24 @@
 import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
 import { DataContext } from "../../contexts/dataContext";
-import { Position, Relation as RelationModel } from "../../models/Data";
+import { Connection as ConnectionModel, Position } from "../../models/Data";
 import { colors } from "../../styles/colors";
 interface Props {
   id: string;
-  relation: RelationModel;
+  connection: ConnectionModel;
   start: Position;
   end: Position;
   preview?: boolean;
 }
-export const Relation = ({
+export const Connection = ({
   id,
-  relation,
+  connection,
   start,
   end,
   preview = false,
 }: Props) => {
   const dataContext = useContext(DataContext);
-  const name = relation.name;
+  const name = connection.name;
 
   //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 2400;
@@ -34,7 +34,7 @@ export const Relation = ({
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.setRelationName(id, event.target.value);
+      dataContext.setConnectionName(id, event.target.value);
     }
   };
   return (
@@ -54,7 +54,7 @@ export const Relation = ({
     >
       <div>
         <svg
-          id="Relation"
+          id="Connection"
           width={viewWidth}
           height={viewHeight}
           viewBox={`0 0 ${viewWidth} ${viewHeight}`}
@@ -73,7 +73,7 @@ export const Relation = ({
             stroke={colors.purple.main}
             strokeWidth={3}
             onClick={() => {
-              dataContext.deleteRelation(id);
+              dataContext.deleteConnection(id);
             }}
           />
         </svg>

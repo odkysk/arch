@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-type Tool = "selection" | "relation" | "member";
+type Tool = "selection" | "connection" | "member";
 export const ToolContext = createContext({
   mode: "selection",
   setMode: (mode: Tool) => {},

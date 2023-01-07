@@ -9,13 +9,13 @@ export const setViewName = (
 ) => {
   setData({
     ...data,
-    views: data.views.map((relation) =>
-      relation.id === viewId
+    views: data.views.map((connection) =>
+      connection.id === viewId
         ? {
-            ...relation,
+            ...connection,
             name: name,
           }
-        : { ...relation }
+        : { ...connection }
     ),
   });
 };

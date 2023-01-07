@@ -2,14 +2,14 @@
 import { css } from "@emotion/react";
 import { colors } from "../../../../styles/colors";
 import { box } from "../../../../styles/css";
+import { Connections } from "./Connections";
 import { Members } from "./Members";
-import { Relations } from "./Relations";
 import { Views } from "./Views";
 export const LeftPanel = () => {
   return (
     <div css={[leftPanel, box]}>
       <Views />
-      <Relations />
+      <Connections />
       <Members />
     </div>
   );

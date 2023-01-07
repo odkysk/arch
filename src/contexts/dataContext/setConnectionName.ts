@@ -1,21 +1,21 @@
 import { Dispatch } from "react";
 import { Data } from "../../models/Data";
 
-export const setRelationName = (
+export const setConnectionName = (
   data: Data,
   setData: Dispatch<Data>,
-  relationId: string,
+  connectionId: string,
   name: string
 ) => {
   setData({
     ...data,
-    relations: data.relations.map((relation) =>
-      relation.id === relationId
+    connections: data.connections.map((connection) =>
+      connection.id === connectionId
         ? {
-            ...relation,
+            ...connection,
             name: name,
           }
-        : { ...relation }
+        : { ...connection }
     ),
   });
 };

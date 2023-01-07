@@ -13,18 +13,18 @@ export const Members = ({ view }: Props) => {
 
     const visibilityByArrangement = arrangement.isVisible;
 
-    const relatedRelations = dataContext.getRelationsRelatedToMember(
+    const connectedConnections = dataContext.getConnectionsConnectedToMember(
       arrangement.memberId
     );
-    const relatedRelationVisibilities = relatedRelations.map(
-      (relation) =>
-        dataContext.getRelationVisibility(view, relation.id).isVisible
+    const connectedConnectionVisibilities = connectedConnections.map(
+      (connection) =>
+        dataContext.getConnectionVisibility(view, connection.id).isVisible
     );
-    const visibilityByRelatedRelation =
-      relatedRelationVisibilities.some((e) => e === true) ||
-      relatedRelationVisibilities.length === 0;
+    const visibilityByConnectedConnection =
+      connectedConnectionVisibilities.some((e) => e === true) ||
+      connectedConnectionVisibilities.length === 0;
 
-    if (visibilityByArrangement && visibilityByRelatedRelation) {
+    if (visibilityByArrangement && visibilityByConnectedConnection) {
       return <Member key={memberId} id={memberId} view={view} />;
     }
   });
