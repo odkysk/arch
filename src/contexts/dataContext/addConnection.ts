@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
+import { v4 as uuid } from "uuid";
 import { Data } from "../../models/Data";
-import { makeId } from "../../utilities/makeId";
+
 export const addConnection = (
   data: Data,
   setData: Dispatch<Data>,
@@ -9,7 +10,7 @@ export const addConnection = (
   startMemberId: string,
   endMemberId: string
 ) => {
-  const connectionId = makeId();
+  const connectionId = uuid();
   if (startMemberId !== endMemberId) {
     setData({
       ...data,

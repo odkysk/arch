@@ -1,9 +1,9 @@
 import { Dispatch } from "react";
+import { v4 as uuid } from "uuid";
 import { Data } from "../../models/Data";
-import { makeId } from "../../utilities/makeId";
 
 export const addView = (data: Data, setData: Dispatch<Data>) => {
-  const newViewId = makeId();
+  const newViewId = uuid();
   const newArrangements = data.members.map((member) => ({
     viewId: newViewId,
     memberId: member.id,
