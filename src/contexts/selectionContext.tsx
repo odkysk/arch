@@ -1,6 +1,15 @@
 import React, { createContext, useState } from "react";
 
-export const SelectionContext = createContext({} as any);
+export const SelectionContext = createContext(
+  {} as {
+    members: string[];
+    relations: string[];
+    connections: string[];
+    selectRelation: (relationId: string) => void;
+    pushRelation: (relationId: string) => void;
+    resetSelection: () => void;
+  }
+);
 
 interface SelectionContextProviderProps {
   children: React.ReactNode;

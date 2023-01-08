@@ -3,12 +3,13 @@ import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { useContext } from "react";
+import { PointerEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
+import { SelectionContext } from "../../../../contexts/selectionContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { canvasColors as canvasColorTypes } from "../../../../models/Color";
 import { canvasColors, systemColors } from "../../../../styles/colors";
-import { rounded } from "../../../../styles/css";
+import { onHover, rounded } from "../../../../styles/css";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
@@ -16,6 +17,7 @@ import { PanelSection } from "../PanelSection";
 export const Relations = () => {
   const dataContext = useContext(DataContext);
   const relations = dataContext.data.relations;
+  const selectionContext = useContext(SelectionContext);
   const { currentViewId } = useContext(ViewContext);
   const randomCanvasColor = () => _.sample(canvasColorTypes) || "blue";
   return (
@@ -49,26 +51,51 @@ export const Relations = () => {
               !currentVisibility
             );
           };
+          const isSelected = selectionContext.relations.some(
+            (id) => id === relation.id
+          );
+          const handleClickList = (event: PointerEvent<HTMLLIElement>) => {
+            selectionContext.selectRelation(relation.id);
+          };
           return (
-            <li css={list}>
+            <li
+              css={[
+                list,
+                rounded,
+
+                css`
+                  padding: 0 0 0 6px;
+                  border: solid 1.5px rgba(0, 0, 0, 0);
+                `,
+                onHover(
+                  css`
+                    border-color: ${canvasColors[relation.color].border};
+                  `
+                ),
+                isSelected &&
+                  css`
+                    border-color: ${canvasColors[relation.color]
+                      .main} !important;
+                    background-color: ${canvasColors[relation.color]
+                      .background};
+                  `,
+              ]}
+              onClick={handleClickList}
+            >
               <input
                 type="checkbox"
                 checked={currentVisibility}
                 onClick={handleCheck}
               />
-              <div
-                css={[
+              <EditableText
+                value={relation.name}
+                css={
+                  !isSelected &&
                   css`
-                    background-color: ${canvasColors[relation.color].main};
-                    height: 8px;
-                    width: 8px;
-                    margin-left: 6px;
-                  `,
-                  rounded,
-                ]}
+                    pointer-events: none;
+                  `
+                }
               />
-
-              <EditableText value={relation.name} />
             </li>
           );
         })}

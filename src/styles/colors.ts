@@ -11,48 +11,48 @@ interface CanvasColors {
 export const canvasColors: CanvasColors = {
   amber: {
     main: "rgba(217, 121, 0, 1)",
-    background: "rgba(217, 121, 0, 0.02)",
-    border: "rgba(217, 121, 0, 0.2",
+    background: "rgba(217, 121, 0, 0.05)",
+    border: "rgba(217, 121, 0, 0.2)",
   },
   olive: {
     main: "rgba(170, 150, 0, 1)",
-    background: "rgba(170, 150, 0, 0.02)",
-    border: "rgba(170, 150, 0, 0.2",
+    background: "rgba(170, 150, 0, 0.05)",
+    border: "rgba(170, 150, 0, 0.2)",
   },
   green: {
     main: "rgba(54, 178, 0, 1)",
-    background: "rgba(54, 178, 0, 0.02)",
-    border: "rgba(54, 178, 0, 0.2",
+    background: "rgba(54, 178, 0, 0.05)",
+    border: "rgba(54, 178, 0, 0.2)",
   },
   turquoise: {
     main: "rgba(0, 170, 177, 1)",
-    background: "rgba(0, 170, 177, 0.02)",
-    border: "rgba(0, 170, 177, 0.2",
+    background: "rgba(0, 170, 177, 0.05)",
+    border: "rgba(0, 170, 177, 0.2)",
   },
   blue: {
     main: "rgba(81, 146, 255, 1)",
-    background: "rgba(81, 146, 255, 0.02)",
-    border: "rgba(81, 146, 255, 0.2",
+    background: "rgba(81, 146, 255, 0.05)",
+    border: "rgba(81, 146, 255, 0.2)",
   },
   purple: {
     main: "rgba(171, 111, 255, 1)",
-    background: "rgba(171, 111, 255, 0.02)",
+    background: "rgba(171, 111, 255, 0.05)",
     border: "rgba(171, 111, 255, 0.2)",
   },
   pink: {
     main: "rgba(252, 0, 203, 1)",
-    background: "rgba(252, 0, 203, 0.02)",
-    border: "rgba(252, 0, 203, 0.2",
+    background: "rgba(252, 0, 203, 0.05)",
+    border: "rgba(252, 0, 203, 0.2)",
   },
   red: {
     main: "rgba(255, 72, 90, 1)",
-    background: "rgba(255, 72, 90, 0.02)",
-    border: "rgba(255, 72, 90, 0.2",
+    background: "rgba(255, 72, 90, 0.05)",
+    border: "rgba(255, 72, 90, 0.2)",
   },
   grey: {
     main: "rgba(149, 149, 149, 1)",
-    background: "rgba(149, 149, 149, 0.02)",
-    border: "rgba(149, 149, 149, 0.2",
+    background: "rgba(149, 149, 149, 0.066)",
+    border: "rgba(149, 149, 149, 0.2)",
   },
 };
 

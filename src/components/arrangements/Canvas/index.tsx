@@ -10,6 +10,7 @@ import {
   WheelEvent,
 } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
+import { SelectionContext } from "../../../contexts/selectionContext";
 import { ViewContext } from "../../../contexts/viewContext";
 import { useDrag } from "../../../hooks/useDrag";
 import { addPosition, Position } from "../../../models/Data";
@@ -19,6 +20,7 @@ import { Members } from "./Members";
 import { Preview } from "./Preview";
 export const Canvas = () => {
   const actionContext = useContext(ActionContext);
+  const selectionContext = useContext(SelectionContext);
   const { currentViewId } = useContext(ViewContext);
   const [isHandMode, setIsHandMode] = useState(false);
   const [isGrabbing, setIsGrabbing] = useState(false);
@@ -29,9 +31,17 @@ export const Canvas = () => {
   const [canvasTranslation, setCanvasTranslation] = useState({ x: 0, y: 0 });
   const canvasTranslationOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const handleMouseDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.button === 1) setIsGrabbing(true);
-    if (isHandMode && event.button === 0) setIsGrabbing(true);
-    canvasTranslationOnMouseDown.current = canvasTranslation;
+    if (event.button === 0) {
+      selectionContext.resetSelection();
+      if (isHandMode) {
+        setIsGrabbing(true);
+        canvasTranslationOnMouseDown.current = canvasTranslation;
+      }
+    }
+    if (event.button === 1) {
+      setIsGrabbing(true);
+      canvasTranslationOnMouseDown.current = canvasTranslation;
+    }
   };
   const handleMouseUp = (event: MouseEvent<HTMLDivElement>) => {
     if (event.button === 1) setIsGrabbing(false);
