@@ -10,6 +10,7 @@ import { ViewContext } from "../../../../contexts/viewContext";
 import { canvasColors as canvasColorTypes } from "../../../../models/Color";
 import { canvasColors, systemColors } from "../../../../styles/colors";
 import { onHover, rounded } from "../../../../styles/css";
+import { Checkbox } from "../../../atoms/Checkbox";
 import { EditableText } from "../../../atoms/EditableText";
 import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
@@ -82,24 +83,29 @@ export const Relations = () => {
               ]}
               onClick={handleClickList}
             >
-              <input
-                type="checkbox"
+              <Checkbox
                 checked={currentVisibility}
                 onClick={handleCheck}
+                canvasColor={relation.color}
               />
               <EditableText
                 value={relation.name}
-                css={
+                css={[
                   !isSelected &&
-                  css`
-                    pointer-events: none;
-                  `
-                }
+                    css`
+                      pointer-events: none;
+                    `,
+                  !currentVisibility &&
+                    css`
+                      opacity: 0.33;
+                    `,
+                ]}
               />
             </li>
           );
         })}
       </ul>
+      <Checkbox color="red" />
     </PanelSection>
   );
 };
