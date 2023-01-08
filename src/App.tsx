@@ -5,6 +5,7 @@ import { Canvas } from "./components/arrangements/Canvas";
 import { Panels } from "./components/arrangements/Panels";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
+import { SelectionContextProvider } from "./contexts/selectionContext";
 import { ToolContextProvider } from "./contexts/toolContext";
 import { ViewContextProvider } from "./contexts/viewContext";
 import { systemColors } from "./styles/colors";
@@ -14,14 +15,16 @@ export default function App() {
   return (
     <DataContextProvider>
       <ViewContextProvider>
-        <ActionContextProvider>
-          <ToolContextProvider>
-            <main css={main}>
-              <Canvas />
-              <Panels />
-            </main>
-          </ToolContextProvider>
-        </ActionContextProvider>
+        <SelectionContextProvider>
+          <ActionContextProvider>
+            <ToolContextProvider>
+              <main css={main}>
+                <Canvas />
+                <Panels />
+              </main>
+            </ToolContextProvider>
+          </ActionContextProvider>
+        </SelectionContextProvider>
       </ViewContextProvider>
     </DataContextProvider>
   );
