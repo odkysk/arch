@@ -43,6 +43,7 @@ export const Connection = ({
       dataContext.setConnectionName(id, event.target.value);
     }
   };
+  const color = canvasColors[relation.color].main;
   return (
     <div
       css={[
@@ -69,14 +70,14 @@ export const Connection = ({
             css={css`
               pointer-events: all;
               &:hover {
-                stroke: rgba(0, 0, 0, 0.2);
+                opacity: 0.2;
               }
             `}
             x1={startRelative.x}
             y1={startRelative.y}
             x2={endRelative.x}
             y2={endRelative.y}
-            stroke={canvasColors[relation.color].main}
+            stroke={color}
             strokeWidth={3}
             onClick={() => {
               dataContext.deleteConnection(id);
