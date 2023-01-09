@@ -7,7 +7,7 @@ import { PointerEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { SelectionContext } from "../../../../contexts/selectionContext";
 import { ViewContext } from "../../../../contexts/viewContext";
-import { canvasColors as canvasColorTypes } from "../../../../models/Color";
+import { canvasColors as canvasColorNames } from "../../../../models/Color";
 import { canvasColors, systemColors } from "../../../../styles/colors";
 import { onHover, rounded } from "../../../../styles/css";
 import { Checkbox } from "../../../atoms/Checkbox";
@@ -20,14 +20,25 @@ export const Relations = () => {
   const relations = dataContext.data.relations;
   const selectionContext = useContext(SelectionContext);
   const { currentViewId } = useContext(ViewContext);
-  const randomCanvasColor = () => _.sample(canvasColorTypes) || "blue";
+  const getUniqueRandomColor = () => {
+    const colorCount = Object.assign(
+      {},
+      ...canvasColorNames.map((name) => ({ [name]: 0 }))
+    );
+    relations.forEach((relation) => (colorCount[relation.color] += 1));
+    const minimumCount = Math.min(...(Object.values(colorCount) as number[]));
+    const possibleColors = Object.keys(colorCount)
+      .map((key) => colorCount[key] === minimumCount && key)
+      .filter((e) => e !== false);
+    return _.sample(possibleColors) || "blue";
+  };
   return (
     <PanelSection
       title="relations"
       rightIcon={
         <IconButton
           onClick={() => {
-            dataContext.addRelation(randomCanvasColor(), currentViewId);
+            dataContext.addRelation(getUniqueRandomColor(), currentViewId);
           }}
           icon={
             <FontAwesomeIcon
@@ -105,7 +116,6 @@ export const Relations = () => {
           );
         })}
       </ul>
-      <Checkbox color="red" />
     </PanelSection>
   );
 };
