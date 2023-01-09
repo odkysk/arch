@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
+import { Cursor } from "./components/arrangements/Cursor";
 import { Panels } from "./components/arrangements/Panels";
 import { ActionContextProvider } from "./contexts/actionContext";
 import { DataContextProvider } from "./contexts/dataContext";
@@ -21,6 +22,7 @@ export default function App() {
               <main css={main}>
                 <Canvas />
                 <Panels />
+                <Cursor />
               </main>
             </ToolContextProvider>
           </ActionContextProvider>

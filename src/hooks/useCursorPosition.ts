@@ -1,3 +1,4 @@
+//Canvas座標におけるカーソル位置を取得するためのhook
 import { useEffect, useState } from "react";
 import { Position } from "../models/Data";
 

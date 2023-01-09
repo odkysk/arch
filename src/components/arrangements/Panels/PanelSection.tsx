@@ -52,6 +52,7 @@ const panelSection = css`
   padding: 0 6px;
 `;
 const head = css`
+  padding: 0 0 0 6px;
   display: flex;
   align-items: center;
   gap: 3px;
