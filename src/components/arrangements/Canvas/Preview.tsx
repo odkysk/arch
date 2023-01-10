@@ -12,7 +12,9 @@ export const Preview = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const cursorPosition = useCursorPosition();
   const actionContext = useContext(ActionContext);
-  const previewRelation: Relation = {
+  const previewRelation: Relation = dataContext.getRelation(
+    actionContext.newConnection.relationId
+  ) || {
     id: "0",
     name: "0",
     color: "blue",
