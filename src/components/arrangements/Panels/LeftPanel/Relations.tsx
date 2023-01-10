@@ -74,6 +74,7 @@ export const Relations = () => {
           };
           return (
             <li
+              key={relation.id}
               css={[
                 list,
                 rounded,

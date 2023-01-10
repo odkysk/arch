@@ -43,6 +43,7 @@ export const Views = () => {
           };
           return (
             <div
+              key={view.id}
               onClick={handleClickView}
               css={[
                 view.id === currentViewId &&

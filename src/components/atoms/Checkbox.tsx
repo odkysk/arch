@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ChangeEvent,
   DetailedHTMLProps,
-  forwardRef,
   InputHTMLAttributes,
   useState,
 } from "react";
@@ -19,7 +18,7 @@ interface Props
   > {
   canvasColor?: CanvasColor;
 }
-export const Checkbox = forwardRef(({ canvasColor, ref, ...props }: Props) => {
+export const Checkbox = ({ canvasColor, ...props }: Props) => {
   const [isChecked, setIsChecked] = useState(props.checked);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -65,7 +64,6 @@ export const Checkbox = forwardRef(({ canvasColor, ref, ...props }: Props) => {
       <input
         type="checkbox"
         onChange={handleChange}
-        ref={ref}
         css={css`
           display: none;
         `}
@@ -73,4 +71,4 @@ export const Checkbox = forwardRef(({ canvasColor, ref, ...props }: Props) => {
       />
     </label>
   );
-});
+};
