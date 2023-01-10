@@ -10,6 +10,7 @@ import {
 } from "react";
 import { ActionContext } from "../../contexts/actionContext";
 import { DataContext } from "../../contexts/dataContext";
+import { ToolContext } from "../../contexts/toolContext";
 import { useDrag } from "../../hooks/useDrag";
 import { addPosition, Position } from "../../models/Data";
 import { canvasColors } from "../../styles/colors";
@@ -21,7 +22,8 @@ interface Props {
 export const Member = ({ id, view }: Props) => {
   const dataContext = useContext(DataContext);
   const actionContext = useContext(ActionContext);
-
+  const toolContext = useContext(ToolContext);
+  const currentTool = toolContext.currentTool;
   const member = dataContext.getMember(id);
   const name = member.name;
   const position = dataContext.getMemberArrangement(view, id).position;
@@ -29,14 +31,18 @@ export const Member = ({ id, view }: Props) => {
   const [isDragging, setIsDragging] = useState(false);
   const { translation } = useDrag(isDragging);
   const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
-  const handleMouseDownConnectionStart = (event: MouseEvent) => {
-    event.stopPropagation();
-    actionContext.setNewConnectionStart(id);
-  };
 
   const handleMouseDown = (event: MouseEvent) => {
     positionOnMouseDown.current = { x: position.x, y: position.y };
-    setIsDragging(true);
+    if (currentTool.name === "selection") {
+      setIsDragging(true);
+    }
+    if (toolContext.currentTool.name === "relation") {
+      actionContext.setNewConnectionStart(
+        id,
+        toolContext.currentTool.options?.relationId || "0"
+      );
+    }
   };
 
   const handleMouseMove = () => {
@@ -104,9 +110,7 @@ export const Member = ({ id, view }: Props) => {
         value={name}
         onChange={handleChangeValue}
       />
-      <button onMouseDown={handleMouseDownConnectionStart} css={button}>
-        ▼
-      </button>
+      <button css={button}>▼</button>
     </div>
   );
 };

@@ -9,12 +9,13 @@ import {
 import { Connection } from "../models/Data";
 import { DOMEvent } from "../models/DOMEvent";
 import { DataContext } from "./dataContext";
+import { ToolContext } from "./toolContext";
 
 interface Context {
   newConnection: Connection;
   newConnectionExists: boolean;
-  setNewConnectionStart: (id: string) => void;
-  setNewConnectionEnd: (id: string) => void;
+  setNewConnectionStart: (memberId: string, relationId: string) => void;
+  setNewConnectionEnd: (memberId: string) => void;
   dispatch: (id: string, eventType: DOMEvent, event?: MouseEvent) => void;
 }
 export const ActionContext = createContext<Context>({
@@ -42,7 +43,7 @@ export const ActionContextProvider = ({ children }: Props) => {
       endRelating();
     }
   };
-
+  const toolContext = useContext(ToolContext);
   const dataContext = useContext(DataContext);
   const newConnection = useRef({
     id: "0",
@@ -53,20 +54,23 @@ export const ActionContextProvider = ({ children }: Props) => {
   });
   const [newConnectionExists, setNewConnectionExists] = useState(false);
 
-  const setNewConnectionStart = (id: string) => {
-    newConnection.current.startMemberId = id;
+  const setNewConnectionStart = (memberId: string, relationId: string) => {
+    newConnection.current.startMemberId = memberId;
+    newConnection.current.relationId = relationId;
     setNewConnectionExists(true);
   };
-  const setNewConnectionEnd = (id: string) => {
+  const setNewConnectionEnd = (memberId: string) => {
     if (newConnectionExists) {
-      newConnection.current.endMemberId = id;
+      newConnection.current.endMemberId = memberId;
       dataContext.addConnection(
-        "0",
+        newConnection.current.relationId,
         "name",
         newConnection.current.startMemberId,
         newConnection.current.endMemberId
       );
       setNewConnectionExists(false);
+      //canvasのクリックでresetToolされてしまうため
+      toolContext.setRelationTool(newConnection.current.relationId);
     }
   };
   const endRelating = (id?: string) => {
