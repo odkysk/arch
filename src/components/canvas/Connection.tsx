@@ -25,7 +25,6 @@ export const Connection = ({
   preview = false,
 }: Props) => {
   const dataContext = useContext(DataContext);
-  const name = connection.name;
 
   //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 2400;
@@ -40,7 +39,7 @@ export const Connection = ({
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.setConnectionName(id, event.target.value);
+      dataContext.setRelationName(relation.id, event.target.value);
     }
   };
   const color = canvasColors[relation.color].main;
@@ -97,7 +96,7 @@ export const Connection = ({
           border: "none",
           pointerEvents: "all",
         }}
-        value={name}
+        value={relation.name}
         onChange={handleChangeValue}
       ></input>
     </div>

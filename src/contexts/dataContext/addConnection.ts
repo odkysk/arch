@@ -19,7 +19,6 @@ export const addConnection = (
         {
           id: connectionId,
           relationId: relationId,
-          name: name,
           startMemberId: startMemberId,
           endMemberId: endMemberId,
         },

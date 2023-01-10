@@ -22,7 +22,6 @@ export const ActionContext = createContext<Context>({
   newConnection: {
     id: "0",
     relationId: "0",
-    name: "name",
     startMemberId: "0",
     endMemberId: "0",
   },

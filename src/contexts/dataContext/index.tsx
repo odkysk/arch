@@ -26,8 +26,10 @@ import { setConnectionName as setConnectionNameCallback } from "./setConnectionN
 import { setMemberName as setMemberNameCallback } from "./setMemberName";
 import { setMemberPosition as setMemberPositionCallback } from "./setMemberPosition";
 import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberVisibility";
+import { setRelationName as setRelationNameCallback } from "./setRelationName";
 import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
 import { setViewName as setViewNameCallback } from "./setViewName";
+
 export const DataContext = createContext(
   {} as {
     data: Data;
@@ -69,6 +71,7 @@ export const DataContext = createContext(
       isVisible: boolean
     ) => void;
     setViewName: (viewId: string, name: string) => void;
+    setRelationName: (relationId: string, name: string) => void;
   }
 );
 interface Props {
@@ -156,8 +159,10 @@ export const DataContextProvider = ({ children }: Props) => {
     setViewName: (viewId: string, name: string) => {
       setViewNameCallback(data, setData, viewId, name);
     },
+    setRelationName: (relationId: string, name: string) => {
+      setRelationNameCallback(data, setData, relationId, name);
+    },
   };
-
   return (
     <DataContext.Provider
       value={{

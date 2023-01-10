@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { PointerEvent, useContext } from "react";
+import { ChangeEvent, PointerEvent, useContext } from "react";
 import { DataContext } from "../../../../contexts/dataContext";
 import { SelectionContext } from "../../../../contexts/selectionContext";
 import { ViewContext } from "../../../../contexts/viewContext";
@@ -69,6 +69,9 @@ export const Relations = () => {
           const handleClickList = (event: PointerEvent<HTMLLIElement>) => {
             selectionContext.selectRelation(relation.id);
           };
+          const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+            dataContext.setRelationName(relation.id, event.target.value);
+          };
           return (
             <li
               css={[
@@ -101,6 +104,7 @@ export const Relations = () => {
               />
               <EditableText
                 value={relation.name}
+                onChange={handleChangeName}
                 css={[
                   !isSelected &&
                     css`

@@ -26,7 +26,6 @@ export const Preview = ({ view }: Props) => {
           connection={{
             id: "previewConnection",
             relationId: "0",
-            name: "preview",
             startMemberId: "0",
             endMemberId: "0",
           }}

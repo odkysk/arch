@@ -21,7 +21,6 @@ export interface Relation {
 export interface Connection {
   id: string;
   relationId: string;
-  name: string; //TODO: 消す
   startMemberId: string;
   endMemberId: string;
 }
