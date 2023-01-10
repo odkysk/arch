@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 export const SelectionContext = createContext(
   {} as {
@@ -12,7 +12,7 @@ export const SelectionContext = createContext(
 );
 
 interface SelectionContextProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 export const SelectionContextProvider = ({
   children,

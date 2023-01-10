@@ -1,14 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { ActionContextProvider } from "./contexts/actionContext";
+import { DataContextProvider } from "./contexts/dataContext";
+import { SelectionContextProvider } from "./contexts/selectionContext";
+import { ToolContextProvider } from "./contexts/toolContext";
+import { ViewContextProvider } from "./contexts/viewContext";
 import reportWebVitals from "./reportWebVitals";
+import "./styles/global.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <DataContextProvider>
+      <ViewContextProvider>
+        <SelectionContextProvider>
+          <ActionContextProvider>
+            <ToolContextProvider>
+              <App />
+            </ToolContextProvider>
+          </ActionContextProvider>
+        </SelectionContextProvider>
+      </ViewContextProvider>
+    </DataContextProvider>
   </React.StrictMode>
 );
 
