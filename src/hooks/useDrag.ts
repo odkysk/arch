@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Position } from "../models/Data";
-import { useCursorPositionOnWindow } from "./useCursorPositionOnWindow";
 export const useDrag = (isValid: boolean) => {
-  const cursorPosition = useCursorPositionOnWindow();
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mousemove", handleMouseMove);
@@ -14,19 +12,26 @@ export const useDrag = (isValid: boolean) => {
     };
   });
 
-  const cursorPositionOnMouseDown = useRef<Position>(cursorPosition);
+  const cursorPositionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
   const [translation, setTranslation] = useState<Position>({ x: 0, y: 0 });
+  const [isInitialized, setIsInitialized] = useState(false);
   const handleMouseDown = (event: any) => {
-    cursorPositionOnMouseDown.current = cursorPosition;
+    cursorPositionOnMouseDown.current = {
+      x: event.clientX,
+      y: event.clientY,
+    };
   };
   const handleMouseMove = (event: any) => {
     if (isValid) {
+      // console.log("useDrag");
+      setIsInitialized(false);
       setTranslation({
-        x: cursorPosition.x - cursorPositionOnMouseDown.current.x,
-        y: cursorPosition.y - cursorPositionOnMouseDown.current.y,
+        x: event.clientX - cursorPositionOnMouseDown.current.x,
+        y: event.clientY - cursorPositionOnMouseDown.current.y,
       });
-    } else {
+    } else if (!isInitialized) {
       setTranslation({ x: 0, y: 0 });
+      setIsInitialized(true);
     }
   };
   const handleMouseUp = (event: any) => {};
