@@ -16,13 +16,13 @@ root.render(
   <React.StrictMode>
     <DataContextProvider>
       <ViewContextProvider>
-        <SelectionContextProvider>
-          <ActionContextProvider>
-            <ToolContextProvider>
+        <ToolContextProvider>
+          <SelectionContextProvider>
+            <ActionContextProvider>
               <App />
-            </ToolContextProvider>
-          </ActionContextProvider>
-        </SelectionContextProvider>
+            </ActionContextProvider>
+          </SelectionContextProvider>
+        </ToolContextProvider>
       </ViewContextProvider>
     </DataContextProvider>
   </React.StrictMode>

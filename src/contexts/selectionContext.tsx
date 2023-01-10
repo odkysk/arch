@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { ToolContext } from "./toolContext";
 
 export const SelectionContext = createContext(
   {} as {
@@ -20,10 +21,11 @@ export const SelectionContextProvider = ({
   const [members, setMembers] = useState<string[]>([]);
   const [connections, setConnections] = useState<string[]>([]);
   const [relations, setRelations] = useState<string[]>([]);
-
+  const toolContext = useContext(ToolContext);
   const actions = {
     selectRelation: (relationId: string) => {
       setRelations([relationId]);
+      toolContext.setRelationTool(relationId);
     },
     pushRelation: (relationId: string) => {
       setRelations(relations.concat(relationId));
@@ -32,6 +34,7 @@ export const SelectionContextProvider = ({
       setMembers([]);
       setConnections([]);
       setRelations([]);
+      toolContext.setSelectionTool();
     },
   };
 

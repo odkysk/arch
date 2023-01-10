@@ -1,23 +1,34 @@
-import React, { createContext, useState } from "react";
-type Tool = "selection" | "connection" | "member";
+import { createContext, ReactNode, useState } from "react";
+interface Tool {
+  name: "selection" | "relation" | "member";
+  options?: { relationId: string };
+}
 export const ToolContext = createContext({
-  mode: "selection",
-  setMode: (mode: Tool) => {},
+  currentTool: { name: "selection" } as Tool,
+  setRelationTool: (relationId: string) => {},
+  setSelectionTool: () => {},
 });
 
 interface ToolContextProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 export const ToolContextProvider = ({ children }: ToolContextProviderProps) => {
-  const [mode, dispatch] = useState<Tool>("selection");
-  const setMode = (mode: Tool) => {
-    dispatch(mode);
+  const [currentTool, setCurrentTool] = useState<Tool>({
+    name: "selection",
+  });
+  const actions = {
+    setRelationTool: (relationId: string) => {
+      setCurrentTool({ name: "relation", options: { relationId: relationId } });
+    },
+    setSelectionTool: () => {
+      setCurrentTool({ name: "selection" });
+    },
   };
   return (
     <ToolContext.Provider
       value={{
-        mode,
-        setMode,
+        currentTool,
+        ...actions,
       }}
     >
       {children}

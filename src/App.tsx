@@ -5,16 +5,16 @@ import "reseter.css";
 import { Canvas } from "./components/arrangements/Canvas";
 import { Cursor } from "./components/arrangements/Cursor";
 import { Panels } from "./components/arrangements/Panels";
-import { ToolContext } from "./contexts/toolContext";
+import { SelectionContext } from "./contexts/selectionContext";
 import { systemColors } from "./styles/colors";
 import "./styles/global.css";
 
 export default function App() {
-  const toolContext = useContext(ToolContext);
+  const selectionContext = useContext(SelectionContext);
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.repeat) return;
     if (event.key === "Escape") {
-      toolContext.setSelectionMode();
+      selectionContext.resetSelection();
     }
   };
   return (
