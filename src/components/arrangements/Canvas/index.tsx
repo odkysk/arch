@@ -46,7 +46,9 @@ export const Canvas = () => {
   const handleMouseUp = (event: MouseEvent<HTMLDivElement>) => {
     if (event.button === 1) setIsGrabbing(false);
     actionContext.dispatch("canvas", "onMouseUp");
+    setIsGrabbing(false);
   };
+
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (isGrabbing) {
       setCanvasTranslation(
@@ -64,7 +66,10 @@ export const Canvas = () => {
   };
   const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.repeat) return;
-    if (event.key === " ") setIsHandMode(false);
+    if (event.key === " ") {
+      setIsHandMode(false);
+      setIsGrabbing(false);
+    }
     if (event.key === "Meta") setIsZoomMode(false);
   };
   const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
