@@ -63,7 +63,6 @@ export const DataDispatchContext = createContext(
     setConnectionName: (connectionId: string, name: string) => void;
     addConnection: (
       relationId: string,
-      name: string,
       startMemberId: string,
       endMemberId: string
     ) => void;
@@ -106,66 +105,52 @@ export const DataContextProvider = ({ children }: Props) => {
       memberId: string,
       isVisible: boolean
     ) => {
-      setMemberVisibilityCallback(data, setData, viewId, memberId, isVisible);
+      setMemberVisibilityCallback(setData, viewId, memberId, isVisible);
     },
     setMemberPosition: (
       viewId: string,
       memberId: string,
       position: Position
     ) => {
-      setMemberPositionCallback(data, setData, viewId, memberId, position);
+      setMemberPositionCallback(setData, viewId, memberId, position);
     },
     setMemberName: (memberId: string, name: string) => {
-      setMemberNameCallback(data, setData, memberId, name);
+      setMemberNameCallback(setData, memberId, name);
     },
     setConnectionName: (connectionId: string, name: string) => {
-      setConnectionNameCallback(data, setData, connectionId, name);
+      setConnectionNameCallback(setData, connectionId, name);
     },
     addConnection: (
       relationId: string,
-      name: string,
       startMemberId: string,
       endMemberId: string
     ) => {
-      addConnectionCallback(
-        data,
-        setData,
-        relationId,
-        name,
-        startMemberId,
-        endMemberId
-      );
+      addConnectionCallback(setData, relationId, startMemberId, endMemberId);
     },
     addMember: () => {
-      addMemberCallback(data, setData);
+      addMemberCallback(setData);
     },
     addView: () => {
-      addViewCallback(data, setData);
+      addViewCallback(setData);
     },
     addRelation: (color: CanvasColor, visibleViewId?: string) => {
-      addRelationCallback(data, setData, color, visibleViewId);
+      addRelationCallback(setData, color, visibleViewId);
     },
     deleteConnection: (connectionId: string) => {
-      deleteConnectionCallback(data, setData, connectionId);
+      deleteConnectionCallback(setData, connectionId);
     },
     setRelationVisibility: (
       viewId: string,
       relationId: string | string[],
       isVisible: boolean
     ) => {
-      setRelationVisibilityCallback(
-        data,
-        setData,
-        viewId,
-        relationId,
-        isVisible
-      );
+      setRelationVisibilityCallback(setData, viewId, relationId, isVisible);
     },
     setViewName: (viewId: string, name: string) => {
-      setViewNameCallback(data, setData, viewId, name);
+      setViewNameCallback(setData, viewId, name);
     },
     setRelationName: (relationId: string, name: string) => {
-      setRelationNameCallback(data, setData, relationId, name);
+      setRelationNameCallback(setData, relationId, name);
     },
   };
   return (

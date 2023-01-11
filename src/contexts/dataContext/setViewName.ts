@@ -1,21 +1,22 @@
-import { Dispatch } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Data } from "../../models/Data";
 
 export const setViewName = (
-  data: Data,
-  setData: Dispatch<Data>,
+  setData: Dispatch<SetStateAction<Data>>,
   viewId: string,
   name: string
 ) => {
-  setData({
-    ...data,
-    views: data.views.map((connection) =>
-      connection.id === viewId
-        ? {
-            ...connection,
-            name: name,
-          }
-        : { ...connection }
-    ),
+  setData((data) => {
+    return {
+      ...data,
+      views: data.views.map((connection) =>
+        connection.id === viewId
+          ? {
+              ...connection,
+              name: name,
+            }
+          : { ...connection }
+      ),
+    };
   });
 };

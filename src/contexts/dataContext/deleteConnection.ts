@@ -1,15 +1,16 @@
-import { Dispatch } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Data } from "../../models/Data";
 
 export const deleteConnection = (
-  data: Data,
-  setData: Dispatch<Data>,
+  setData: Dispatch<SetStateAction<Data>>,
   connectionId: string
 ) => {
-  setData({
-    ...data,
-    connections: data.connections.filter((connection) => {
-      return connection.id !== connectionId;
-    }),
+  setData((data) => {
+    return {
+      ...data,
+      connections: data.connections.filter((connection) => {
+        return connection.id !== connectionId;
+      }),
+    };
   });
 };

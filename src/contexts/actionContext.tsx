@@ -64,7 +64,6 @@ export const ActionContextProvider = ({ children }: Props) => {
       newConnection.current.endMemberId = memberId;
       dataDispatchContext.addConnection(
         newConnection.current.relationId,
-        "name",
         newConnection.current.startMemberId,
         newConnection.current.endMemberId
       );
