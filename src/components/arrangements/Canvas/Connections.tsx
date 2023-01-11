@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { DataContext } from "../../../contexts/dataContext";
+import { DataDispatchContext } from "../../../contexts/dataContext/index";
 import { Connection } from "../../canvas/Connection";
 
 interface Props {
@@ -8,22 +9,23 @@ interface Props {
 
 export const Connections = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const connections = dataContext.data.connections.map((connection) => {
-    const relation = dataContext.getRelation(connection.relationId) || {
+    const relation = dataDispatchContext.getRelation(connection.relationId) || {
       id: "0",
       name: "0",
       color: "blue",
       shape: "straight",
     };
-    const startMemberArrangement = dataContext.getMemberArrangement(
+    const startMemberArrangement = dataDispatchContext.getMemberArrangement(
       view,
       connection.startMemberId
     );
-    const endMemberArrangement = dataContext.getMemberArrangement(
+    const endMemberArrangement = dataDispatchContext.getMemberArrangement(
       view,
       connection.endMemberId
     );
-    const visibility = dataContext.getRelationVisibility(
+    const visibility = dataDispatchContext.getRelationVisibility(
       view,
       connection.relationId
     );

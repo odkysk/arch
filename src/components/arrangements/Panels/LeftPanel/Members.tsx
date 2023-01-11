@@ -3,7 +3,10 @@ import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useContext } from "react";
-import { DataContext } from "../../../../contexts/dataContext";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../../../contexts/dataContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { systemColors } from "../../../../styles/colors";
 import { EditableText } from "../../../atoms/EditableText";
@@ -11,6 +14,7 @@ import { IconButton } from "../../../atoms/IconButton";
 import { PanelSection } from "../PanelSection";
 export const Members = () => {
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const { currentViewId } = useContext(ViewContext);
   return (
     <PanelSection
@@ -18,7 +22,7 @@ export const Members = () => {
       rightIcon={
         <IconButton
           onClick={(e) => {
-            dataContext.addMember();
+            dataDispatchContext.addMember();
             e.stopPropagation();
           }}
           icon={
@@ -37,12 +41,12 @@ export const Members = () => {
         `}
       >
         {dataContext.data.members.map((member) => {
-          const isVisible = dataContext.getMemberArrangement(
+          const isVisible = dataDispatchContext.getMemberArrangement(
             currentViewId,
             member.id
           ).isVisible;
           const handleCheckVisible = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setMemberVisibility(
+            dataDispatchContext.setMemberVisibility(
               currentViewId,
               member.id,
               !isVisible
@@ -50,7 +54,7 @@ export const Members = () => {
             event.target.value = isVisible ? "off" : "on";
           };
           const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setMemberName(member.id, event.target.value);
+            dataDispatchContext.setMemberName(member.id, event.target.value);
           };
           return (
             <li key={member.id} css={list}>

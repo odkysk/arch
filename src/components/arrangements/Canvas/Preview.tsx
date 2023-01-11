@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
-import { DataContext } from "../../../contexts/dataContext";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../../contexts/dataContext";
 import { useCursorPosition } from "../../../hooks/useCursorPosition";
 import { Relation } from "../../../models/Data";
 import { Connection } from "../../canvas/Connection";
@@ -10,9 +13,10 @@ interface Props {
 
 export const Preview = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const cursorPosition = useCursorPosition();
   const actionContext = useContext(ActionContext);
-  const previewRelation: Relation = dataContext.getRelation(
+  const previewRelation: Relation = dataDispatchContext.getRelation(
     actionContext.newConnection.relationId
   ) || {
     id: "0",
@@ -34,12 +38,12 @@ export const Preview = ({ view }: Props) => {
           relation={previewRelation}
           start={{
             x:
-              dataContext.getMemberArrangement(
+              dataDispatchContext.getMemberArrangement(
                 view,
                 actionContext.newConnection.startMemberId
               ).position.x + 60,
             y:
-              dataContext.getMemberArrangement(
+              dataDispatchContext.getMemberArrangement(
                 view,
                 actionContext.newConnection.startMemberId
               ).position.y + 60,

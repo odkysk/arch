@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, useContext } from "react";
-import { DataContext } from "../../contexts/dataContext";
+import { DataContext, DataDispatchContext } from "../../contexts/dataContext";
 import {
   Connection as ConnectionModel,
   Position,
@@ -25,7 +25,7 @@ export const Connection = ({
   preview = false,
 }: Props) => {
   const dataContext = useContext(DataContext);
-
+  const dataDispatchContext = useContext(DataDispatchContext);
   //このコンポーネントはCanvas全体をviewBoxとする
   const viewWidth = 2400;
   const viewHeight = 1600;
@@ -39,7 +39,7 @@ export const Connection = ({
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.setRelationName(relation.id, event.target.value);
+      dataDispatchContext.setRelationName(relation.id, event.target.value);
     }
   };
   const color = canvasColors[relation.color].main;
@@ -79,7 +79,7 @@ export const Connection = ({
             stroke={color}
             strokeWidth={3}
             onClick={() => {
-              dataContext.deleteConnection(id);
+              dataDispatchContext.deleteConnection(id);
             }}
           />
         </svg>

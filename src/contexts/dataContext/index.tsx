@@ -29,10 +29,8 @@ import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberV
 import { setRelationName as setRelationNameCallback } from "./setRelationName";
 import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
 import { setViewName as setViewNameCallback } from "./setViewName";
-
-export const DataContext = createContext(
+export const DataDispatchContext = createContext(
   {} as {
-    data: Data;
     loadData: (data: Data) => void;
     getMember: (memberId: string) => Member;
     getMemberArrangement: (viewId: string, memberId: string) => Arrangement;
@@ -72,6 +70,11 @@ export const DataContext = createContext(
     ) => void;
     setViewName: (viewId: string, name: string) => void;
     setRelationName: (relationId: string, name: string) => void;
+  }
+);
+export const DataContext = createContext(
+  {} as {
+    data: Data;
   }
 );
 interface Props {
@@ -167,10 +170,11 @@ export const DataContextProvider = ({ children }: Props) => {
     <DataContext.Provider
       value={{
         data,
-        ...actions,
       }}
     >
-      {children}
+      <DataDispatchContext.Provider value={{ ...actions }}>
+        {children}
+      </DataDispatchContext.Provider>
     </DataContext.Provider>
   );
 };

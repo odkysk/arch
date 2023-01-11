@@ -2,7 +2,10 @@
 
 import { css } from "@emotion/react";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../contexts/dataContext/index";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../contexts/dataContext/index";
 import { ToolContext } from "../../contexts/toolContext";
 import { Position } from "../../models/Data";
 import { canvasColors } from "../../styles/colors";
@@ -25,12 +28,13 @@ export const Cursor = () => {
   });
   const toolContext = useContext(ToolContext);
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const currentToolRelation =
     toolContext.currentTool.name === "relation" &&
     toolContext.currentTool.options?.relationId;
   const relationColor =
     (currentToolRelation &&
-      dataContext.getRelation(currentToolRelation)?.color) ||
+      dataDispatchContext.getRelation(currentToolRelation)?.color) ||
     "blue";
   return (
     <div

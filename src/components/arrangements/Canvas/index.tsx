@@ -19,7 +19,7 @@ import { Connections } from "./Connections";
 import { Members } from "./Members";
 import { Preview } from "./Preview";
 export const Canvas = () => {
-  // console.log("render canvas");
+  console.log("render canvas");
   const actionContext = useContext(ActionContext);
   const selectionContext = useContext(SelectionContext);
   const { currentViewId } = useContext(ViewContext);

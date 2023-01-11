@@ -1,12 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { DataContext } from "../../../contexts/dataContext";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../../contexts/dataContext";
 import { systemColors } from "../../../styles/colors";
 import { box, rounded } from "../../../styles/css";
 import { EditableText } from "../../atoms/EditableText";
 export const TopPanel = () => {
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const [fileName, setFileName] = useState("file name");
   const handleChangeFileNameInput = (e: ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
@@ -17,7 +21,7 @@ export const TopPanel = () => {
     reader.readAsText(file as File);
     reader.onload = () => {
       const json = JSON.parse(reader.result as string);
-      dataContext.loadData(json);
+      dataDispatchContext.loadData(json);
     };
     //同じファイルだとonChangeが発火しないので空にする
     event.target.value = "";

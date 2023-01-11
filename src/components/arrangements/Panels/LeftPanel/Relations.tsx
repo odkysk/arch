@@ -4,7 +4,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { ChangeEvent, PointerEvent, useContext } from "react";
-import { DataContext } from "../../../../contexts/dataContext";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../../../contexts/dataContext";
 import { SelectionContext } from "../../../../contexts/selectionContext";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { canvasColors as canvasColorNames } from "../../../../models/Color";
@@ -17,6 +20,7 @@ import { PanelSection } from "../PanelSection";
 
 export const Relations = () => {
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const relations = dataContext.data.relations;
   const selectionContext = useContext(SelectionContext);
   const { currentViewId } = useContext(ViewContext);
@@ -38,7 +42,10 @@ export const Relations = () => {
       rightIcon={
         <IconButton
           onClick={() => {
-            dataContext.addRelation(getUniqueRandomColor(), currentViewId);
+            dataDispatchContext.addRelation(
+              getUniqueRandomColor(),
+              currentViewId
+            );
           }}
           icon={
             <FontAwesomeIcon
@@ -52,12 +59,12 @@ export const Relations = () => {
     >
       <ul>
         {relations.map((relation) => {
-          const currentVisibility = dataContext.getRelationVisibility(
+          const currentVisibility = dataDispatchContext.getRelationVisibility(
             currentViewId,
             relation.id
           ).isVisible;
           const handleCheck = () => {
-            dataContext.setRelationVisibility(
+            dataDispatchContext.setRelationVisibility(
               currentViewId,
               relation.id,
               !currentVisibility
@@ -70,7 +77,10 @@ export const Relations = () => {
             selectionContext.selectRelation(relation.id);
           };
           const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setRelationName(relation.id, event.target.value);
+            dataDispatchContext.setRelationName(
+              relation.id,
+              event.target.value
+            );
           };
           return (
             <li

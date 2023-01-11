@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { ActionContext } from "../../contexts/actionContext";
-import { DataContext } from "../../contexts/dataContext";
+import { DataContext, DataDispatchContext } from "../../contexts/dataContext";
 import { ToolContext } from "../../contexts/toolContext";
 import { useDrag } from "../../hooks/useDrag";
 import { addPosition, Position } from "../../models/Data";
@@ -20,13 +20,15 @@ interface Props {
   view: string;
 }
 export const Member = ({ id, view }: Props) => {
+  console.log("render member");
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const actionContext = useContext(ActionContext);
   const toolContext = useContext(ToolContext);
   const currentTool = toolContext.currentTool;
-  const member = dataContext.getMember(id);
+  const member = dataDispatchContext.getMember(id);
   const name = member.name;
-  const position = dataContext.getMemberArrangement(view, id).position;
+  const position = dataDispatchContext.getMemberArrangement(view, id).position;
 
   const [isDragging, setIsDragging] = useState(false);
   const { translation } = useDrag(isDragging);
@@ -47,7 +49,7 @@ export const Member = ({ id, view }: Props) => {
 
   const handleMouseMove = () => {
     if (isDragging) {
-      dataContext.setMemberPosition(
+      dataDispatchContext.setMemberPosition(
         view,
         id,
         addPosition(positionOnMouseDown.current, translation)
@@ -70,7 +72,7 @@ export const Member = ({ id, view }: Props) => {
   };
   const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     if (event) {
-      dataContext.setMemberName(id, event.target.value);
+      dataDispatchContext.setMemberName(id, event.target.value);
     }
   };
   return (

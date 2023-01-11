@@ -8,7 +8,7 @@ import {
 } from "react";
 import { Connection } from "../models/Data";
 import { DOMEvent } from "../models/DOMEvent";
-import { DataContext } from "./dataContext";
+import { DataContext, DataDispatchContext } from "./dataContext";
 import { ToolContext } from "./toolContext";
 
 interface Context {
@@ -44,6 +44,7 @@ export const ActionContextProvider = ({ children }: Props) => {
   };
   const toolContext = useContext(ToolContext);
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const newConnection = useRef({
     id: "0",
     relationId: "0",
@@ -61,7 +62,7 @@ export const ActionContextProvider = ({ children }: Props) => {
   const setNewConnectionEnd = (memberId: string) => {
     if (newConnectionExists) {
       newConnection.current.endMemberId = memberId;
-      dataContext.addConnection(
+      dataDispatchContext.addConnection(
         newConnection.current.relationId,
         "name",
         newConnection.current.startMemberId,

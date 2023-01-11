@@ -3,7 +3,10 @@ import { css } from "@emotion/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, PointerEvent, useContext } from "react";
-import { DataContext } from "../../../../contexts/dataContext/index";
+import {
+  DataContext,
+  DataDispatchContext,
+} from "../../../../contexts/dataContext/index";
 import { ViewContext } from "../../../../contexts/viewContext";
 import { systemColors } from "../../../../styles/colors";
 import { box, rounded } from "../../../../styles/css";
@@ -14,6 +17,7 @@ import { PanelSection } from "../PanelSection";
 export const Views = () => {
   const { currentViewId, setCurrentViewId } = useContext(ViewContext);
   const dataContext = useContext(DataContext);
+  const dataDispatchContext = useContext(DataDispatchContext);
   const views = dataContext.data.views;
   return (
     <PanelSection
@@ -21,7 +25,7 @@ export const Views = () => {
       rightIcon={
         <IconButton
           onClick={() => {
-            dataContext.addView();
+            dataDispatchContext.addView();
           }}
           icon={
             <FontAwesomeIcon
@@ -36,7 +40,7 @@ export const Views = () => {
       <div css={viewsCss}>
         {views.map((view) => {
           const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-            dataContext.setViewName(view.id, event.target.value);
+            dataDispatchContext.setViewName(view.id, event.target.value);
           };
           const handleClickView = (e: PointerEvent<HTMLDivElement>) => {
             setCurrentViewId(view.id);
