@@ -34,7 +34,7 @@ export const Cursor = () => {
     toolContext.currentTool.options?.relationId;
   const relationColor =
     (currentToolRelation &&
-      dataDispatchContext.getRelation(currentToolRelation)?.color) ||
+      dataContext.getRelation(currentToolRelation)?.color) ||
     "blue";
   return (
     <div

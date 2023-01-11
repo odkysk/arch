@@ -16,7 +16,7 @@ export const Preview = ({ view }: Props) => {
   const dataDispatchContext = useContext(DataDispatchContext);
   const cursorPosition = useCursorPosition();
   const actionContext = useContext(ActionContext);
-  const previewRelation: Relation = dataDispatchContext.getRelation(
+  const previewRelation: Relation = dataContext.getRelation(
     actionContext.newConnection.relationId
   ) || {
     id: "0",
@@ -38,12 +38,12 @@ export const Preview = ({ view }: Props) => {
           relation={previewRelation}
           start={{
             x:
-              dataDispatchContext.getMemberArrangement(
+              dataContext.getMemberArrangement(
                 view,
                 actionContext.newConnection.startMemberId
               ).position.x + 60,
             y:
-              dataDispatchContext.getMemberArrangement(
+              dataContext.getMemberArrangement(
                 view,
                 actionContext.newConnection.startMemberId
               ).position.y + 60,

@@ -59,7 +59,7 @@ export const Relations = () => {
     >
       <ul>
         {relations.map((relation) => {
-          const currentVisibility = dataDispatchContext.getRelationVisibility(
+          const currentVisibility = dataContext.getRelationVisibility(
             currentViewId,
             relation.id
           ).isVisible;

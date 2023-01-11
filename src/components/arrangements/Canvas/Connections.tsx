@@ -11,21 +11,21 @@ export const Connections = ({ view }: Props) => {
   const dataContext = useContext(DataContext);
   const dataDispatchContext = useContext(DataDispatchContext);
   const connections = dataContext.data.connections.map((connection) => {
-    const relation = dataDispatchContext.getRelation(connection.relationId) || {
+    const relation = dataContext.getRelation(connection.relationId) || {
       id: "0",
       name: "0",
       color: "blue",
       shape: "straight",
     };
-    const startMemberArrangement = dataDispatchContext.getMemberArrangement(
+    const startMemberArrangement = dataContext.getMemberArrangement(
       view,
       connection.startMemberId
     );
-    const endMemberArrangement = dataDispatchContext.getMemberArrangement(
+    const endMemberArrangement = dataContext.getMemberArrangement(
       view,
       connection.endMemberId
     );
-    const visibility = dataDispatchContext.getRelationVisibility(
+    const visibility = dataContext.getRelationVisibility(
       view,
       connection.relationId
     );

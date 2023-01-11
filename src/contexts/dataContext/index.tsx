@@ -29,9 +29,9 @@ import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberV
 import { setRelationName as setRelationNameCallback } from "./setRelationName";
 import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
 import { setViewName as setViewNameCallback } from "./setViewName";
-export const DataDispatchContext = createContext(
+export const DataContext = createContext(
   {} as {
-    loadData: (data: Data) => void;
+    data: Data;
     getMember: (memberId: string) => Member;
     getMemberArrangement: (viewId: string, memberId: string) => Arrangement;
     getMemberArrangements: (viewId: string) => Arrangement[];
@@ -41,6 +41,11 @@ export const DataDispatchContext = createContext(
       connectionId: string
     ) => View_Relation_Visibility;
     getRelationsConnectedToMember: (memberId: string) => Connection[];
+  }
+);
+export const DataDispatchContext = createContext(
+  {} as {
+    loadData: (data: Data) => void;
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -72,21 +77,13 @@ export const DataDispatchContext = createContext(
     setRelationName: (relationId: string, name: string) => void;
   }
 );
-export const DataContext = createContext(
-  {} as {
-    data: Data;
-  }
-);
 interface Props {
   children: ReactNode;
 }
 export const DataContextProvider = ({ children }: Props) => {
   const [data, setData] = useState<Data>(saveData);
   // MEMO: Canvas内のすべてが再レンダリングされてしまうのでパフォーマンスは最悪
-  const actions = {
-    loadData: (data: Data) => {
-      loadDataCallback(setData, data);
-    },
+  const getters = {
     getMember: (memberId: string) => getMemberCallback(data, memberId),
     getMemberArrangement: (viewId: string, memberId: string) => {
       return getMemberArrangementCallback(data, viewId, memberId);
@@ -99,6 +96,11 @@ export const DataContextProvider = ({ children }: Props) => {
       getRelationVisibilityCallback(data, viewId, relationId),
     getRelationsConnectedToMember: (memberId: string) =>
       getRelationsConnectedToMemberCallback(data, memberId),
+  };
+  const setters = {
+    loadData: (data: Data) => {
+      loadDataCallback(setData, data);
+    },
     setMemberVisibility: (
       viewId: string,
       memberId: string,
@@ -170,9 +172,10 @@ export const DataContextProvider = ({ children }: Props) => {
     <DataContext.Provider
       value={{
         data,
+        ...getters,
       }}
     >
-      <DataDispatchContext.Provider value={{ ...actions }}>
+      <DataDispatchContext.Provider value={{ ...setters }}>
         {children}
       </DataDispatchContext.Provider>
     </DataContext.Provider>

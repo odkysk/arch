@@ -41,7 +41,7 @@ export const Members = () => {
         `}
       >
         {dataContext.data.members.map((member) => {
-          const isVisible = dataDispatchContext.getMemberArrangement(
+          const isVisible = dataContext.getMemberArrangement(
             currentViewId,
             member.id
           ).isVisible;

@@ -26,9 +26,9 @@ export const Member = ({ id, view }: Props) => {
   const actionContext = useContext(ActionContext);
   const toolContext = useContext(ToolContext);
   const currentTool = toolContext.currentTool;
-  const member = dataDispatchContext.getMember(id);
+  const member = dataContext.getMember(id);
   const name = member.name;
-  const position = dataDispatchContext.getMemberArrangement(view, id).position;
+  const position = dataContext.getMemberArrangement(view, id).position;
 
   const [isDragging, setIsDragging] = useState(false);
   const { translation } = useDrag(isDragging);
