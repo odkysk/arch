@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-interface Tool {
+export interface Tool {
   name: "selection" | "relation" | "member";
   options?: { relationId: string };
 }
