@@ -42,6 +42,7 @@ export const Connection = ({
       dataDispatchContext.setRelationName(relation.id, event.target.value);
     }
   };
+  const inputAngle = Math.atan2(end.y - start.y, end.x - start.x);
   const color = canvasColors[relation.color].main;
   return (
     <div
@@ -85,16 +86,19 @@ export const Connection = ({
         </svg>
       </div>
       <input
+        css={css`
+          text-align: center;
+          width: 120px;
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+          pointer-events: all;
+          transform-origin: center;
+          transform: translate(-50%, -50%) rotate(${inputAngle}rad);
+        `}
         style={{
-          fontSize: "12px",
-          width: "60px",
-          position: "absolute",
-          transformOrigin: "0.5, 0.5",
           left: (startRelative.x + endRelative.x) / 2,
           top: (startRelative.y + endRelative.y) / 2,
-          backgroundColor: "rgba(0,0,0,0)",
-          border: "none",
-          pointerEvents: "all",
         }}
         value={relation.name}
         onChange={handleChangeValue}
