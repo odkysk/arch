@@ -8,7 +8,7 @@ import {
 } from "react";
 import { Connection } from "../models/Data";
 import { DOMEvent } from "../models/DOMEvent";
-import { DataContext, DataDispatchContext } from "./dataContext";
+import { DataDispatchContext } from "./dataContext";
 import { ToolContext } from "./toolContext";
 
 interface Context {
@@ -43,7 +43,6 @@ export const ActionContextProvider = ({ children }: Props) => {
     }
   };
   const toolContext = useContext(ToolContext);
-  const dataContext = useContext(DataContext);
   const dataDispatchContext = useContext(DataDispatchContext);
   const newConnection = useRef({
     id: "0",
@@ -68,7 +67,7 @@ export const ActionContextProvider = ({ children }: Props) => {
         newConnection.current.endMemberId
       );
       setNewConnectionExists(false);
-      //canvasのクリックでresetToolされてしまうため
+      //memberのクリックでresetToolされてしまうため
       toolContext.setRelationTool(newConnection.current.relationId);
     }
   };

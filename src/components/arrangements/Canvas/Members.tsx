@@ -35,7 +35,10 @@ export const Members = ({ view }: Props) => {
     (memberId: string) => {
       actionContext.setNewConnectionEnd(memberId);
     },
-    [actionContext.newConnection.startMemberId]
+    [
+      actionContext.newConnection.startMemberId,
+      actionContext.newConnectionExists,
+    ]
   );
   const members = dataContext.getMemberArrangements(view).map((arrangement) => {
     const memberId = arrangement.memberId;
