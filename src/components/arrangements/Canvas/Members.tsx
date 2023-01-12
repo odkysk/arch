@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext } from "react";
 import { ActionContext } from "../../../contexts/actionContext";
 import {
@@ -51,12 +52,11 @@ export const Members = ({ view }: Props) => {
     );
     const connectedConnectionVisibilities = connectedConnections.map(
       (connection) =>
-        dataContext.getRelationVisibility(view, connection.id).isVisible
+        dataContext.getRelationVisibility(view, connection.relationId).isVisible
     );
     const visibilityByConnectedConnection =
       connectedConnectionVisibilities.some((e) => e === true) ||
-      connectedConnectionVisibilities.length === 0;
-
+      connectedConnections.length === 0;
     if (visibilityByArrangement && visibilityByConnectedConnection) {
       return (
         <Member

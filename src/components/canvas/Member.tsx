@@ -36,7 +36,7 @@ export const Member = memo(
     setNewConnectionEnd,
     currentTool,
   }: Props) => {
-    console.log(`render member: ${id}`);
+    // console.log(`render member: ${id}`);
     const name = member.name;
     const [isDragging, setIsDragging] = useState(false);
     const { translation } = useDrag(isDragging);
