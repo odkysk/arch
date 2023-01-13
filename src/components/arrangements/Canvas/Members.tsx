@@ -7,7 +7,7 @@ import {
 } from "../../../contexts/dataContext";
 import { ToolContext } from "../../../contexts/toolContext";
 import { Position } from "../../../models/Data";
-import { Member, Tag } from "../../canvas/Member";
+import { Member } from "../../canvas/Member";
 interface Props {
   view: string;
 }
@@ -17,6 +17,19 @@ export const Members = ({ view }: Props) => {
   const dataDispatchContext = useContext(DataDispatchContext);
   const actionContext = useContext(ActionContext);
   const toolContext = useContext(ToolContext);
+
+  const getMember = useCallback(
+    (memberId: string) => dataContext.getMember(memberId),
+    [dataContext.data.members]
+  );
+  const getRelation = useCallback(
+    (relationId: string) => dataContext.getRelation(relationId),
+    [dataContext.data.relations]
+  );
+  const getConnectionsConnectedToMember = useCallback(
+    (memberId: string) => dataContext.getConnectionsConnectedToMember(memberId),
+    [dataContext.data.connections]
+  );
   const setPosition = useCallback(
     (view: string, id: string, position: Position) => {
       dataDispatchContext.setMemberPosition(view, id, position);
@@ -41,26 +54,13 @@ export const Members = ({ view }: Props) => {
       actionContext.newConnectionExists,
     ]
   );
+
   const members = dataContext.getMemberArrangements(view).map((arrangement) => {
     const memberId = arrangement.memberId;
     const member = dataContext.getMember(memberId);
     const position = arrangement.position;
 
     const connections = dataContext.getConnectionsConnectedToMember(memberId);
-    const parentConnections =
-      connections.filter((e) => e.endMemberId === memberId) || [];
-
-    const tags: Tag[] = parentConnections
-      .map(
-        (connection) =>
-          dataContext.getRelation(connection.relationId)?.options
-            ?.showInChildren && {
-            relation: dataContext.getRelation(connection.relationId),
-            parent: dataContext.getMember(connection.startMemberId),
-          }
-      )
-      .filter((e): e is Tag => e !== undefined);
-
     const connectedConnectionVisibilities = connections.map(
       (connection) =>
         dataContext.getRelationVisibility(view, connection.relationId).isVisible
@@ -77,12 +77,14 @@ export const Members = ({ view }: Props) => {
           view={view}
           position={position}
           member={member}
+          getMember={getMember}
+          getRelation={getRelation}
+          getConnectionsConnectedToMember={getConnectionsConnectedToMember}
           setPosition={setPosition}
           setName={setName}
           setNewConnectionStart={setNewConnectionStart}
           setNewConnectionEnd={setNewConnectionEnd}
           currentTool={toolContext.currentTool}
-          tags={tags}
         />
       );
     }

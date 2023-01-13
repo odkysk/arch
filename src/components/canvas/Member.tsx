@@ -12,6 +12,7 @@ import { Tool } from "../../contexts/toolContext";
 import { useDrag } from "../../hooks/useDrag";
 import {
   addPosition,
+  Connection,
   Member as MemberType,
   Position,
   Relation,
@@ -23,12 +24,14 @@ interface Props {
   id: string;
   view: string;
   position: Position;
+  getMember: (memberId: string) => MemberType | undefined;
+  getRelation: (relationId: string) => Relation | undefined;
+  getConnectionsConnectedToMember: (memberId: string) => Connection[];
   setPosition: (view: string, id: string, position: Position) => void;
   setName: (id: string, value: string) => void;
   setNewConnectionStart: (memberId: string, relationId: string) => void;
   setNewConnectionEnd: (memberId: string) => void;
   currentTool: Tool;
-  tags?: Tag[];
 }
 export interface Tag {
   parent: MemberType;
@@ -40,18 +43,33 @@ export const Member = memo(
     id,
     view,
     position,
+    getRelation,
+    getMember,
+    getConnectionsConnectedToMember,
     setPosition,
     setName,
     setNewConnectionStart,
     setNewConnectionEnd,
     currentTool,
-    tags = [],
   }: Props) => {
-    // console.log(`render member: ${id}`);
     const name = member.name;
     const [isDragging, setIsDragging] = useState(false);
     const { translation } = useDrag(isDragging);
     const positionOnMouseDown = useRef<Position>({ x: 0, y: 0 });
+
+    const connections = getConnectionsConnectedToMember(member.id);
+    const parentConnections =
+      connections.filter((e) => e.endMemberId === member.id) || [];
+    const tags: Tag[] = parentConnections
+      .map(
+        (connection) =>
+          getRelation(connection.relationId)?.options?.showInChildren && {
+            relation: getRelation(connection.relationId),
+            parent: getMember(connection.startMemberId),
+          }
+      )
+      .filter((e): e is Tag => e !== undefined);
+    console.log(id);
 
     const handleMouseDown = (event: MouseEvent) => {
       positionOnMouseDown.current = { x: position.x, y: position.y };
