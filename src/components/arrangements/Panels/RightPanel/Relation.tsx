@@ -7,6 +7,7 @@ import {
 } from "../../../../contexts/dataContext/index";
 import { SelectionContext } from "../../../../contexts/selectionContext";
 import { caption, heading } from "../../../../styles/css";
+import { EditableText } from "../../../atoms/EditableText";
 import { PanelSection } from "../PanelSection";
 export const Relation = () => {
   const selectionContext = useContext(SelectionContext);
@@ -28,11 +29,11 @@ export const Relation = () => {
             checked={showAsTag}
             onChange={handleChangeShowAsTag}
           />
-          <p css={caption}>show as tag</p>
+          <p css={caption}>show parents as tag</p>
         </label>
       </PanelSection>
       <PanelSection title="color" canFold={false}>
-        <p>{relation?.color}</p>
+        <EditableText value={relation?.color}></EditableText>
       </PanelSection>
     </>
   );

@@ -52,6 +52,7 @@ export const Member = memo(
     setNewConnectionEnd,
     currentTool,
   }: Props) => {
+    // console.log(id);
     const name = member.name;
     const [isDragging, setIsDragging] = useState(false);
     const { translation } = useDrag(isDragging);
@@ -69,7 +70,6 @@ export const Member = memo(
           }
       )
       .filter((e): e is Tag => e !== undefined);
-    console.log(id);
 
     const handleMouseDown = (event: MouseEvent) => {
       positionOnMouseDown.current = { x: position.x, y: position.y };
@@ -133,7 +133,7 @@ export const Member = memo(
       >
         <div>
           {tags.map((tag) => (
-            <p key={`${tag.parent?.id}${tag.relation?.id}`} css={caption}>
+            <p key={`${tag.parent?.id}${tag.relation?.id}`} css={[caption]}>
               {tag.parent?.name}
             </p>
           ))}

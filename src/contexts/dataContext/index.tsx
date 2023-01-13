@@ -39,7 +39,7 @@ export const DataContext = createContext(
     getRelation: (relationId: string) => Relation | undefined;
     getRelationVisibility: (
       viewId: string,
-      connectionId: string
+      relationId: string
     ) => View_Relation_Visibility;
     getConnectionsConnectedToMember: (memberId: string) => Connection[];
   }

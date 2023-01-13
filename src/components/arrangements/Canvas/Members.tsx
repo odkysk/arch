@@ -61,20 +61,29 @@ export const Members = ({ view }: Props) => {
     const position = arrangement.position;
 
     const connections = dataContext.getConnectionsConnectedToMember(memberId);
+    const parentConnections =
+      connections.filter((e) => e.endMemberId === member.id) || [];
+
     const childConnections =
       connections.filter((e) => e.startMemberId === member.id) || [];
-    const connectedConnectionVisibilities = connections.map(
+
+    const childConnectionsIsVisible = childConnections.some((connection) => {
+      const relation = dataContext.getRelation(connection.relationId);
+      const relationIsVisible = dataContext.getRelationVisibility(
+        view,
+        connection.relationId
+      ).isVisible;
+      return relationIsVisible && !relation?.showAsTag;
+    });
+    const parentConnectionsIsVisible = parentConnections.some(
       (connection) =>
         dataContext.getRelationVisibility(view, connection.relationId).isVisible
     );
-    const visibilityByArrangement = arrangement.isVisible;
-    const visibilityByIsTag = childConnections.some((connection) =>
-      dataContext.getRelation(connection.relationId)?.showAsTag ? false : true
-    );
-    const visibilityByConnectedConnection =
-      connectedConnectionVisibilities.some((e) => e === true) ||
-      connections.length === 0;
-    if (visibilityByArrangement && visibilityByConnectedConnection) {
+    if (
+      connections.length === 0 ||
+      parentConnectionsIsVisible ||
+      childConnectionsIsVisible
+    ) {
       return (
         <Member
           key={memberId}

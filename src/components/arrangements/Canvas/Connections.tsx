@@ -33,6 +33,7 @@ export const Connections = ({ view }: Props) => {
     const startMemberPosition = startMemberArrangement.position;
     const endMemberPosition = endMemberArrangement.position;
     return visibility.isVisible &&
+      !relation.showAsTag &&
       startMemberArrangement.isVisible &&
       endMemberArrangement.isVisible ? (
       <Connection
