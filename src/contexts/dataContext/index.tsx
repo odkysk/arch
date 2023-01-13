@@ -28,7 +28,7 @@ import { setMemberPosition as setMemberPositionCallback } from "./setMemberPosit
 import { setMemberVisibility as setMemberVisibilityCallback } from "./setMemberVisibility";
 import { setRelationName as setRelationNameCallback } from "./setRelationName";
 import { setRelationVisibility as setRelationVisibilityCallback } from "./setRelationVisibility";
-import { setShowInChildren as setShowInChildrenCallback } from "./setShowInChildren";
+import { setShowAsTag as setShowAsTagCallback } from "./setShowAsTag";
 import { setViewName as setViewNameCallback } from "./setViewName";
 export const DataContext = createContext(
   {} as {
@@ -75,7 +75,7 @@ export const DataDispatchContext = createContext(
     ) => void;
     setViewName: (viewId: string, name: string) => void;
     setRelationName: (relationId: string, name: string) => void;
-    setShowInChildren: (relationId: string, showInChildren: boolean) => void;
+    setShowAsTag: (relationId: string, showInChildren: boolean) => void;
   }
 );
 interface Props {
@@ -154,8 +154,8 @@ export const DataContextProvider = ({ children }: Props) => {
     setRelationName: (relationId: string, name: string) => {
       setRelationNameCallback(setData, relationId, name);
     },
-    setShowInChildren: (relationId: string, setShowInChildren: boolean) => {
-      setShowInChildrenCallback(setData, relationId, setShowInChildren);
+    setShowAsTag: (relationId: string, setShowAsTag: boolean) => {
+      setShowAsTagCallback(setData, relationId, setShowAsTag);
     },
   };
   return (

@@ -63,7 +63,7 @@ export const Member = memo(
     const tags: Tag[] = parentConnections
       .map(
         (connection) =>
-          getRelation(connection.relationId)?.options?.showInChildren && {
+          getRelation(connection.relationId)?.showAsTag && {
             relation: getRelation(connection.relationId),
             parent: getMember(connection.startMemberId),
           }

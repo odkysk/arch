@@ -19,6 +19,7 @@ export const addRelation = (
           name: "new relation",
           color: color,
           shape: "straight",
+          showAsTag: false,
         },
       ],
       view_relation_visibilities: data.view_relation_visibilities.concat(

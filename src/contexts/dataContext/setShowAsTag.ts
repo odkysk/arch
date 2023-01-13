@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Data } from "../../models/Data";
 
-export const setShowInChildren = (
+export const setShowAsTag = (
   setData: Dispatch<SetStateAction<Data>>,
   relationId: string,
   showInChildren: boolean
@@ -13,10 +13,7 @@ export const setShowInChildren = (
         relation.id === relationId
           ? {
               ...relation,
-              options: {
-                ...relation.options,
-                showInChildren: showInChildren,
-              },
+              showAsTag: showInChildren,
             }
           : relation
       ),

@@ -23,6 +23,7 @@ export const Preview = ({ view }: Props) => {
     name: "0",
     color: "blue",
     shape: "straight",
+    showAsTag: false,
   };
   return (
     <>

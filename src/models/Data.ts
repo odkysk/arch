@@ -17,10 +17,7 @@ export interface Relation {
   name: string;
   color: CanvasColor;
   shape: "straight";
-  options?: {
-    showInParents?: boolean;
-    showInChildren?: boolean;
-  };
+  showAsTag: boolean;
 }
 export interface Connection {
   id: string;

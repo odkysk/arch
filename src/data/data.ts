@@ -11,6 +11,7 @@ export const data: Data = {
       name: "new relation",
       color: firstRelationColor,
       shape: "straight",
+      showAsTag: false,
     },
   ],
   connections: [],

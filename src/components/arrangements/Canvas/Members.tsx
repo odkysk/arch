@@ -61,11 +61,16 @@ export const Members = ({ view }: Props) => {
     const position = arrangement.position;
 
     const connections = dataContext.getConnectionsConnectedToMember(memberId);
+    const childConnections =
+      connections.filter((e) => e.startMemberId === member.id) || [];
     const connectedConnectionVisibilities = connections.map(
       (connection) =>
         dataContext.getRelationVisibility(view, connection.relationId).isVisible
     );
     const visibilityByArrangement = arrangement.isVisible;
+    const visibilityByIsTag = childConnections.some((connection) =>
+      dataContext.getRelation(connection.relationId)?.showAsTag ? false : true
+    );
     const visibilityByConnectedConnection =
       connectedConnectionVisibilities.some((e) => e === true) ||
       connections.length === 0;

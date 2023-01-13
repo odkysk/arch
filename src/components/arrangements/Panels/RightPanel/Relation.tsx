@@ -13,9 +13,10 @@ export const Relation = () => {
   const dataContext = useContext(DataContext);
   const dataDispatchContext = useContext(DataDispatchContext);
   const relation = dataContext.getRelation(selectionContext.relations[0]);
-  const showInChildren = relation?.options?.showInChildren || false;
-  const handleChangeShowInChildren = () => {
-    dataDispatchContext.setShowInChildren(relation?.id || "0", !showInChildren);
+  const showAsTag = relation?.showAsTag || false;
+  const handleChangeShowAsTag = () => {
+    dataDispatchContext.setShowAsTag(relation?.id || "0", !showAsTag);
+    console.log(dataContext.data.relations);
   };
   return (
     <>
@@ -24,8 +25,8 @@ export const Relation = () => {
         <label css={viewInChildrenSection}>
           <input
             type="checkbox"
-            checked={showInChildren}
-            onChange={handleChangeShowInChildren}
+            checked={showAsTag}
+            onChange={handleChangeShowAsTag}
           />
           <p css={caption}>show as tag</p>
         </label>

@@ -16,6 +16,7 @@ export const Connections = ({ view }: Props) => {
       name: "0",
       color: "blue",
       shape: "straight",
+      showAsTag: false,
     };
     const startMemberArrangement = dataContext.getMemberArrangement(
       view,
