@@ -11,7 +11,6 @@ export const addConnection = (
   const connectionId = uuid();
   if (startMemberId !== endMemberId) {
     setData((data) => {
-      console.log(data);
       return {
         ...data,
         connections: [

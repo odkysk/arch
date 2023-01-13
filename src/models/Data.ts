@@ -17,6 +17,10 @@ export interface Relation {
   name: string;
   color: CanvasColor;
   shape: "straight";
+  options?: {
+    showInParents?: boolean;
+    showInChildren?: boolean;
+  };
 }
 export interface Connection {
   id: string;
@@ -38,10 +42,6 @@ export interface View_Relation_Visibility {
   viewId: string;
   relationId: string;
   isVisible: boolean;
-  options?: {
-    showInParents: boolean;
-    showInChildren: boolean;
-  };
 }
 export interface Data {
   members: Member[];

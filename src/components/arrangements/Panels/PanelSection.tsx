@@ -21,7 +21,6 @@ export const PanelSection = ({
   const [isOpen, setIsOpen] = useState(true);
   const handleClickFolder = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
   return (
     <div css={panelSection}>

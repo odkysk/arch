@@ -73,7 +73,6 @@ export const Member = memo(
       setIsDragging(false);
     };
     const handleMouseUp = (event: MouseEvent) => {
-      console.log(id);
       setNewConnectionEnd(id);
     };
     const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
@@ -127,8 +126,8 @@ export const Member = memo(
 const memberCss = css`
   position: absolute;
   padding: 12px;
-  border: solid 1.5px ${canvasColors.purple.border};
-  background-color: ${canvasColors.purple.background};
+  border: solid 1.5px ${canvasColors.grey.border};
+  background-color: ${canvasColors.grey.background};
   width: 120px;
   height: 60px;
   display: flex;
@@ -140,7 +139,7 @@ const memberCss = css`
   gap: 6px;
   ${onHover(
     css`
-      background-color: rgba(171, 111, 255, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
     `
   )}
 `;

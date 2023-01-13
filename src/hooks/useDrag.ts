@@ -23,7 +23,6 @@ export const useDrag = (isValid: boolean) => {
   };
   const handleMouseMove = (event: any) => {
     if (isValid) {
-      // console.log("useDrag");
       setIsInitialized(false);
       setTranslation({
         x: event.clientX - cursorPositionOnMouseDown.current.x,
