@@ -19,7 +19,7 @@ import { getMember as getMemberCallback } from "./getMember";
 import { getMemberArrangement as getMemberArrangementCallback } from "./getMemberArrangement";
 import { getMemberArrangements as getMemberArrangementsCallback } from "./getMemberArrangements";
 import { getRelation as getRelationCallback } from "./getRelation";
-import { getRelationsConnectedToMember as getRelationsConnectedToMemberCallback } from "./getRelationsConnectedToMember";
+import { getConnectionsConnectedToMember as getConnectionsConnectedToMemberCallback } from "./getRelationsConnectedToMember";
 import { getRelationVisibility as getRelationVisibilityCallback } from "./getRelationVisibility";
 import { loadData as loadDataCallback } from "./loadData";
 import { setConnectionName as setConnectionNameCallback } from "./setConnectionName";
@@ -41,7 +41,7 @@ export const DataContext = createContext(
       viewId: string,
       connectionId: string
     ) => View_Relation_Visibility;
-    getRelationsConnectedToMember: (memberId: string) => Connection[];
+    getConnectionsConnectedToMember: (memberId: string) => Connection[];
   }
 );
 export const DataDispatchContext = createContext(
@@ -95,8 +95,8 @@ export const DataContextProvider = ({ children }: Props) => {
     getRelation: (relationId: string) => getRelationCallback(data, relationId),
     getRelationVisibility: (viewId: string, relationId: string) =>
       getRelationVisibilityCallback(data, viewId, relationId),
-    getRelationsConnectedToMember: (memberId: string) =>
-      getRelationsConnectedToMemberCallback(data, memberId),
+    getConnectionsConnectedToMember: (memberId: string) =>
+      getConnectionsConnectedToMemberCallback(data, memberId),
   };
   const setters = {
     loadData: (data: Data) => {

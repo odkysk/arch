@@ -10,9 +10,14 @@ import {
 } from "react";
 import { Tool } from "../../contexts/toolContext";
 import { useDrag } from "../../hooks/useDrag";
-import { addPosition, Member as MemberType, Position } from "../../models/Data";
+import {
+  addPosition,
+  Member as MemberType,
+  Position,
+  Relation,
+} from "../../models/Data";
 import { canvasColors } from "../../styles/colors";
-import { body, box, onHover, rounded } from "../../styles/css";
+import { body, box, caption, onHover, rounded } from "../../styles/css";
 interface Props {
   member: MemberType;
   id: string;
@@ -23,6 +28,11 @@ interface Props {
   setNewConnectionStart: (memberId: string, relationId: string) => void;
   setNewConnectionEnd: (memberId: string) => void;
   currentTool: Tool;
+  tags?: Tag[];
+}
+export interface Tag {
+  parent: MemberType;
+  relation: Relation;
 }
 export const Member = memo(
   ({
@@ -35,6 +45,7 @@ export const Member = memo(
     setNewConnectionStart,
     setNewConnectionEnd,
     currentTool,
+    tags = [],
   }: Props) => {
     // console.log(`render member: ${id}`);
     const name = member.name;
@@ -102,7 +113,13 @@ export const Member = memo(
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <button css={button}>○</button>
+        <div>
+          {tags.map((tag) => (
+            <p key={`${tag.parent?.id}${tag.relation?.id}`} css={caption}>
+              {tag.parent?.name}
+            </p>
+          ))}
+        </div>
         <input
           type="text"
           css={[
@@ -117,7 +134,7 @@ export const Member = memo(
           value={name}
           onChange={handleChangeValue}
         />
-        <button css={button}>▼</button>
+        <p css={caption}> </p>
       </div>
     );
   }

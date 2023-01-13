@@ -27,7 +27,7 @@ export const Relation = () => {
             checked={showInChildren}
             onChange={handleChangeShowInChildren}
           />
-          <p css={caption}>show in children</p>
+          <p css={caption}>show as tag</p>
         </label>
       </PanelSection>
       <PanelSection title="color" canFold={false}>

@@ -1,6 +1,6 @@
 import { Data } from "../../models/Data";
 
-export const getRelationsConnectedToMember = (data: Data, memberId: string) =>
+export const getConnectionsConnectedToMember = (data: Data, memberId: string) =>
   data.connections.filter(
     (connection) =>
       connection.startMemberId === memberId ||

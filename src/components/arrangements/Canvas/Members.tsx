@@ -7,7 +7,7 @@ import {
 } from "../../../contexts/dataContext";
 import { ToolContext } from "../../../contexts/toolContext";
 import { Position } from "../../../models/Data";
-import { Member } from "../../canvas/Member";
+import { Member, Tag } from "../../canvas/Member";
 interface Props {
   view: string;
 }
@@ -44,19 +44,31 @@ export const Members = ({ view }: Props) => {
   const members = dataContext.getMemberArrangements(view).map((arrangement) => {
     const memberId = arrangement.memberId;
     const member = dataContext.getMember(memberId);
-    const position = dataContext.getMemberArrangement(view, memberId).position;
-    const visibilityByArrangement = arrangement.isVisible;
+    const position = arrangement.position;
 
-    const connectedConnections = dataContext.getRelationsConnectedToMember(
-      arrangement.memberId
-    );
-    const connectedConnectionVisibilities = connectedConnections.map(
+    const connections = dataContext.getConnectionsConnectedToMember(memberId);
+    const parentConnections =
+      connections.filter((e) => e.endMemberId === memberId) || [];
+
+    const tags: Tag[] = parentConnections
+      .map(
+        (connection) =>
+          dataContext.getRelation(connection.relationId)?.options
+            ?.showInChildren && {
+            relation: dataContext.getRelation(connection.relationId),
+            parent: dataContext.getMember(connection.startMemberId),
+          }
+      )
+      .filter((e): e is Tag => e !== undefined);
+
+    const connectedConnectionVisibilities = connections.map(
       (connection) =>
         dataContext.getRelationVisibility(view, connection.relationId).isVisible
     );
+    const visibilityByArrangement = arrangement.isVisible;
     const visibilityByConnectedConnection =
       connectedConnectionVisibilities.some((e) => e === true) ||
-      connectedConnections.length === 0;
+      connections.length === 0;
     if (visibilityByArrangement && visibilityByConnectedConnection) {
       return (
         <Member
@@ -70,6 +82,7 @@ export const Members = ({ view }: Props) => {
           setNewConnectionStart={setNewConnectionStart}
           setNewConnectionEnd={setNewConnectionEnd}
           currentTool={toolContext.currentTool}
+          tags={tags}
         />
       );
     }
