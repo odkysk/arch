@@ -31,9 +31,9 @@ export const Relations = () => {
     );
     relations.forEach((relation) => (colorCount[relation.color] += 1));
     const minimumCount = Math.min(...(Object.values(colorCount) as number[]));
-    const possibleColors = Object.keys(colorCount)
-      .map((key) => colorCount[key] === minimumCount && key)
-      .filter((e) => e !== false);
+    const possibleColors = Object.keys(colorCount).filter(
+      (key) => colorCount[key] === minimumCount
+    );
     return _.sample(possibleColors) || "blue";
   };
   return (
