@@ -2,73 +2,56 @@
 import { css } from "@emotion/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  useState,
-} from "react";
+import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { CanvasColor } from "../../models/Color";
 import { canvasColors, systemColors } from "../../styles/colors";
 
-interface Props
-  extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+interface Props extends RadixCheckbox.CheckboxProps {
   canvasColor?: CanvasColor;
 }
 export const Checkbox = ({ canvasColor, ...props }: Props) => {
-  const [isChecked, setIsChecked] = useState(props.checked);
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
-  };
+  const backgroundColor = canvasColor
+    ? canvasColors[canvasColor].background
+    : systemColors.greyBackground;
+  const checkedBackgroundColor = canvasColor
+    ? canvasColors[canvasColor].main
+    : systemColors.grey;
+  const borderColor = canvasColor
+    ? canvasColors[canvasColor].border
+    : systemColors.greyBorder;
   return (
-    <label>
-      <div
-        css={[
+    <RadixCheckbox.Root
+      className="RadixCheckboxRoot"
+      defaultChecked
+      id="c1"
+      css={[
+        css`
+          width: 16px;
+          height: 16px;
+          background-color: ${backgroundColor};
+          border: solid 1.5px ${borderColor};
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:disabled {
+            opacity: 0.2;
+          }
+        `,
+        props.checked &&
           css`
-            width: 16px;
-            height: 16px;
-            background-color: ${systemColors.greyBackground};
-            border: solid 1.5px ${systemColors.greyBorder};
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: ${checkedBackgroundColor};
           `,
-          canvasColor &&
-            css`
-              background-color: ${canvasColors[canvasColor].background};
-              border-color: ${canvasColors[canvasColor].border};
-            `,
-          isChecked &&
-            css`
-              background-color: ${systemColors.black};
-            `,
-          isChecked &&
-            canvasColor &&
-            css`
-              background-color: ${canvasColors[canvasColor].main};
-            `,
-        ]}
-      >
-        {isChecked && (
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize="0.75em"
-            color={systemColors.white}
-          />
-        )}
-      </div>
-      <input
-        type="checkbox"
-        onChange={handleChange}
-        css={css`
-          display: none;
-        `}
-        {...props}
-      />
-    </label>
+      ]}
+      {...props}
+    >
+      <RadixCheckbox.Indicator>
+        <FontAwesomeIcon
+          icon={faCheck}
+          fontSize="0.75em"
+          color={systemColors.white}
+        />
+      </RadixCheckbox.Indicator>
+    </RadixCheckbox.Root>
   );
 };

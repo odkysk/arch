@@ -110,7 +110,7 @@ export const Relations = () => {
             >
               <Checkbox
                 checked={currentVisibility}
-                onClick={handleCheck}
+                onCheckedChange={handleCheck}
                 canvasColor={relation.color}
               />
               <EditableText

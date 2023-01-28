@@ -7,6 +7,7 @@ import {
 } from "../../../../contexts/dataContext/index";
 import { SelectionContext } from "../../../../contexts/selectionContext";
 import { caption, heading } from "../../../../styles/css";
+import { Checkbox } from "../../../atoms/Checkbox";
 import { EditableText } from "../../../atoms/EditableText";
 import { PanelSection } from "../PanelSection";
 export const Relation = () => {
@@ -24,10 +25,9 @@ export const Relation = () => {
       <div css={[heading, title]}>{relation?.name || "0"}</div>
       <PanelSection title="options" canFold={false}>
         <label css={viewInChildrenSection}>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={showAsTag}
-            onChange={handleChangeShowAsTag}
+            onCheckedChange={handleChangeShowAsTag}
           />
           <p css={caption}>show parents as tag</p>
         </label>
