@@ -18,8 +18,7 @@ export const caption = css`
   user-select: none;
 `;
 export const box = css`
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(16px) brightness(1.02) saturate(110%);
 `;
 export const rounded = css`
   border-radius: 8px;
