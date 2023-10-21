@@ -6,7 +6,8 @@ import {
   DataDispatchContext,
 } from "../../../contexts/dataContext";
 import { systemColors } from "../../../styles/colors";
-import { box, rounded } from "../../../styles/css";
+import { box } from "../../../styles/css";
+import { Button } from "../../atoms/Button";
 import { EditableText } from "../../atoms/EditableText";
 export const TopPanel = () => {
   const dataContext = useContext(DataContext);
@@ -52,11 +53,11 @@ export const TopPanel = () => {
           text-decoration: none !important;
         `}
       >
-        <button css={button}>save</button>
+        <Button label="save" />
       </a>
       <form onSubmit={handleSubmit}>
         <label>
-          <p css={[button]}>load</p>
+          <Button as="a" label="load" />
           <input
             type="file"
             id="file"
@@ -80,16 +81,4 @@ const navigation = css`
   background-color: ${systemColors.greyBackground};
   border-bottom: solid 1.5px ${systemColors.greyBorder};
   ${box}
-`;
-const button = css`
-  font-size: 12px;
-  background-color: ${systemColors.greyBackground};
-  border: solid 1px ${systemColors.greyBorder};
-  text-decoration: none;
-  padding: 6px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${rounded}
 `;
